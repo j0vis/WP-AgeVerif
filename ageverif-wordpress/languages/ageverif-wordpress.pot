@@ -1,0 +1,118 @@
+# Copyright (C) 2025 AgeVerif
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: AgeVerif – Age Verification 1.0.0\n"
+"Report-Msgid-Bugs-To: https://ageverif.com/contact\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-01-01T00:00:00+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: ageverif-wordpress 1.0.0\n"
+
+#: admin/class-ageverif-admin.php:33
+msgid "AgeVerif Settings"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:34
+msgid "AgeVerif"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:55
+msgid "API Configuration"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:60
+msgid "Public Live Key"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:65
+msgid "Public Test Key"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:70
+msgid "Content Protection"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:75
+msgid "Protected Content Types"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:80
+msgid "Excluded URLs"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:85
+msgid "Appearance"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:90
+msgid "Custom CSS"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:95
+msgid "Mode"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:100
+msgid "Test Mode"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:148
+msgid "Your website's Public Live Key from the AgeVerif Webmasters Platform."
+msgstr ""
+
+#: admin/class-ageverif-admin.php:155
+msgid "Your Public Test Key for local development and testing. Used when Test Mode is enabled."
+msgstr ""
+
+#: admin/class-ageverif-admin.php:175
+msgid "Select which content types should display the age verification gate. Leave all unchecked to protect nothing (gate will not appear)."
+msgstr ""
+
+#: admin/class-ageverif-admin.php:185
+msgid "One URL per line. Visitors on these URLs will bypass the age verification gate. You can use absolute URLs or relative paths (e.g. /sample-page/)."
+msgstr ""
+
+#: admin/class-ageverif-admin.php:195
+msgid "Optional custom CSS to adjust the appearance of the age verification gate. These styles will be applied on top of the default styling."
+msgstr ""
+
+#: admin/class-ageverif-admin.php:204
+msgid "Enable Test Mode"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:207
+msgid "When enabled, the plugin uses the Test Key instead of the Live Key, and the gate is only shown to logged-in administrators. Use this to preview the verification gate before going live."
+msgstr ""
+
+#: admin/class-ageverif-admin.php:221
+msgid "How to Get Your API Key"
+msgstr ""
+
+#: admin/class-ageverif-admin.php:223
+msgid "Register at <a href=\"https://webmasters.ageverif.com/sign-up\" target=\"_blank\" rel=\"noopener\">AgeVerif Webmasters Platform</a>."
+msgstr ""
+
+#: admin/class-ageverif-admin.php:224
+msgid "Add your website in the Webmasters Platform."
+msgstr ""
+
+#: admin/class-ageverif-admin.php:225
+msgid "Copy the Public Live Key from your website settings."
+msgstr ""
+
+#: admin/class-ageverif-admin.php:226
+msgid "Paste it in the field above and select which content types to protect."
+msgstr ""
+
+#: admin/class-ageverif-admin.php:229
+msgid "View Full Documentation"
+msgstr ""
+
+#: includes/class-ageverif-wordpress.php:52
+msgid "Settings"
+msgstr ""

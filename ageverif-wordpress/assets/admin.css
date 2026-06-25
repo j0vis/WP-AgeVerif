@@ -1,0 +1,30 @@
+.ageverif-settings .form-table th {
+	width: 220px;
+}
+
+.ageverif-settings .form-table td label {
+	display: inline-block;
+	margin: 3px 0;
+}
+
+.ageverif-settings .form-table textarea.code {
+	font-family: Consolas, Monaco, monospace;
+	font-size: 13px;
+}
+
+.ageverif-settings .ageverif-help {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-left: 4px solid #72aee6;
+	padding: 12px 20px;
+	margin-top: 20px;
+	max-width: 800px;
+}
+
+.ageverif-settings .ageverif-help ol {
+	margin: 8px 0 12px 20px;
+}
+
+.ageverif-settings .ageverif-help ol li {
+	margin-bottom: 4px;
+}
