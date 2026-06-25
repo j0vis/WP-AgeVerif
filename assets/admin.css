@@ -28,3 +28,43 @@
 .ageverif-settings .ageverif-help ol li {
 	margin-bottom: 4px;
 }
+
+.ageverif-settings .ageverif-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 6px 14px;
+}
+
+.ageverif-settings .ageverif-grid label {
+	display: block;
+	padding: 4px 0;
+}
+
+.ageverif-settings .ageverif-tool {
+	background: #f6f7f7;
+	border: 1px solid #dcdcde;
+	border-left: 4px solid #72aee6;
+	padding: 12px 20px;
+	margin-top: 24px;
+	max-width: 800px;
+	border-radius: 4px;
+}
+
+.ageverif-settings .ageverif-tool h2 {
+	margin-top: 0;
+}
+
+.ageverif-settings .ageverif-tool form .button {
+	margin-top: 8px;
+}
+
+.ageverif-settings code {
+	background: #f0f0f1;
+	padding: 1px 5px;
+	border-radius: 3px;
+	font-size: 12px;
+}
+
+.ageverif-settings .ageverif-meta-box legend {
+	padding: 0;
+}

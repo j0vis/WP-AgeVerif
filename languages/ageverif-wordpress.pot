@@ -116,3 +116,118 @@ msgstr ""
 #: includes/class-ageverif-wordpress.php:52
 msgid "Settings"
 msgstr ""
+
+# ---- New options introduced in the major configuration overhaul ----
+# Regenerate this file with: wp i18n make-pot . languages/ageverif-wordpress.pot
+
+#: admin/class-ageverif-admin.php
+msgid "Connection"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Visibility"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Display"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Bypass"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "After Verification"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Language"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Verification Steps"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Display Mode"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Closable Gate"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Manual Start"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Content Blur"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Always Bypass Administrators"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Always skip the gate for logged-in administrators"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Bypass Logged-in Users"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Roles that Bypass"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Bot Bypass (known crawlers)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Bot Bypass (custom User-Agents)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Underage Redirect URL"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Age Gate (per-post override)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Use site default"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Always show age gate on this content"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Skip age gate on this content"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Health Check"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Run Health Check"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Use Live Key"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Use Test Key"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Custom Key"
+msgstr ""
+
+#: includes/class-ageverif-frontend.php
+msgid "Verify age"
+msgstr ""

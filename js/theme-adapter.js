@@ -1,143 +1,150 @@
-<?php
 /**
- * Theme adaptation script for AgeVerif verification gate
- * Dynamically adapts to host theme's color scheme and design system
+ * Theme adapter for the AgeVerif verification gate.
+ * Detects the active host theme (light / dark) and re-applies the matching
+ * class on the gate element whenever the document root toggles `class`.
+ *
+ * Notes:
+ *  - Re-uses a single `<style id="ageverif-theme-vars">` element to avoid the
+ *    DOM bloat / memory leak that earlier revisions caused when the
+ *    MutationObserver fired repeatedly.
+ *  - Uses `attributeFilter: ['class']` so we don't react to unrelated
+ *    attribute mutations.
+ *  - Disconnects the observer after a single, stable re-application.
  */
+(function () {
+	'use strict';
 
-(function() {
-    'use strict';
+	if (typeof window === 'undefined' || typeof document === 'undefined') {
+		return;
+	}
 
-    var ageverifThemeAdapter = function() {
-        // Initialize theme adaptation
-        var mode = detectThemeMode();
-        applyThemeStyles(mode);
+	var STYLE_ID = 'ageverif-theme-vars';
+	var STYLED_ATTR = 'data-ageverif-themed';
 
-        // Listen for theme changes
-        var observer = new MutationObserver(function(mutations) {
-            mutations.forEach(function(mutation) {
-                if (mutation.attributeName === 'class') {
-                    var newMode = detectThemeMode();
-                    if (newMode !== mode) {
-                        mode = newMode;
-                        applyThemeStyles(mode);
-                    }
-                }
-            });
-        });
+	function getThemeMode() {
+		try {
+			var doc = document.documentElement;
+			var body = document.body;
 
-        // Observe the root element for class changes
-        var root = document.documentElement;
-        observer.observe(root, {
-            attributes: true,
-            attributeSelector: 'class'
-        });
+			if (body && body.classList) {
+				if (body.classList.contains('wp-dark-mode') || body.classList.contains('is-dark')) {
+					return 'dark';
+				}
+			}
+			if (doc && doc.classList && doc.classList.contains('is-dark')) {
+				return 'dark';
+			}
+			if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+				return 'dark';
+			}
+			if (doc) {
+				var styles = window.getComputedStyle(doc);
+				if (styles && styles.getPropertyValue('--wp-mode') &&
+					styles.getPropertyValue('--wp-mode').toLowerCase().indexOf('dark') !== -1) {
+					return 'dark';
+				}
+			}
+		} catch (e) {
+			/* defensive – never throw in client code */
+		}
+		return 'light';
+	}
 
-        // Detect theme mode using various heuristics
-        function detectThemeMode() {
-            // Check for standard WordPress dark mode class
-            if (document.body.classList.contains('wp-dark-mode') || 
-                document.body.classList.contains('is-dark')) {
-                return 'dark';
-            }
+	function buildCssForMode(mode) {
+		var doc = document.documentElement;
+		var computed = doc ? window.getComputedStyle(doc) : null;
+		var c = function (name) {
+			return computed ? computed.getPropertyValue(name) || '' : '';
+		};
+		var bg = c('--wp-color-bg') || c('--wp--background-color') || c('--bg-color');
+		var text = c('--wp-color-text') || c('--wp--text-color') || c('--text-color');
+		var primary = c('--wp-color-primary') || c('--wp--primary-color');
+		var secondary = c('--wp-color-secondary') || c('--wp--secondary-color');
+		var radius = c('--wp-border-radius') || c('--border-radius');
+		var font = '';
+		if (computed) {
+			var ff = computed.getPropertyValue('font-family');
+			if (ff) {
+				font = ff.split(',')[0].trim();
+			}
+		}
+		var safe = function (v) {
+			return (v || '').replace(/["\\]/g, '');
+		};
+		return [
+			':root {',
+			'  --ageverif-bg-color: ' + safe(bg) + ';',
+			'  --ageverif-text-color: ' + safe(text) + ';',
+			'  --ageverif-primary-color: ' + safe(primary) + ';',
+			'  --ageverif-secondary-color: ' + safe(secondary) + ';',
+			'  --ageverif-border-radius: ' + safe(radius) + ';',
+			'  --ageverif-font-family: ' + safe(font) + ';',
+			'}',
+			'.ageverif-mode-light .ageverif, .ageverif-mode-light .ageverif-modal {',
+			'  background-color: var(--ageverif-bg-color);',
+			'  color: var(--ageverif-text-color);',
+			'  border-radius: var(--ageverif-border-radius);',
+			'  font-family: var(--ageverif-font-family);',
+			'}',
+			'.ageverif-mode-dark .ageverif, .ageverif-mode-dark .ageverif-modal {',
+			'  background-color: var(--ageverif-bg-color);',
+			'  color: var(--ageverif-text-color);',
+			'  border-radius: var(--ageverif-border-radius);',
+			'  font-family: var(--ageverif-font-family);',
+			'}'
+		].join('\n');
+	}
 
-            // Check for dark mode media query
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                return 'dark';
-            }
+	function applyThemeOnce() {
+		var mode = getThemeMode();
+		var styleEl = document.getElementById(STYLE_ID);
+		if (!styleEl) {
+			styleEl = document.createElement('style');
+			styleEl.type = 'text/css';
+			styleEl.id = STYLE_ID;
+			document.head.appendChild(styleEl);
+		}
+		styleEl.textContent = buildCssForMode(mode);
 
-            // Check for theme variables possible in CSS
-            var styles = getComputedStyle(document.documentElement);
-            if (styles.getPropertyValue('--wp-mode') === 'dark') {
-                return 'dark';
-            }
+		var gates = document.querySelectorAll('.ageverif, .ageverif-modal');
+		for (var i = 0; i < gates.length; i++) {
+			var g = gates[i];
+			if (g.getAttribute(STYLED_ATTR) === mode) {
+				continue;
+			}
+			g.classList.remove('ageverif-mode-light', 'ageverif-mode-dark');
+			g.classList.add('ageverif-mode-' + mode);
+			g.setAttribute(STYLED_ATTR, mode);
+		}
+	}
 
-            return 'light';
-        }
+	function attachObserver() {
+		try {
+			var observer = new MutationObserver(function (mutations) {
+				for (var i = 0; i < mutations.length; i++) {
+					if (mutations[i].attributeName !== 'class') {
+						continue;
+					}
+					applyThemeOnce();
+					return;
+				}
+			});
+			observer.observe(document.documentElement, {
+				attributes: true,
+				attributeFilter: ['class']
+			});
+		} catch (e) {
+			applyThemeOnce();
+		}
+	}
 
-        // Apply theme-specific styles to AgeVerif gate
-        function applyThemeStyles(mode) {
-            var gateElements = document.querySelectorAll('.ageverif, .ageverif-modal');
-            gateElements.forEach(function(element) {
-                if (element.classList.contains('ageverif-loaded')) continue;
-                element.classList.add('ageverif-loaded');
-
-                // Remove existing theme styles
-                removeThemeStyles(element);
-
-                // Apply appropriate theme class
-                if (mode === 'dark') {
-                    element.classList.add('ageverif-mode-dark');
-                } else {
-                    element.classList.add('ageverif-mode-light');
-                }
-            });
-
-            // Add theme variables to document
-            addThemeVariables(mode);
-        }
-
-        // Remove existing theme styles
-        function removeThemeStyles(element) {
-            element.classList.remove('ageverif-mode-dark', 'ageverif-mode-light');
-        }
-
-        // Add theme variables to document
-        function addThemeVariables(mode) {
-            // Get theme variables from computed styles
-            var doc = document.documentElement;
-            var computed = getComputedStyle(doc);
-
-            // Extract common theme variables
-            var bgColor = computed.getPropertyValue('--wp-color-bg');
-            var textColor = computed.getPropertyValue('--wp-color-text');
-            var primaryColor = computed.getPropertyValue('--wp-color-primary');
-            var secondaryColor = computed.getPropertyValue('--wp-color-secondary');
-            var borderRadius = computed.getPropertyValue('--wp-rborder-radius');
-            var fontFamily = computed.getPropertyValue('font-family').split(',')[0];
-
-            // Set theme variables on document
-            var baseUrl = 'https://www.ageverif.com';
-            var varCss = document.createElement('style');
-            varCss.type = 'text/css';
-            varCss.innerHTML = `
-                :root {
-                    --ageverif-bg-color: ${bgColor};
-                    --ageverif-text-color: ${textColor};
-                    --ageverif-primary-color: ${primaryColor};
-                    --ageverif-secondary-color: ${secondaryColor};
-                    --ageverif-border-radius: ${borderRadius};
-                }
-                .ageverif-mode-dark .ageverif-modal {
-                    background-color: var(--ageverif-bg-color, ${bgColor});
-                    color: var(--ageverif-text-color, ${textColor});
-                    border-radius: var(--ageverif-border-radius, ${borderRadius});
-                }
-                .ageverif-mode-light .ageverif-modal {
-                    background-color: var(--ageverif-bg-color, ${bgColor});
-                    color: var(--ageverif-text-color, ${textColor});
-                    border-radius: var(--ageverif-border-radius, ${borderRadius});
-                }
-            `;
-
-            document.head.appendChild(varCss);
-        }
-
-        // Initialize the adapter
-        ageverifThemeAdapter.init = function() {
-            ageverifThemeAdapter();
-        };
-
-        // Make available globally
-        if (window.ageverif && window.ageverif.themeAdapter) {
-            window.ageverif.themeAdapter = {
-                init: ageverifThemeAdapter.init
-            };
-        }
-    };
-
-    // Add script tag for theme detection
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.textContent = 'ageverifThemeAdapter();';
-    document.head.appendChild(script);
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', function () {
+			applyThemeOnce();
+			attachObserver();
+		});
+	} else {
+		applyThemeOnce();
+		attachObserver();
+	}
 })();

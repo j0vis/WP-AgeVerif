@@ -20,13 +20,20 @@ This official WordPress plugin lets you integrate AgeVerif in minutes — no cod
 
 * **Simple Setup** — Enter your API key, choose which content to protect, and you're done.
 * **Content Type Selection** — Protect posts, pages, custom post types, and WooCommerce products.
-* **URL Exclusion** — Exclude specific URLs from the age verification gate.
+* **Per-post override** — Tick the Age Gate meta box in any post to force or skip the gate, regardless of global settings.
+* **URL Exclusion** — Exclude specific URLs from the age verification gate (supports `*` glob paths).
 * **Test Mode** — Preview the gate as an admin before enabling it for all visitors.
 * **Async Loading** — The checker script loads asynchronously so it won't slow down your site.
 * **Custom CSS** — Adjust the gate's appearance to match your theme.
 * **Page Builder Compatible** — Works with Elementor, WPBakery, Divi, and other major builders.
 * **Cache & Security Plugin Friendly** — No conflicts with caching or security plugins.
-* **SEO Safe** — Search engine bots can still crawl and index your content.
+* **SEO Safe** — Search engines (Google, Bing, DuckDuckGo, Baidu, Yandex, Apple, Facebook, Twitter, LinkedIn…) and AI crawlers (GPTBot, ClaudeBot, PerplexityBot…) bypass the gate server-side so they always see the full HTML. Custom User-Agent regex supported.
+* **Logged-in role bypass** — Skip the gate entirely for specific roles (administrators, editors, …) so your team is never gated.
+* **Display controls** — Pick gate language (Auto / EN / DE / ES / FR / IT / PT), verification steps (selfie, CC, ID, OTP), display mode (popup / tab / redirect), closable gate.
+* **Manual start mode** + `[ageverif]` shortcode — Trigger the gate from a button instead of on every page load.
+* **Content blur** — Apply a CSS blur to the page until the visitor is verified (great for adult sites).
+* **Underage redirect** — Send visitors who fail / close the gate to any URL.
+* **Health check** — Built-in admin tool that pings AgeVerif with your key to confirm reachability.
 * **GDPR Compliant** — Privacy-first verification with double-anonymity options.
 
 = How It Works =

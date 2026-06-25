@@ -1,4 +1,8 @@
 <?php
+/**
+ * Core plugin class. Loads admin + frontend + per-post meta helpers.
+ */
+
 namespace AgeVerif;
 
 defined( 'ABSPATH' ) || exit;
@@ -25,7 +29,7 @@ class AgeVerif_WordPress {
 	private function version_check() {
 		$installed_version = get_option( 'ageverif_version', '0.0.0' );
 		if ( version_compare( $installed_version, AGEVERIF_VERSION, '<' ) ) {
-			// Run upgrade routines for new version
+			// Future migration routines would go here.
 			update_option( 'ageverif_version', AGEVERIF_VERSION );
 		}
 	}
@@ -34,6 +38,7 @@ class AgeVerif_WordPress {
 		add_action( 'plugins_loaded', array( $this, 'load_textdomain' ) );
 		add_action( 'plugins_loaded', array( $this, 'init_admin' ) );
 		add_action( 'plugins_loaded', array( $this, 'init_frontend' ) );
+		add_action( 'plugins_loaded', array( $this, 'init_meta' ) );
 		add_filter( 'plugin_action_links_' . AGEVERIF_BASENAME, array( $this, 'add_action_links' ) );
 	}
 
@@ -46,15 +51,26 @@ class AgeVerif_WordPress {
 	}
 
 	public function init_admin() {
-		if ( is_admin() ) {
-			require_once AGEVERIF_PLUGIN_DIR . 'admin/class-ageverif-admin.php';
-			new Admin\AgeVerif_Admin();
+		if ( ! is_admin() ) {
+			return;
 		}
+		require_once AGEVERIF_PLUGIN_DIR . 'admin/class-ageverif-admin.php';
+		new Admin\AgeVerif_Admin();
 	}
 
 	public function init_frontend() {
 		require_once AGEVERIF_PLUGIN_DIR . 'includes/class-ageverif-frontend.php';
 		new AgeVerif_Frontend();
+	}
+
+	public function init_meta() {
+		// Per-post meta box needs to register globally (hook into
+		// add_meta_boxes fires on admin post-edit screens).
+		if ( ! is_admin() ) {
+			return;
+		}
+		require_once AGEVERIF_PLUGIN_DIR . 'includes/class-ageverif-meta.php';
+		new AgeVerif_Meta();
 	}
 
 	public function add_action_links( $links ) {
