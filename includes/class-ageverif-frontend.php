@@ -79,15 +79,16 @@ class AgeVerif_Frontend {
 		return false;
 	}
 
-	private function is_protected_post_type() {
+private function is_protected_post_type() {
 		if ( is_admin() ) {
 			return false;
 		}
 
 		$enabled = isset( $this->options['enabled_post_types'] ) ? $this->options['enabled_post_types'] : array();
 
+		// If no post types are selected, protect all content by default
 		if ( empty( $enabled ) ) {
-			return false;
+			return true;
 		}
 
 		if ( is_singular() ) {
@@ -108,6 +109,7 @@ class AgeVerif_Frontend {
 
 		return false;
 	}
+
 
 	public function enqueue_scripts() {
 		$key = $this->get_active_key();
