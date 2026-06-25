@@ -179,15 +179,23 @@ class AgeVerif_Admin {
 		if ( isset( $input['test_mode'] ) ) {
 			$output['test_mode'] = absint( $input['test_mode'] );
 		}
+		if ( isset( $input['easy_mode'] ) ) {
+			$output['easy_mode'] = absint( $input['easy_mode'] );
+		}
 
 		return $output;
 	}
 
-	public function field_api_key() {
+public function field_api_key() {
 		$options = get_option( $this->option_name, $this->get_defaults() );
 		?>
 		<input type="text" name="ageverif_options[api_key]" value="<?php echo esc_attr( $options['api_key'] ); ?>" class="regular-text" placeholder="e.g. DtD0ad9ZMcKJBd9Ojh8D8Q0ELh2eSKwb0f1SzN7E" />
-		<p class="description"><?php esc_html_e( 'Your website\'s Public Live Key from the AgeVerif Webmasters Platform.', 'ageverif-wordpress' ); ?></p>
+		<p class="description">
+			<?php esc_html_e( 'Your website\'s Public Live Key (from Webmasters Portal).', 'ageverif-wordpress' ); ?>
+			<br>
+			<strong><?php esc_html_e( 'Note:', 'ageverif-wordpress' ); ?></strong>
+			<?php esc_html_e( 'This key only identifies your site to AgeVerif. It does NOT grant API access. Regions are configured in the Webmasters Portal.', 'ageverif-wordpress' ); ?>
+		</p>
 		<?php
 	}
 
