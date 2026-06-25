@@ -38,7 +38,15 @@ class AgeVerif_Helper {
 			'bypass_logged_in'      => 0,
 			'admin_bypass'          => 1,
 			'bypass_roles'          => array( 'administrator' ),
-			'bot_bypass_presets'    => array( 'googlebot', 'googleother', 'bingbot', 'duckduckbot' ),
+			// Default to enabling every major search engine, AI crawler, and social
+			// preview bot so SEO crawlers (incl. Baidu / Yandex) never see the gate.
+			// Existing users are backfilled via AgeVerif_WordPress::version_check().
+			'bot_bypass_presets'    => array(
+				'googlebot', 'googleother', 'bingbot', 'slurp', 'duckduckbot',
+				'baiduspider', 'yandexbot', 'applebot',
+				'facebookbot', 'twitterbot', 'linkedinbot', 'discordbot', 'telegrambot',
+				'openai', 'claudebot', 'perplexitybot',
+			),
 			'bot_bypass_custom'     => '',
 			'underage_redirect_url' => '',
 			'custom_css'            => '',

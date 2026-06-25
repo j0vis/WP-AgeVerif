@@ -181,6 +181,10 @@ msgid "Roles that Bypass"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
+msgid "All major search engines (Google, Bing, Yahoo, DuckDuckGo, <strong>Baidu, Yandex, Applebot</strong>) and AI crawlers (GPTBot, ClaudeBot, PerplexityBot) plus social-preview bots (Facebook, Twitter, LinkedIn, Discord, Telegram) are enabled by default. They are detected by User-Agent substring and bypass the gate server-side so they always see the full HTML. Untick any you don’t want."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
 msgid "Bot Bypass (known crawlers)"
 msgstr ""
 

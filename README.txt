@@ -3,7 +3,7 @@ Contributors: ageverif
 Tags: age verification, age gate, age restriction, ageverif, content protection, age check, adult content
 Requires at least: 5.6
 Tested up to: 6.7
-Stable tag: 1.0.0
+Stable tag: 1.1.2
 Requires PHP: 7.4
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -27,7 +27,7 @@ This official WordPress plugin lets you integrate AgeVerif in minutes — no cod
 * **Custom CSS** — Adjust the gate's appearance to match your theme.
 * **Page Builder Compatible** — Works with Elementor, WPBakery, Divi, and other major builders.
 * **Cache & Security Plugin Friendly** — No conflicts with caching or security plugins.
-* **SEO Safe** — Search engines (Google, Bing, DuckDuckGo, Baidu, Yandex, Apple, Facebook, Twitter, LinkedIn…) and AI crawlers (GPTBot, ClaudeBot, PerplexityBot…) bypass the gate server-side so they always see the full HTML. Custom User-Agent regex supported.
+* **SEO Safe** — Every major search engine (Google, Bing, Yahoo, DuckDuckGo, Baidu, Yandex, Apple…), AI crawler (GPTBot, ClaudeBot, PerplexityBot…), and social-preview bot (Facebook, Twitter, LinkedIn, Discord, Telegram) is **enabled by default** — they bypass the gate server-side and always see the full HTML. Custom User-Agent regex supported for any client not covered.
 * **Logged-in role bypass** — Skip the gate entirely for specific roles (administrators, editors, …) so your team is never gated.
 * **Display controls** — Pick gate language (Auto / EN / DE / ES / FR / IT / PT), verification steps (selfie, CC, ID, OTP), display mode (popup / tab / redirect), closable gate.
 * **Manual start mode** + `[ageverif]` shortcode — Trigger the gate from a button instead of on every page load.
@@ -97,6 +97,10 @@ Configure your target regions in the AgeVerif Webmasters Platform. The checker w
 2. The age verification gate as seen by visitors.
 
 == Changelog ==
+
+= 1.1.2 =
+* Expanded bot-bypass coverage — Baidu, Yandex, Apple, and all major AI / social-preview crawlers (GPTBot, ClaudeBot, PerplexityBot, Facebook, Twitter, LinkedIn, Discord, Telegram) are now enabled by default.
+* One-time backfill migration — existing installations inherit the expanded bot-bypass list on upgrade without needing to re-save settings.
 
 = 1.0.0 =
 * Initial release.

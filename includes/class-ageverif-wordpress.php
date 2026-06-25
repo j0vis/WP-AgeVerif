@@ -24,12 +24,43 @@ class AgeVerif_WordPress {
 	}
 
 	/**
-	 * Version compatibility check for future updates.
+	 * Version compatibility check + one-time migrations.
+	 *
+	 * Each migration is keyed by `version_compare( $installed, '<target>', '<' )`
+	 * so it runs exactly once per upgrade. Migrations MUST preserve any user
+	 * un-ticks (we merge over stored values rather than overwriting).
 	 */
 	private function version_check() {
 		$installed_version = get_option( 'ageverif_version', '0.0.0' );
+
+		// v1.1.x — expand bot_bypass_presets so existing sites get all major
+		// search engines (Baidu, Yandex, Apple, …) and AI / social preview bots
+		// enabled by default. Without this, wp_parse_args wouldn't backfill
+		// the new slugs because the stored key already exists for prior users.
+		if ( version_compare( $installed_version, '1.1.2', '<' ) ) {
+			$opts = get_option( 'ageverif_options', array() );
+			if (
+				is_array( $opts )
+				&& isset( $opts['bot_bypass_presets'] )
+				&& is_array( $opts['bot_bypass_presets'] )
+			) {
+				$opts['bot_bypass_presets'] = array_values(
+					array_unique(
+						array_merge(
+							$opts['bot_bypass_presets'],
+							array(
+								'slurp', 'baiduspider', 'yandexbot', 'applebot',
+								'facebookbot', 'twitterbot', 'linkedinbot', 'discordbot', 'telegrambot',
+								'openai', 'claudebot', 'perplexitybot',
+							)
+						)
+					)
+				);
+				update_option( 'ageverif_options', $opts );
+			}
+		}
+
 		if ( version_compare( $installed_version, AGEVERIF_VERSION, '<' ) ) {
-			// Future migration routines would go here.
 			update_option( 'ageverif_version', AGEVERIF_VERSION );
 		}
 	}

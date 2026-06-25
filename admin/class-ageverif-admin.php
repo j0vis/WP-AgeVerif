@@ -581,7 +581,12 @@ class AgeVerif_Admin {
 			<?php endforeach; ?>
 		</div>
 		<p class="description">
-			<?php esc_html_e( 'Search engines and AI crawlers are detected by User-Agent substring and bypass the gate server-side so they always see the full HTML.', 'ageverif-wordpress' ); ?>
+			<?php
+			echo wp_kses(
+				__( 'All major search engines (Google, Bing, Yahoo, DuckDuckGo, <strong>Baidu, Yandex, Applebot</strong>) and AI crawlers (GPTBot, ClaudeBot, PerplexityBot) plus social-preview bots (Facebook, Twitter, LinkedIn, Discord, Telegram) are enabled by default. They are detected by User-Agent substring and bypass the gate server-side so they always see the full HTML. Untick any you don’t want.', 'ageverif-wordpress' ),
+				array( 'strong' => array() )
+			);
+			?>
 		</p>
 		<?php
 	}
