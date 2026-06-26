@@ -12,7 +12,6 @@ class AgeVerif_Frontend {
 
 	const CHECKER_URL = 'https://www.ageverif.com/checker.js';
 	const INTEGRATION_HANDLE = 'ageverif-integration';
-	const THEME_HANDLE = 'ageverif-theme-adapter';
 	const CHECKER_HANDLE = 'ageverif-checker';
 
 	private $options;
@@ -29,7 +28,6 @@ class AgeVerif_Frontend {
 			return;
 		}
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10 );
-		add_action( 'wp_head', array( $this, 'output_custom_css' ), 999 );
 	}
 
 	private function should_load_checker() {
@@ -107,17 +105,6 @@ class AgeVerif_Frontend {
 		// `defer` alone keeps load order and respects WP's footer semantics.
 		// Combining async+defer is redundant per the HTML spec.
 		wp_script_add_data( self::CHECKER_HANDLE, 'defer', true );
-
-		if ( ! empty( $this->options['easy_mode'] ) ) {
-			wp_enqueue_script(
-				self::THEME_HANDLE,
-				AGEVERIF_PLUGIN_URL . 'js/theme-adapter.js',
-				array(),
-				AGEVERIF_VERSION,
-				true
-			);
-			wp_script_add_data( self::THEME_HANDLE, 'defer', true );
-		}
 
 		// Load the integration glue whenever the checker fires events that we
 		// can act on (blur, redirect, manual-start trigger).
@@ -416,13 +403,4 @@ class AgeVerif_Frontend {
 		);
 	}
 
-	public function output_custom_css() {
-		$css = isset( $this->options['custom_css'] ) ? (string) $this->options['custom_css'] : '';
-		if ( '' === trim( $css ) ) {
-			return;
-		}
-		echo '<style id="ageverif-custom-css" type="text/css">' . "\n";
-		echo wp_strip_all_tags( $css ) . "\n";
-		echo '</style>' . "\n";
-	}
 }

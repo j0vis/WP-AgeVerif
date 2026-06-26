@@ -24,7 +24,6 @@ This official WordPress plugin lets you integrate AgeVerif in minutes — no cod
 * **URL Exclusion** — Exclude specific URLs from the age verification gate (supports `*` glob paths).
 * **Test Mode** — Preview the gate as an admin before enabling it for all visitors.
 * **Async Loading** — The checker script loads asynchronously so it won't slow down your site.
-* **Custom CSS** — Adjust the gate's appearance to match your theme.
 * **Page Builder Compatible** — Works with Elementor, WPBakery, Divi, and other major builders.
 * **Cache & Security Plugin Friendly** — No conflicts with caching or security plugins.
 * **SEO Safe** — Every major search engine (Google, Bing, Yahoo, DuckDuckGo, Baidu, Yandex, Apple…), AI crawler (GPTBot, ClaudeBot, PerplexityBot…), and social-preview bot (Facebook, Twitter, LinkedIn, Discord, Telegram) is **enabled by default** — they bypass the gate server-side and always see the full HTML. Custom User-Agent regex supported for any client not covered.
@@ -85,7 +84,7 @@ Yes. Select "product" in the protected content types to enable age verification 
 
 = Can I customize the gate's appearance? =
 
-Yes. You can add custom CSS in the plugin settings. The gate's logo and colors can also be customized in the AgeVerif Webmasters Platform.
+Yes. The gate's logo and colors can be customized in the AgeVerif Webmasters Platform.
 
 = What if I only want to verify visitors from certain countries? =
 

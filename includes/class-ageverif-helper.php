@@ -48,10 +48,8 @@ class AgeVerif_Helper {
 				'openai', 'claudebot', 'perplexitybot',
 			),
 			'bot_bypass_custom'     => '',
-			'underage_redirect_url' => '',
-			'custom_css'            => '',
-			'easy_mode'             => 0,
-			'test_mode'             => 0,
+		'underage_redirect_url' => '',
+		'test_mode'             => 0,
 		);
 	}
 }

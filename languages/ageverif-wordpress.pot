@@ -13,115 +13,44 @@ msgstr ""
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: ageverif-wordpress 1.0.0\n"
 
-#: admin/class-ageverif-admin.php:33
+#: admin/class-ageverif-admin.php:32
 msgid "AgeVerif Settings"
 msgstr ""
 
-#: admin/class-ageverif-admin.php:34
+#: admin/class-ageverif-admin.php:33
 msgid "AgeVerif"
 msgstr ""
 
-#: admin/class-ageverif-admin.php:55
-msgid "API Configuration"
+#: admin/class-ageverif-admin.php
+msgid "Connection"
 msgstr ""
 
-#: admin/class-ageverif-admin.php:60
+#: admin/class-ageverif-admin.php
 msgid "Public Live Key"
 msgstr ""
 
-#: admin/class-ageverif-admin.php:65
+#: admin/class-ageverif-admin.php
 msgid "Public Test Key"
 msgstr ""
 
-#: admin/class-ageverif-admin.php:70
-msgid "Content Protection"
+#: admin/class-ageverif-admin.php
+msgid "e.g. DtD0ad9ZMcKJBd9Ojh8D8Q0ELh2eSKwb0f1SzN7E"
 msgstr ""
-
-#: admin/class-ageverif-admin.php:75
-msgid "Protected Content Types"
-msgstr ""
-
-#: admin/class-ageverif-admin.php:80
-msgid "Excluded URLs"
-msgstr ""
-
-#: admin/class-ageverif-admin.php:85
-msgid "Appearance"
-msgstr ""
-
-#: admin/class-ageverif-admin.php:90
-msgid "Custom CSS"
-msgstr ""
-
-#: admin/class-ageverif-admin.php:95
-msgid "Mode"
-msgstr ""
-
-#: admin/class-ageverif-admin.php:100
-msgid "Test Mode"
-msgstr ""
-
-#: admin/class-ageverif-admin.php:148
-msgid "Your website's Public Live Key from the AgeVerif Webmasters Platform."
-msgstr ""
-
-#: admin/class-ageverif-admin.php:155
-msgid "Your Public Test Key for local development and testing. Used when Test Mode is enabled."
-msgstr ""
-
-#: admin/class-ageverif-admin.php:175
-msgid "Select which content types should display the age verification gate. Leave all unchecked to protect nothing (gate will not appear)."
-msgstr ""
-
-#: admin/class-ageverif-admin.php:185
-msgid "One URL per line. Visitors on these URLs will bypass the age verification gate. You can use absolute URLs or relative paths (e.g. /sample-page/)."
-msgstr ""
-
-#: admin/class-ageverif-admin.php:195
-msgid "Optional custom CSS to adjust the appearance of the age verification gate. These styles will be applied on top of the default styling."
-msgstr ""
-
-#: admin/class-ageverif-admin.php:204
-msgid "Enable Test Mode"
-msgstr ""
-
-#: admin/class-ageverif-admin.php:207
-msgid "When enabled, the plugin uses the Test Key instead of the Live Key, and the gate is only shown to logged-in administrators. Use this to preview the verification gate before going live."
-msgstr ""
-
-#: admin/class-ageverif-admin.php:221
-msgid "How to Get Your API Key"
-msgstr ""
-
-#: admin/class-ageverif-admin.php:223
-msgid "Register at <a href=\"https://webmasters.ageverif.com/sign-up\" target=\"_blank\" rel=\"noopener\">AgeVerif Webmasters Platform</a>."
-msgstr ""
-
-#: admin/class-ageverif-admin.php:224
-msgid "Add your website in the Webmasters Platform."
-msgstr ""
-
-#: admin/class-ageverif-admin.php:225
-msgid "Copy the Public Live Key from your website settings."
-msgstr ""
-
-#: admin/class-ageverif-admin.php:226
-msgid "Paste it in the field above and select which content types to protect."
-msgstr ""
-
-#: admin/class-ageverif-admin.php:229
-msgid "View Full Documentation"
-msgstr ""
-
-#: includes/class-ageverif-wordpress.php:52
-msgid "Settings"
-msgstr ""
-
-# ---- New options introduced in the major configuration overhaul ----
-# Regenerate this file with: wp i18n make-pot . languages/ageverif-wordpress.pot
 
 #: admin/class-ageverif-admin.php
-msgid "Connection"
+msgid "Your site’s Public Live Key from the Webmasters Portal. This key only identifies your site to AgeVerif."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Open Webmasters Portal →"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Test key from the Webmasters Portal"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Used when Test Mode is enabled. Visitors see the gate as a sandbox preview."
 msgstr ""
 
 #: admin/class-ageverif-admin.php
@@ -129,15 +58,27 @@ msgid "Visibility"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
+msgid "Protected Content Types"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Select which content types trigger the age gate. Leave all unchecked to leave nothing gated."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Need a finer override per piece of content? Tick the “Age Gate” meta box in the post editor."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Excluded URLs"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "One URL (or path) per line. Paths like /sample-page/ match that URL only. Use a trailing * for glob matches, e.g. /shop/category/* matches any product."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
 msgid "Display"
-msgstr ""
-
-#: admin/class-ageverif-admin.php
-msgid "Bypass"
-msgstr ""
-
-#: admin/class-ageverif-admin.php
-msgid "After Verification"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
@@ -145,7 +86,55 @@ msgid "Language"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
+msgid "Auto (browser)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "English"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Deutsch"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Español"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Français"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Italiano"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Português"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Forces the gate UI to a specific language. Affects UI text only – does not change your site’s visitor language."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
 msgid "Verification Steps"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Selfie / face match"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Verification ticket"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Optional: restrict the verifier to only the selected steps. Leave empty to let AgeVerif pick based on the visitor region."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "See supported challenges →"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
@@ -153,7 +142,31 @@ msgid "Display Mode"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
+msgid "Popup on the same page"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "New browser tab"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Full redirect to AgeVerif"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Pick the experience for the visitor."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
 msgid "Closable Gate"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Allow visitors to dismiss the gate without verifying"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Useful for soft-warning contexts. Pair with an Underage Redirect URL to keep the visitor from reaching protected content."
 msgstr ""
 
 #: admin/class-ageverif-admin.php
@@ -161,7 +174,27 @@ msgid "Manual Start"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
+msgid "Don’t auto-open the gate on page load"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Use the [ageverif] shortcode or the .ageverif-trigger CSS class to trigger the gate on demand (e.g. on a button click)."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
 msgid "Content Blur"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Blur page content until the visitor is verified"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Applies a CSS blur to the page; cleared on the ageverif:success event."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Bypass"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
@@ -173,7 +206,15 @@ msgid "Always skip the gate for logged-in administrators"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
+msgid "Recommended for live sites so you aren’t gated on your own pages. Suppressed automatically by Test Mode so you can still preview the gate as an admin before going live."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
 msgid "Bypass Logged-in Users"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Skip the gate entirely for logged-in users matching the roles below"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
@@ -181,7 +222,11 @@ msgid "Roles that Bypass"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
-msgid "All major search engines (Google, Bing, Yahoo, DuckDuckGo, <strong>Baidu, Yandex, Applebot</strong>) and AI crawlers (GPTBot, ClaudeBot, PerplexityBot) plus social-preview bots (Facebook, Twitter, LinkedIn, Discord, Telegram) are enabled by default. They are detected by User-Agent substring and bypass the gate server-side so they always see the full HTML. Untick any you don’t want."
+msgid "Heads up:"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "if you leave the list empty while “Bypass Logged-in Users” is on, no logged-in user is bypassed. Pick at least one role, or uncheck the toggle above."
 msgstr ""
 
 #: admin/class-ageverif-admin.php
@@ -189,7 +234,19 @@ msgid "Bot Bypass (known crawlers)"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
+msgid "All major search engines (Google, Bing, Yahoo, DuckDuckGo, <strong>Baidu, Yandex, Applebot</strong>) and AI crawlers (GPTBot, ClaudeBot, PerplexityBot) plus social-preview bots (Facebook, Twitter, LinkedIn, Discord, Telegram) are enabled by default. They are detected by User-Agent substring and bypass the gate server-side so they always see the full HTML. Untick any you don’t want."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
 msgid "Bot Bypass (custom User-Agents)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "One User-Agent match per line. Plain lines match as case-insensitive substrings; lines wrapped in /slashes/ are treated as case-insensitive regex."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "After Verification"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
@@ -197,19 +254,23 @@ msgid "Underage Redirect URL"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
-msgid "Age Gate (per-post override)"
+msgid "Where visitors go when they fail / close the gate. Requires “Allow visitors to dismiss the gate” or the verifier reporting an age-verification failure."
 msgstr ""
 
 #: admin/class-ageverif-admin.php
-msgid "Use site default"
+msgid "Mode"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
-msgid "Always show age gate on this content"
+msgid "Test Mode"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
-msgid "Skip age gate on this content"
+msgid "Enable Test Mode"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Uses the Test Key and shows the gate only to logged-in administrators. Use to preview before going live."
 msgstr ""
 
 #: admin/class-ageverif-admin.php
@@ -217,7 +278,11 @@ msgid "Health Check"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
-msgid "Run Health Check"
+msgid "Verifies that AgeVerif can be reached from this server using one of your keys."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Health Check Key Selection"
 msgstr ""
 
 #: admin/class-ageverif-admin.php
@@ -232,6 +297,90 @@ msgstr ""
 msgid "Custom Key"
 msgstr ""
 
+#: admin/class-ageverif-admin.php
+msgid "Paste a key to test"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Run Health Check"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Get Your AgeVerif Keys"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Register at the <a href=\"https://webmasters.ageverif.com/sign-up\" target=\"_blank\" rel=\"noopener\">AgeVerif Webmasters Platform</a>."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Add your site and copy the Public Live Key."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Paste it under Connection above, pick content types, save."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Full integration docs"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Webmasters Portal"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "AgeVerif 1.1 update:"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "in v1.0 leaving every post-type checkbox empty silently protected the whole site (and contradicted the help text). In v1.1 an empty selection means “nothing is gated” — matching the UI text. Pick the content types you want to protect below and save."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Health check skipped: no key selected. Add or pick a key first."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "You do not have permission to run this check."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Health check failed: %s"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Health check passed (HTTP %d). AgeVerif can reach your key."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Health check failed (HTTP %d). Confirm the key and that your domain is added in the Webmasters Portal."
+msgstr ""
+
+#: includes/class-ageverif-wordpress.php:50
+msgid "Settings"
+msgstr ""
+
+#: includes/class-ageverif-meta.php
+msgid "Age Gate (per-post override)"
+msgstr ""
+
+#: includes/class-ageverif-meta.php
+msgid "Use site default"
+msgstr ""
+
+#: includes/class-ageverif-meta.php
+msgid "Always show age gate on this content"
+msgstr ""
+
+#: includes/class-ageverif-meta.php
+msgid "Skip age gate on this content"
+msgstr ""
+
 #: includes/class-ageverif-frontend.php
 msgid "Verify age"
+msgstr ""
+
+#: includes/class-ageverif-frontend.php
+msgid "[ageverif]: Manual Start is off in Settings → AgeVerif, so this button does nothing."
 msgstr ""

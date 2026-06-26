@@ -8,8 +8,7 @@
  *   3. Display                     – gate UI options (language, challenges, target, blur, ...)
  *   4. Bypass                      – role bypass, bot bypass list
  *   5. After verification          – underage redirect URL
- *   6. Appearance                  – Easy Mode + custom CSS
- *   7. Mode                        – Test Mode
+ *   6. Mode                        – Test Mode
  *
  * Plus a Tools panel with a health-check button below the settings form
  * (rendered outside the form so we don't end up with nested <form> tags).
@@ -139,17 +138,7 @@ class AgeVerif_Admin {
 		);
 		$this->register_field( 'underage_redirect_url', __( 'Underage Redirect URL', 'ageverif-wordpress' ), 'field_underage_redirect_url' );
 
-		// 6. Appearance
-		add_settings_section(
-			'ageverif_appearance',
-			__( 'Appearance', 'ageverif-wordpress' ),
-			array( $this, 'render_easy_mode_description' ),
-			'ageverif'
-		);
-		$this->register_field( 'easy_mode',  __( 'Easy Mode',  'ageverif-wordpress' ), 'field_easy_mode' );
-		$this->register_field( 'custom_css', __( 'Custom CSS', 'ageverif-wordpress' ), 'field_custom_css' );
-
-		// 7. Mode
+		// 6. Mode
 		add_settings_section(
 			'ageverif_mode',
 			__( 'Mode', 'ageverif-wordpress' ),
@@ -181,8 +170,6 @@ class AgeVerif_Admin {
 			'bot_bypass_presets'     => 'bypass',
 			'bot_bypass_custom'      => 'bypass',
 			'underage_redirect_url'  => 'after',
-			'easy_mode'              => 'appearance',
-			'custom_css'             => 'appearance',
 			'test_mode'              => 'mode',
 		);
 		return isset( $map[ $key ] ) ? $map[ $key ] : 'connection';
@@ -193,15 +180,7 @@ class AgeVerif_Admin {
 		// readers about cross-section concerns (e.g. Webmasters Portal links).
 	}
 
-	public function render_easy_mode_description() {
-		?>
-		<p class="description">
-			<?php esc_html_e( 'Easy Mode automatically adapts the age verification gate to your host theme (light/dark) using the host site’s colors, fonts, and border radii.', 'ageverif-wordpress' ); ?>
-		</p>
-		<?php
-	}
-
-	/* ===== Defaults & sanitization ===== */
+/* ===== Defaults & sanitization ===== */
 
 	private function get_defaults() {
 		// Single source of truth — shared with \AgeVerif\AgeVerif_Frontend::__construct().
@@ -266,7 +245,7 @@ class AgeVerif_Admin {
 			$out['display_mode'] = in_array( $d, $display_allowed, true ) ? $d : 'popup';
 		}
 
-		foreach ( array( 'closable', 'manual_start', 'content_blur', 'admin_bypass', 'bypass_logged_in', 'easy_mode', 'test_mode' ) as $flag ) {
+		foreach ( array( 'closable', 'manual_start', 'content_blur', 'admin_bypass', 'bypass_logged_in', 'test_mode' ) as $flag ) {
 			$out[ $flag ] = ! empty( $input[ $flag ] ) ? 1 : 0;
 		}
 
@@ -308,10 +287,6 @@ class AgeVerif_Admin {
 		if ( isset( $input['underage_redirect_url'] ) ) {
 			$url = trim( (string) $input['underage_redirect_url'] );
 			$out['underage_redirect_url'] = ( '' === $url ) ? '' : esc_url_raw( $url );
-		}
-
-		if ( isset( $input['custom_css'] ) ) {
-			$out['custom_css'] = wp_strip_all_tags( $input['custom_css'] );
 		}
 
 		return $out;
@@ -609,28 +584,6 @@ class AgeVerif_Admin {
 			pattern="https?://.*" />
 		<p class="description">
 			<?php esc_html_e( 'Where visitors go when they fail / close the gate. Requires “Allow visitors to dismiss the gate” or the verifier reporting an age-verification failure.', 'ageverif-wordpress' ); ?>
-		</p>
-		<?php
-	}
-
-	public function field_easy_mode() {
-		?>
-		<label>
-			<input type="checkbox" name="ageverif_options[easy_mode]" value="1" <?php checked( $this->options['easy_mode'] ); ?> />
-			<?php esc_html_e( 'Enable Easy Mode (Recommended)', 'ageverif-wordpress' ); ?>
-		</label>
-		<p class="description">
-			<?php esc_html_e( 'Inherits your theme’s colors, fonts, and border radii so the gate blends in seamlessly.', 'ageverif-wordpress' ); ?>
-		</p>
-		<?php
-	}
-
-	public function field_custom_css() {
-		?>
-		<textarea name="ageverif_options[custom_css]" rows="8" class="large-text code" spellcheck="false"><?php
-			echo esc_textarea( $this->options['custom_css'] ); ?></textarea>
-		<p class="description">
-			<?php esc_html_e( 'Optional custom CSS applied on top of the default gate styling.', 'ageverif-wordpress' ); ?>
 		</p>
 		<?php
 	}
