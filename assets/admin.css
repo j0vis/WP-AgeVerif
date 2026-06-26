@@ -58,6 +58,30 @@
 	margin-top: 8px;
 }
 
+.ageverif-settings .ageverif-tool-sep {
+	border: 0;
+	border-top: 1px solid #dcdcde;
+	margin: 22px 0 14px;
+}
+
+.ageverif-settings .ageverif-tool h3 {
+	margin: 0 0 6px;
+	font-size: 14px;
+	color: #1d2327;
+}
+
+.ageverif-settings .ageverif-custom-credentials {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin: -8px 0 8px 22px;
+}
+
+.ageverif-settings .ageverif-custom-credentials input {
+	flex: 1 1 220px;
+	min-width: 0;
+}
+
 .ageverif-settings code {
 	background: #f0f0f1;
 	padding: 1px 5px;
@@ -67,4 +91,616 @@
 
 .ageverif-settings .ageverif-meta-box legend {
 	padding: 0;
+}
+
+/* ===== Inline tooltips on field descriptions ===== */
+
+.ageverif-settings .ageverif-tip {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 18px;
+	height: 18px;
+	margin: 0 6px 0 0;
+	border-radius: 50%;
+	background: #f0f0f1;
+	color: #1d2327;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1;
+	cursor: help;
+	position: relative;
+	user-select: none;
+	vertical-align: middle;
+}
+
+.ageverif-settings .ageverif-tip:focus-visible {
+	outline: 2px solid #004db3;
+	outline-offset: 1px;
+}
+
+.ageverif-settings .ageverif-tip-body {
+	display: none;
+	position: absolute;
+	left: -8px;
+	top: calc(100% + 6px);
+	z-index: 10000;
+	min-width: 240px;
+	max-width: 360px;
+	padding: 10px 12px;
+	background: #1d2327;
+	color: #fff;
+	border-radius: 4px;
+	font-size: 12.5px;
+	line-height: 1.45;
+	font-weight: 400;
+	text-align: left;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+	white-space: normal;
+}
+
+.ageverif-settings .ageverif-tip-body::before {
+	content: "";
+	position: absolute;
+	left: 12px;
+	top: -5px;
+	width: 10px;
+	height: 10px;
+	background: #1d2327;
+	transform: rotate(45deg);
+}
+
+.ageverif-settings .ageverif-tip:hover .ageverif-tip-body,
+.ageverif-settings .ageverif-tip:focus-within .ageverif-tip-body {
+	display: block;
+}
+
+/* Inline "?" hint rendered inside intro paragraphs (no popup). */
+.ageverif-settings .ageverif-tip-inline {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: #f0f0f1;
+	color: #1d2327;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 16px;
+	text-align: center;
+	vertical-align: middle;
+	margin: 0 2px;
+}
+
+/* ===== Intro line above the help panel ===== */
+
+.ageverif-settings > .ageverif-intro {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-left: 4px solid #004db3;
+	padding: 10px 14px;
+	margin: 16px 0;
+	max-width: 800px;
+	font-size: 14px;
+	color: #1d2327;
+}
+
+/* ===== Quick Start walkthrough ===== */
+
+.ageverif-settings .ageverif-quickstart {
+	max-width: 800px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-left: 4px solid #004db3;
+	padding: 14px 20px 18px;
+	margin-top: 0;
+}
+
+.ageverif-settings .ageverif-quickstart h2 {
+	margin-top: 0;
+	color: #1d2327;
+	font-size: 18px;
+}
+
+.ageverif-settings .ageverif-quickstart .ageverif-help-foot {
+	margin: 16px 0 0;
+	color: #50575e;
+}
+
+/* Numbered steps: ratchet badge + body side-by-side */
+.ageverif-settings .ageverif-steps {
+	list-style: none;
+	margin: 4px 0 4px;
+	padding: 0;
+	counter-reset: ageverif-step;
+}
+
+.ageverif-settings .ageverif-step {
+	display: grid;
+	grid-template-columns: 32px 1fr;
+	gap: 12px;
+	margin: 0 0 14px;
+	align-items: start;
+}
+
+.ageverif-settings .ageverif-step-num {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	background: #004db3;
+	color: #fff;
+	font-weight: 700;
+	font-size: 13px;
+	line-height: 1;
+	margin-top: 2px;
+	grid-column: 1;
+	grid-row: span 2;
+}
+
+.ageverif-settings .ageverif-step-body {
+	grid-column: 2;
+}
+
+.ageverif-settings .ageverif-step-body h3 {
+	margin: 0 0 4px;
+	font-size: 14px;
+	color: #1d2327;
+	line-height: 1.3;
+}
+
+.ageverif-settings .ageverif-step-body p {
+	margin: 0;
+	color: #50575e;
+	line-height: 1.55;
+}
+
+/* Optional OAuth subsection inside the Quick Start */
+.ageverif-settings .ageverif-substeps {
+	margin-top: 12px;
+	border-top: 1px dashed #c3c4c7;
+	padding-top: 12px;
+}
+
+.ageverif-settings .ageverif-substeps > summary {
+	cursor: pointer;
+	list-style: none;
+	padding: 4px 0;
+	color: #004db3;
+}
+
+.ageverif-settings .ageverif-substeps > summary::-webkit-details-marker {
+	display: none;
+}
+
+.ageverif-settings .ageverif-substeps > summary::before {
+	content: "\25B8"; /* ▸ */
+	display: inline-block;
+	margin-right: 6px;
+	transition: transform 0.15s ease;
+}
+
+.ageverif-settings .ageverif-substeps[open] > summary::before {
+	transform: rotate(90deg);
+}
+
+.ageverif-settings .ageverif-substeps > summary .description {
+	color: #50575e;
+	margin-left: 6px;
+	font-weight: 400;
+}
+
+/* ===== Glossary + Troubleshooting panels ===== */
+
+.ageverif-settings .ageverif-glossary,
+.ageverif-settings .ageverif-troubleshooting,
+.ageverif-settings .ageverif-checklist-wrap {
+	max-width: 800px;
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-left: 4px solid #72aee6;
+	padding: 12px 20px;
+	margin-top: 18px;
+}
+
+.ageverif-settings .ageverif-glossary h2,
+.ageverif-settings .ageverif-troubleshooting h2,
+.ageverif-settings .ageverif-checklist-wrap h2 {
+	margin-top: 0;
+	color: #1d2327;
+	font-size: 16px;
+}
+
+.ageverif-settings .ageverif-glossary-term,
+.ageverif-settings .ageverif-troubleshooting-issue {
+	border-bottom: 1px solid #f0f0f1;
+	padding: 6px 0;
+}
+
+.ageverif-settings .ageverif-glossary-term:last-child,
+.ageverif-settings .ageverif-troubleshooting-issue:last-child {
+	border-bottom: 0;
+}
+
+.ageverif-settings .ageverif-glossary-term > summary,
+.ageverif-settings .ageverif-troubleshooting-issue > summary {
+	cursor: pointer;
+	list-style: none;
+	font-weight: 500;
+	color: #1d2327;
+	padding: 4px 0;
+}
+
+.ageverif-settings .ageverif-glossary-term > summary::-webkit-details-marker,
+.ageverif-settings .ageverif-troubleshooting-issue > summary::-webkit-details-marker {
+	display: none;
+}
+
+.ageverif-settings .ageverif-glossary-term > summary::before,
+.ageverif-settings .ageverif-troubleshooting-issue > summary::before {
+	content: "+";
+	display: inline-block;
+	width: 16px;
+	font-weight: 600;
+	color: #004db3;
+}
+
+.ageverif-settings .ageverif-glossary-term[open] > summary::before,
+.ageverif-settings .ageverif-troubleshooting-issue[open] > summary::before {
+	content: "−";
+}
+
+.ageverif-settings .ageverif-glossary-term > p,
+.ageverif-settings .ageverif-troubleshooting-issue > p {
+	margin: 6px 0 8px 22px;
+	color: #50575e;
+	line-height: 1.55;
+}
+
+/* ===== Pre-launch Checklist ===== */
+
+.ageverif-settings .ageverif-checklist {
+	margin: 6px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.ageverif-settings .ageverif-checklist li {
+	display: grid;
+	grid-template-columns: 18px 1fr;
+	gap: 8px;
+	margin: 0 0 8px;
+	color: #1d2327;
+	line-height: 1.5;
+}
+
+.ageverif-settings .ageverif-checklist-bullet {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border: 2px solid #c3c4c7;
+	border-radius: 3px;
+	margin-top: 4px;
+	background: #fff;
+}
+
+.ageverif-settings .ageverif-checklist li:hover .ageverif-checklist-bullet {
+	border-color: #004db3;
+}
+
+/* The OAuth subsection badge uses letters A/B/C instead of restarting counters */
+
+/* ===== Live status widget ===== */
+
+.ageverif-settings .ageverif-status {
+	max-width: 800px;
+	margin: 16px 0 0;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.ageverif-settings .ageverif-status-item,
+.ageverif-settings .ageverif-status--success {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-left: 4px solid #72aee6;
+	padding: 10px 14px;
+	border-radius: 4px;
+	line-height: 1.5;
+	color: #1d2327;
+}
+
+.ageverif-settings .ageverif-status--success {
+	border-left-color: #00a32a;
+	background: #edfaef;
+	color: #14391d;
+}
+
+.ageverif-settings .ageverif-status-item--error {
+	border-left-color: #d63638;
+	background: #fcf0f1;
+	color: #4a1414;
+}
+
+.ageverif-settings .ageverif-status-item--warning {
+	border-left-color: #dba617;
+	background: #fcf9e8;
+	color: #4d3a00;
+}
+
+.ageverif-settings .ageverif-status-item--info {
+	border-left-color: #72aee6;
+	background: #f0f6fc;
+	color: #173155;
+}
+
+.ageverif-settings .ageverif-status-item p,
+.ageverif-settings .ageverif-status--success p {
+	margin: 0;
+}
+
+.ageverif-settings .ageverif-status-link {
+	display: inline-block;
+	margin-left: 8px;
+	padding: 2px 8px;
+	border: 1px solid currentColor;
+	border-radius: 3px;
+	font-size: 12px;
+	font-weight: 600;
+	text-decoration: none;
+	color: inherit;
+}
+
+.ageverif-settings .ageverif-status-link:hover {
+	background: rgba(255, 255, 255, 0.4);
+}
+
+/* ===== Per-section intros ===== */
+
+.ageverif-settings .ageverif-section-intro {
+	background: #f6f7f7;
+	border: 1px solid #e5e7eb;
+	border-left: 3px solid #c3c4c7;
+	padding: 8px 12px;
+	margin: 0 0 8px;
+	max-width: 640px;
+	color: #50575e;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+/* ===== Polish pass ===== */
+
+/* Smoother focus rings on every interactive element. */
+.ageverif-settings a:focus-visible,
+.ageverif-settings button:focus-visible,
+.ageverif-settings input:focus-visible,
+.ageverif-settings select:focus-visible,
+.ageverif-settings textarea:focus-visible,
+.ageverif-settings summary:focus-visible {
+	outline: 2px solid #004db3;
+	outline-offset: 2px;
+}
+
+.ageverif-settings .ageverif-tip:focus-visible {
+	outline-offset: 1px;
+}
+
+/* Better vertical rhythm — keep spacing tight between stacked panels. */
+.ageverif-settings h2 + p.description,
+.ageverif-settings > .ageverif-intro + .ageverif-status {
+	margin-top: 12px;
+}
+
+.ageverif-settings h1 + .ageverif-intro {
+	margin-top: 8px;
+}
+
+/* Subtle elevation / hover on the support panels. */
+.ageverif-settings .ageverif-help,
+.ageverif-settings .ageverif-tool,
+.ageverif-settings .ageverif-status-item,
+.ageverif-settings .ageverif-status--success,
+.ageverif-settings .ageverif-tip-body {
+	transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+/* Smoother hover on the status widget “Fix” pill. */
+.ageverif-settings .ageverif-status-link {
+	transition: background 0.12s ease, color 0.12s ease;
+}
+
+.ageverif-settings .ageverif-status-item--error .ageverif-status-link:hover {
+	background: #d63638;
+	color: #fff;
+	border-color: #d63638;
+}
+
+.ageverif-settings .ageverif-status-item--warning .ageverif-status-link:hover {
+	background: #dba617;
+	color: #fff;
+	border-color: #dba617;
+}
+
+.ageverif-settings .ageverif-status-item--info .ageverif-status-link:hover,
+.ageverif-settings .ageverif-status--success .ageverif-status-link:hover {
+	background: #004db3;
+	color: #fff;
+	border-color: #004db3;
+}
+
+/* Status widget: small status indicator dot before the label. */
+.ageverif-settings .ageverif-status-item > p > strong::before,
+.ageverif-settings .ageverif-status--success > p > strong::before {
+	content: "";
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin-right: 8px;
+	border-radius: 50%;
+	background: currentColor;
+	vertical-align: middle;
+	opacity: 0.85;
+}
+
+/* Quick Start: subtle elevation on step labels and keep them readable. */
+.ageverif-settings .ageverif-step-num {
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+	transition: background 0.12s ease, transform 0.12s ease;
+}
+
+.ageverif-settings .ageverif-step-body h3 {
+	transition: color 0.12s ease;
+}
+
+.ageverif-settings .ageverif-step:hover .ageverif-step-body h3 {
+	color: #004db3;
+}
+
+/* Checklist bullets now look like actual checkboxes with a smooth hover. */
+.ageverif-settings .ageverif-checklist-bullet {
+	transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+	box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.ageverif-settings .ageverif-checklist li:hover .ageverif-checklist-bullet {
+	border-color: #004db3;
+	background: #f0f6fc;
+	box-shadow: 0 0 0 3px rgba(0, 77, 179, 0.08);
+}
+
+/* Glossary + Troubleshooting: smoother open/close animation. */
+.ageverif-settings .ageverif-glossary-term,
+.ageverif-settings .ageverif-troubleshooting-issue {
+	transition: border-color 0.15s ease;
+}
+
+.ageverif-settings .ageverif-glossary-term > summary,
+.ageverif-settings .ageverif-troubleshooting-issue > summary {
+	transition: color 0.15s ease;
+}
+
+.ageverif-settings .ageverif-glossary-term > summary:hover,
+.ageverif-settings .ageverif-troubleshooting-issue > summary:hover {
+	color: #004db3;
+}
+
+/* OAuth substeps: subtle subtitle hover cue. */
+.ageverif-settings .ageverif-substeps > summary > .description {
+	transition: color 0.15s ease;
+}
+
+.ageverif-settings .ageverif-substeps > summary:hover > .description {
+	color: #1d2327;
+}
+
+/* ===== Callback URL block ===== */
+
+.ageverif-settings .ageverif-callback {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	max-width: 100%;
+	flex-wrap: wrap;
+}
+
+.ageverif-settings .ageverif-callback code {
+	margin: 0;
+	padding: 4px 8px;
+	background: #f0f0f1;
+	border: 1px solid #dcdcde;
+	border-radius: 3px;
+	font-size: 12px;
+	word-break: break-all;
+	max-width: 600px;
+	display: inline-block;
+}
+
+.ageverif-settings .ageverif-copy-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 4px 10px;
+	border: 1px solid #004db3;
+	background: #fff;
+	color: #004db3;
+	border-radius: 3px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+	line-height: 1.2;
+	transition: background 0.12s ease, color 0.12s ease, transform 0.12s ease;
+}
+
+.ageverif-settings .ageverif-copy-btn:hover {
+	background: #004db3;
+	color: #fff;
+}
+
+.ageverif-settings .ageverif-copy-btn:focus-visible {
+	outline: 2px solid #004db3;
+	outline-offset: 2px;
+}
+
+.ageverif-settings .ageverif-copy-btn.is-copied {
+	background: #00a32a;
+	border-color: #00a32a;
+	color: #fff;
+	transform: scale(1.04);
+}
+
+/* ===== Per-post meta box ===== */
+
+.ageverif-meta-box {
+	border: 1px solid #f0f0f1;
+	border-left: 3px solid #004db3;
+	padding: 8px 12px;
+	margin: 0;
+	border-radius: 0 3px 3px 0;
+	background: #fafafa;
+}
+
+.ageverif-meta-box p {
+	margin: 0 0 6px;
+}
+
+.ageverif-meta-box label {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 3px 0;
+}
+
+.ageverif-meta-box .description {
+	margin-top: 6px;
+	color: #50575e;
+	font-size: 12.5px;
+}
+
+/* ===== Shortcode button styles (frontend) =====
+ *
+ * Both `[ageverif]` (manual-start checker trigger) and `[ageverif_oauth]`
+ * (OAuth trigger) get a consistent hover/focus state regardless of
+ * which color the admin picks for the OAuth button.
+ */
+
+.ageverif-trigger,
+.ageverif-oauth-trigger {
+	transition: filter 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+	cursor: pointer;
+}
+
+.ageverif-trigger:hover,
+.ageverif-oauth-trigger:hover {
+	filter: brightness(0.94);
+	transform: translateY(-1px);
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.ageverif-trigger:focus-visible,
+.ageverif-oauth-trigger:focus-visible {
+	outline: 2px solid #004db3;
+	outline-offset: 2px;
 }

@@ -70,6 +70,7 @@ class AgeVerif_WordPress {
 		add_action( 'plugins_loaded', array( $this, 'init_admin' ) );
 		add_action( 'plugins_loaded', array( $this, 'init_frontend' ) );
 		add_action( 'plugins_loaded', array( $this, 'init_meta' ) );
+		add_action( 'plugins_loaded', array( $this, 'init_oauth' ) );
 		add_filter( 'plugin_action_links_' . AGEVERIF_BASENAME, array( $this, 'add_action_links' ) );
 	}
 
@@ -102,6 +103,13 @@ class AgeVerif_WordPress {
 		}
 		require_once AGEVERIF_PLUGIN_DIR . 'includes/class-ageverif-meta.php';
 		new AgeVerif_Meta();
+	}
+
+	public function init_oauth() {
+		// OAuth callback handler must run regardless of admin context —
+		// it's a publicly-reachable URL that AgeVerif redirects to.
+		require_once AGEVERIF_PLUGIN_DIR . 'includes/class-ageverif-oauth.php';
+		new AgeVerif_OAuth();
 	}
 
 	public function add_action_links( $links ) {

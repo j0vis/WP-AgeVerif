@@ -3,7 +3,7 @@
  * Plugin Name:     AgeVerif – Age Verification
  * Plugin URI:      https://ageverif.com/wordpress
  * Description:     Integrate the ageverif.com age verification service into your WordPress site. Protect age-restricted content with a simple, privacy-focused verification gate.
- * Version:         1.1.2
+ * Version:         1.3.0
  * Author:          AgeVerif
  * Author URI:      https://ageverif.com
  * License:         GPL-2.0-or-later
@@ -18,7 +18,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'AGEVERIF_VERSION', '1.1.2' );
+define( 'AGEVERIF_VERSION', '1.3.0' );
 define( 'AGEVERIF_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'AGEVERIF_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'AGEVERIF_BASENAME', plugin_basename( __FILE__ ) );

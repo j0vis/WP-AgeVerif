@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: AgeVerif – Age Verification 1.0.0\n"
+"Project-Id-Version: AgeVerif – Age Verification 1.3.0\n"
 "Report-Msgid-Bugs-To: https://ageverif.com/contact\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2025-01-01T00:00:00+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: ageverif-wordpress 1.0.0\n"
+"X-Generator: ageverif-wordpress 1.3.0\n"
 
 #: admin/class-ageverif-admin.php:32
 msgid "AgeVerif Settings"
@@ -383,4 +383,676 @@ msgstr ""
 
 #: includes/class-ageverif-frontend.php
 msgid "[ageverif]: Manual Start is off in Settings → AgeVerif, so this button does nothing."
+msgstr ""
+
+#: includes/class-ageverif-oauth.php
+msgid "AgeVerif OAuth is not configured on this site."
+msgstr ""
+
+#: includes/class-ageverif-oauth.php
+msgid "AgeVerif authorization was denied: %s"
+msgstr ""
+
+#: includes/class-ageverif-oauth.php
+msgid "AgeVerif callback was missing required parameters."
+msgstr ""
+
+#: includes/class-ageverif-oauth.php
+msgid "AgeVerif callback state was invalid or tampered with."
+msgstr ""
+
+#: includes/class-ageverif-oauth.php
+msgid "AgeVerif callback failed CSRF verification."
+msgstr ""
+
+#: includes/class-ageverif-oauth.php
+msgid "AgeVerif callback expired. Please try again."
+msgstr ""
+
+#: includes/class-ageverif-oauth.php
+msgid "AgeVerif token exchange failed: %s"
+msgstr ""
+
+#: includes/class-ageverif-oauth.php
+msgid "Continue with AgeVerif"
+msgstr ""
+
+#: includes/class-ageverif-oauth.php
+msgid "Verify with AgeVerif"
+msgstr ""
+
+#: includes/class-ageverif-oauth.php
+msgid "Client ID or Client Secret is missing in Settings → AgeVerif."
+msgstr ""
+
+#: includes/class-ageverif-oauth.php
+msgid "OAuth callback already processed."
+msgstr ""
+
+#: includes/class-ageverif-oauth.php
+msgid "AgeVerif did not return an access token."
+msgstr ""
+
+#: includes/class-ageverif-frontend.php
+msgid "Age verification required"
+msgstr ""
+
+#: includes/class-ageverif-frontend.php
+msgid "This page is protected by AgeVerif. Verify your age to continue."
+msgstr ""
+
+#: includes/class-ageverif-frontend.php
+msgid "Powered by AgeVerif."
+msgstr ""
+
+#: includes/class-ageverif-frontend.php
+msgid "Back to homepage"
+msgstr ""
+
+#: includes/class-ageverif-frontend.php
+msgid "Confirm age on AgeVerif"
+msgstr ""
+
+#: includes/class-ageverif-frontend.php
+msgid "Verification cookie missing or expired. Please verify your age again to continue."
+msgstr ""
+
+#: includes/class-ageverif-frontend.php
+msgid "[ageverif_oauth]: OAuth2 is not enabled or missing Client ID in Settings → AgeVerif."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth2"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "More information"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "AgeVerif adds a privacy-first age verification gate to your content. You don’t need API experience — this page walks you through the whole setup. Pick a content type, paste a key, save."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Quick Start (≈5 minutes)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "New here? Follow the steps below in order. If anything is unclear, every field on this page has a <span class=\"ageverif-tip-inline\">?</span> tooltip — hover or tap to learn more."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Create a free account"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Open the <a href=\"https://webmasters.ageverif.com/sign-up\" target=\"_blank\" rel=\"noopener\">AgeVerif Webmasters Platform</a> and sign up with your email. No credit card required."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Add your site"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Click <strong>Add Website</strong>. Enter your domain exactly as it appears in the address bar (e.g. <code>example.com</code>) — do not include <code>https://</code> or a trailing slash."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Copy the Public Live Key"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "After adding your site, the platform shows a long string of random characters under “Public Live Key”. Copy it."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Paste the key here"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Scroll down to Connection → Public Live Key and paste. Click Save Changes."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Tick at least one Protected Content Type"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Under Visibility, tick the content types you want the gate to appear on (Posts, Pages, products, etc.). Nothing is gated unless you tick at least one type. Click Save Changes."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Preview, then go live"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Test Mode means only logged-in administrators see the gate (real visitors keep seeing your page normally, so you can preview without affecting them). Tick Test Mode and Save, then visit a protected page while still logged in as admin in your regular browser — you should see the gate. Once everything looks right, untick Test Mode and Save. To verify the gate fires for real visitors too, open a private/incognito window after disabling Test Mode."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Open the <a href=\"https://webmasters.ageverif.com/sign-up\" target=\"_blank\" rel=\"noopener\">AgeVerif Webmasters Platform</a> and sign up with your email. No credit card required."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "With Test Mode ON, you visited a protected page while logged in as admin in your regular browser and saw the gate appear."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "You opened a private/incognito window (logged out) and confirmed your unprotected pages still render normally."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "If OAuth: you went through the full flow end-to-end (click button → verify on AgeVerif → return to your page) while logged in as admin."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Optional: also enable OAuth2"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Use OAuth2 if you want a custom button instead of the standard popup. Requires advanced setup steps in the Webmasters Platform."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Enable OAuth2 in the Webmasters Platform"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Open your site’s page in the Webmasters Platform and click “Enable OAuth2”. You will receive a Client ID and a Client Secret."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Paste Client ID and Secret below"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Scroll to the OAuth2 section, paste them in, tick “Enable OAuth2”, and Save."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Register the Callback URL"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Copy the Callback URL shown at the top of the OAuth2 section and paste it into your site’s allowed redirect URIs in the Webmasters Platform. The two URLs must match EXACTLY (including any trailing slash)."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Need more detail? Read the <a href=\"https://docs.ageverif.com\" target=\"blank\" rel=\"noopener\">full integration docs</a> or sign in to the <a href=\"https://webmasters.ageverif.com\" target=\"_blank\" rel=\"noopener\">Webmasters Portal</a>."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Glossary"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Terms you’ll see in this page and in the AgeVerif docs."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "What is OAuth2?"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "A standard way for two websites to talk to each other on behalf of a visitor. With AgeVerif it means: instead of an old-style full-page redirect away to AgeVerif, the protected page renders normally with an in-page popover overlay that visitors click to verify directly on AgeVerif. After verification they land back on the same page with a small cookie set in their browser so they don’t have to verify again for the next hour."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "What is a Client ID?"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "A public identifier for this site when it talks to AgeVerif. Think of it like a username — anyone can see it, and it only tells AgeVerif which site is making the request."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "What is a Client Secret?"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "A long random string that acts like a password between this site and AgeVerif. Keep your database backups private. To rotate it: generate a new one in the Webmasters Platform and paste it here — old values stop working immediately."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "What is the Callback URL?"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "The URL AgeVerif redirects visitors to AFTER they verify. v1.3.0+ uses the REST form (something like https://example.com/wp-json/ageverif/v1/oauth/callback) which most full-page cache plugins (Cloudflare APO, Nginx Helper) exempt automatically. The legacy query-string form (?ageverif_oauth=callback) is still honored as a fallback for older Webmasters Platform registrations. Register whichever form the Webmasters Platform still expects — character-for-character."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "What is the Verification Cookie?"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "A signed cookie set in the visitor’s browser when OAuth verification succeeds. It expires after about one hour, after which the visitor will be asked to verify again. The cookie contains no personal data."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "What is the Webmasters Portal?"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "The AgeVerif dashboard at webmasters.ageverif.com where you create your account, add websites, generate keys, and configure OAuth. You need an account there before this plugin can do anything."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "What is Test Mode?"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "A safety switch that shows the gate ONLY to logged-in administrators. Use this to preview changes before your visitors see them. Always leave it on during setup; turn it off only when you’re ready to go live."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "What is Bot Bypass?"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "A list of well-known crawlers (Google, Bing, OpenAI, etc.) that the plugin automatically lets past the gate, server-side. This keeps your site visible in search results and AI training data. Don’t untick these unless you have a specific reason."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Common Issues & Fixes"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Click an issue to see the fix."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "I clicked Save but the gate never appears for visitors"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Most likely “Protected Content Types” is empty. Scroll up to Visibility and tick at least one type (Posts, Pages, or your custom post types)."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "I am gated on my own pages"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Tick “Always Bypass Administrators” under Bypass. If Test Mode is on, that toggle is suppressed — log out to see the live behavior."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Google says my pages are noindex / unreachable"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Make sure all major bots are ticked under “Bot Bypass (known crawlers)”. The plugin blocks bots from the gate by default, so any unticked crawler would see the gate."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth callback error: state invalid / CSRF"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Usually caused by caching plugins or browsers that block third-party cookies. Make sure your caching plugin does not strip cookies on the callback URL. Try the flow in a private/incognito window."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth token exchange failed: invalid_client"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "The Client ID and Client Secret do not match what the Webmasters Platform has. Re-copy both values from the Webmasters Platform and re-save here."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth token exchange failed: redirect_uri mismatch"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "The Callback URL on this page must EXACTLY match what you registered in the Webmasters Platform. Watch for trailing slashes, http vs https, www vs non-www."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "I overwrote my Client Secret and now the plugin logs me out"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "A blank Client Secret field preserves the existing value. To actually rotate it, paste a new value from the Webmasters Platform and re-save."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Visitors report the gate is stuck or re-asking for verification"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "The verification cookie expires after about one hour (or when the visitor clears their browser cookies). This is normal and required by the verifier. Ask the visitor to enable cookies for your domain."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Before You Go Live"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Run through each item before turning off Test Mode."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "You have a Public Live Key or OAuth Client ID + Secret saved on this page."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "At least one content type is ticked under “Protected Content Types”."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "You opened a private/incognito window while Test Mode was on and saw the gate appear on a protected page."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "You opened a private/incognito window and saw the gate appear on the unprotected pages (those without a ticked type)."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "If OAuth: the Callback URL on this page matches what is registered in the Webmasters Portal."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "If OAuth: you went through the full flow end-to-end (click button → verify on AgeVerif → return to your page) while Test Mode was on."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "You tested from a mobile device or a different browser."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "“Underage Redirect URL” is set to a friendly page (only required if you also ticked “Closable Gate”)."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "“Test Mode” is OFF."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Look in the AgeVerif Webmasters Platform → your website → “Enable OAuth2”. It looks like V61LHMuuwahgYDcGnagso. Anyone can see this ID — it only identifies your site."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "A long random string (think: a 50+ character password). Find it next to your Client ID in the Webmasters Platform. We never echo the saved value back — leave blank to keep the existing secret."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "“Age verification” sends visitors to a page that runs the age check directly. “Sign in” sends them to a login page that can also verify. Both work the same way for protecting content — only the landing page is different."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Use this to SKIP the gate on specific URLs — for example /login/ or /contact/. Add one URL or path per line, with a trailing * for wildcards (e.g. /shop/category/*)."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "These are search-engine and AI crawlers. Ticking them means these bots see your full HTML — important for SEO. Leave all ticked unless you want a specific bot to see the gate too."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Where to send visitors who fail or close the gate — a friendly “you must be 18+ to enter” page is better than a dead end. Works alongside “Closable Gate” above."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Pick a button color from the AgeVerif Brand Guidelines. Pair the color with the matching AgeVerif logo (download from the Brand guidelines page). Neutral grays like #e0e0e0 are also fine."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "These are the credentials that tell AgeVerif which site is asking. Get them from the Webmasters Platform — paste the key here once and you don’t need to touch this section again."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Decide which content lives behind the age gate, and which URLs always stay public (for example your login page)."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Fine-tune what visitors see when the gate appears — language, verification steps, and how the gate is presented."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Skip the gate for visitors you trust — your own team (admins / logged-in roles) and search-engine / AI crawlers that need to index your full content for SEO."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "What happens after a visitor passes or fails the gate — for example, you can send failed visitors to a friendly “you must be 18+” page."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Test Mode previews the gate for admins only — real visitors keep seeing your pages normally while you set things up. Turn it off only when you’re ready to go live."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "No credentials configured. Add your Public Live Key under Connection, or enable OAuth2 with a Client ID below."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "No Protected Content Types are ticked. The gate will not appear anywhere until you tick at least one type under Visibility."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth2 is enabled but incomplete. Make sure Client ID and Client Secret are both filled in."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "You pasted a Client ID but OAuth is not enabled, so it isn’t doing anything yet. Either tick Enable OAuth2 below, or remove the Client ID if you don’t need OAuth."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Test Mode is on — the gate only appears for logged-in administrators. Remember to turn this off before going live."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Ready to go."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Credentials and Protected Content Types are configured. Disable Test Mode to make the gate visible to real visitors."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Action needed:"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Heads up:"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Note:"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Fix →"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth2"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth2: a standard way for your site and AgeVerif to talk to each other. With OAuth2, visitors click a button to verify directly on AgeVerif, then come back to your site. The plugin stores a small cookie in their browser so they don’t have to verify again for the next hour."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Client Secret"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Client Secret: a long random string like a password for this site to talk to AgeVerif. Stored in the WordPress options table. Keep your database backups private."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "New here? Follow the steps below in order. The signs %1$s and %2$s are jargon — hover or tap them for a one-line explanation. Every field on this page has its own %3$s tooltip for deeper details. You do not need API experience to set this up."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Optional: limit which steps the visitor sees. Leave empty to let AgeVerif pick automatically based on visitor region. If you tick just one, the verifier lands directly on that step."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Popup is the most common — a small modal that pops up over your content. Tab sends visitors to AgeVerif in a new tab (they come back when verified). Redirect does a full-page bounce to AgeVerif then back."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Tick this if you don’t want the gate to immediately appear. Instead, add an [ageverif] shortcode or a button with the .ageverif-trigger class anywhere in your page or template. Clicking it opens the gate on demand."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Fades page content behind a blur until AgeVerif confirms the visitor’s age. Great for adult sites where the gate must not appear over sharp imagery. Cleared the moment verification succeeds."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Posts a tiny request to api.ageverif.com/v1/oauth2/token with a deliberately invalid code. If the credentials are accepted the endpoint returns 400 invalid_grant — that’s our pass condition. If it returns 401 invalid_client, the Client ID and/or Client Secret are wrong."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth Health Check Selection"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Use configured Client ID + Secret"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Custom Client ID + Secret (paste new ones to test)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Run OAuth Health Check"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth health check skipped: Client ID or Client Secret is missing. Configure them under Settings → AgeVerif → OAuth2 first."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth health check failed: could not reach api.ageverif.com — %s"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth health check passed. api.ageverif.com accepted the request format and credentials. The OAuth flow should work end-to-end once a real visitor authorizes."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth health check failed: api.ageverif.com rejected the Client ID or Client Secret."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Server said: %s"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Re-copy both values from the Webmasters Platform and re-save here."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth health check got an unexpected response (HTTP %1$s, error: %2$s, description: %3$s). Check the Webmasters Portal and try again."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth2 Token Endpoint"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "When OAuth2 is enabled, the standard in-page checker is bypassed and protected pages render normally with an in-page popover overlay on top. Visitors click \"Verify with AgeVerif\" in the modal and are sent to AgeVerif’s OAuth2 authorization endpoint. After verifying, AgeVerif redirects back through the REST callback URL below, the plugin exchanges the code for an access_token server-to-server, sets a signed verification cookie, and returns the visitor to the page they started on — the modal closes because the cookie is now present."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Your callback URL (also register it in the AgeVerif Webmasters Portal):"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Enable OAuth2"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Use AgeVerif OAuth2 instead of the in-page checker"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "When enabled, the in-page AgeVerif checker script is disabled and visitors verify via the OAuth2 Authorization Code flow instead."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth2 Client ID"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth2 Client Secret"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Show"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Hide"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Paste your Client Secret"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "A Client Secret is saved. Leave blank to keep it, or replace it by typing a new value."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Paste your OAuth2 Client Secret. Stored as plain text in the option table — keep your database backups private."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Flow"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Age verification (/oauth2/checker)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Sign in (/oauth2/login)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "AgeVerif supports two interchangeable endpoints: the age-verification landing page and the sign-in landing page. Both can verify ages; the only difference is the landing page."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Button Label"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Custom button text. Leave empty for AgeVerif’s recommended default (“Verify with AgeVerif” or “Continue with AgeVerif” depending on the selected flow)."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Button Color"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "AgeVerif Blue (#004db3)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "White (#ffffff)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Black (#000000)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Pick a background from the AgeVerif Brand Guidelines. Neutral grays are also acceptable when paired with the matching AgeVerif logo."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Verification Steps (OAuth)"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Forces the AgeVerif landing page to a specific language, regardless of the visitor’s browser preference."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Optional: restrict the OAuth2 verification to only the selected steps. Leave empty to let AgeVerif pick based on visitor region."
 msgstr ""

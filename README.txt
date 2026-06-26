@@ -3,7 +3,7 @@ Contributors: ageverif
 Tags: age verification, age gate, age restriction, ageverif, content protection, age check, adult content
 Requires at least: 5.6
 Tested up to: 6.7
-Stable tag: 1.1.2
+Stable tag: 1.3.0
 Requires PHP: 7.4
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -32,6 +32,14 @@ This official WordPress plugin lets you integrate AgeVerif in minutes — no cod
 * **Manual start mode** + `[ageverif]` shortcode — Trigger the gate from a button instead of on every page load.
 * **Content blur** — Apply a CSS blur to the page until the visitor is verified (great for adult sites).
 * **Underage redirect** — Send visitors who fail / close the gate to any URL.
+* **Built-in newbie-friendly guide** — Settings → AgeVerif includes a live status widget that flags misconfiguration in real time, a Quick Start walkthrough, a Glossary, Common Issues & Fixes, and a Pre-launch Checklist. Every non-obvious field — and every jargon term in the docs — has a hover tooltip. No external documentation required.
+* **OAuth2 support** — Optional Authorization Code flow that exchanges a one-time code for an HMAC-signed verification cookie. Use the `[ageverif_oauth]` shortcode or let the plugin auto-gate protected pages when OAuth is enabled.
+* **OAuth Health Check** — One-click test posts your Client ID/Secret to api.ageverif.com/v1/oauth2/token with a deliberately invalid code; 400 invalid_grant means the credentials are accepted, 401 invalid_client tells the admin exactly which credential is wrong.
+* **SEO-safe OAuth** — OAuth still respects admin / role / bot bypass rules, so search engines and AI crawlers continue to see the full HTML.
+* **OAuth callback registration** — When OAuth is enabled, register the **REST callback URL** shown in Settings → AgeVerif → OAuth2 with your site’s entry in the Webmasters Portal. The REST form (`/wp-json/ageverif/v1/oauth/callback`) is exempted from most full-page caches (Nginx Helper, Cloudflare APO) by default, so the OAuth round-trip is cleaner than the legacy `?ageverif_oauth=callback` query string (still honored as a fallback for existing Webmasters Portal registrations).
+
+======== For new admins ========
+If you’re new to age verification, the Settings → AgeVerif page itself walks you through the entire setup: click “Add Website” in the Webmasters Platform, copy your Public Live Key, paste it under Connection, tick at least one Protected Content Type, preview with Test Mode, then go live. The page also has a Glossary, Common Issues, and a Pre-launch Checklist — no API experience required.
 * **Health check** — Built-in admin tool that pings AgeVerif with your key to confirm reachability.
 * **GDPR Compliant** — Privacy-first verification with double-anonymity options.
 
@@ -96,6 +104,19 @@ Configure your target regions in the AgeVerif Webmasters Platform. The checker w
 2. The age verification gate as seen by visitors.
 
 == Changelog ==
+
+= 1.3.0 =
+* **In-page popover** for the OAuth auto-gate — protected pages now render normally with a native `<dialog>` modal overlay on top of the content, instead of doing a full-page redirect to AgeVerif and back. Esc closes the modal and remembers the dismissal for the rest of the tab session. Better UX (visitors stay on the page, see the content blurred under the modal) and friendlier to full-page caches (the page response is cacheable; only the popover JS differs per visitor).
+* **REST callback** — the OAuth callback is now `GET /wp-json/ageverif/v1/oauth/callback` (public REST route, exempt from most page caches). The legacy `?ageverif_oauth=callback` query-var form is still honored as a deprecated fallback so existing Webmasters Portal registrations don’t break on upgrade.
+* **Refactored auth pipeline** — both handlers (REST + query-var) call a shared `process_oauth_callback()` method so CSRF, state-freshness, token exchange, and cookie issuance are guaranteed to agree across paths.
+* New `assets/frontend.css` — popover modal styles (with `prefers-reduced-motion` opt-out and a 480px mobile breakpoint) shipped separately from `admin.css`.
+* New `js/ageverif-oauth-popover.js` — vanilla JS, focus-trap fallback for browsers without `<dialog>` `showModal()`, backdrop-click-to-close, sessionStorage dismissal persistence.
+
+= 1.2.0 =
+* OAuth2 support (**[ageverif.com/oauth2](https://docs.ageverif.com/oauth2.html)**) — Authorization Code flow with stateless CSRF defense (short-lived cookie + base64url JSON state, zero DB writes) and an HMAC-signed verification cookie. When OAuth is enabled the in-page checker script is bypassed entirely.
+* New `[ageverif_oauth]` shortcode — drop a "Verify with AgeVerif" button on any page.
+* OAuth auto-gate — protected pages render a branded full-page OAuth gate when no verification cookie is present (admin / role / bot bypass still wins).
+* New **OAuth2** section in Settings → AgeVerif — choose flow (`/checker` or `/login`), button label, button color (per AgeVerif Brand Guidelines), language, and challenges.
 
 = 1.1.2 =
 * Expanded bot-bypass coverage — Baidu, Yandex, Apple, and all major AI / social-preview crawlers (GPTBot, ClaudeBot, PerplexityBot, Facebook, Twitter, LinkedIn, Discord, Telegram) are now enabled by default.

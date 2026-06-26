@@ -47,9 +47,23 @@ class AgeVerif_Helper {
 				'facebookbot', 'twitterbot', 'linkedinbot', 'discordbot', 'telegrambot',
 				'openai', 'claudebot', 'perplexitybot',
 			),
-			'bot_bypass_custom'     => '',
-		'underage_redirect_url' => '',
+			'bot_bypass_custom'     => '',		'underage_redirect_url' => '',
 		'test_mode'             => 0,
-		);
+
+		// OAuth2 — when enabled, replaces the checker.js flow entirely.
+		// Visitor clicks a "Verify with AgeVerif" button → redirected to
+		// api.ageverif.com/v1/oauth2/{checker|login} → redirected back to
+		// {site}/?ageverif_oauth=callback → server exchanges code for token
+		// and sets a signed verification cookie.
+		// Reference: https://docs.ageverif.com/oauth2.html
+		'oauth_enabled'         => 0,
+		'oauth_client_id'       => '',
+		'oauth_client_secret'   => '',
+		'oauth_flow'            => 'checker',    // 'checker' (Verify age) | 'login' (Sign in)
+		'oauth_button_label'    => '',           // empty = use AgeVerif default label
+		'oauth_button_color'    => 'blue',       // 'blue' | 'white' | 'black'
+		'oauth_language'        => 'auto',       // 'auto' | en | de | es | fr | it | pt
+		'oauth_challenges'      => array(),      // subset of allowed challenges (see sanitize)
+	);
 	}
 }

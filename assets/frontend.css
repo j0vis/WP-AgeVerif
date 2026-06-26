@@ -1,0 +1,183 @@
+/* ============================================================
+ * AgeVerif OAuth popover – styles for the in-page <dialog> modal.
+ * Loaded on every frontend request when OAuth2 is enabled; the
+ * <dialog> markup is only present on requests where the gate is
+ * armed, so un-gated visitors never see these styles trigger.
+ * ============================================================ */
+
+.ageverif-oauth-popover {
+	border: 0;
+	padding: 0;
+	background: transparent;
+	color: #1d2327;
+	max-width: none;
+	max-height: none;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	inset: 0;
+}
+
+.ageverif-oauth-popover::backdrop {
+	background: rgba(15, 23, 42, 0.55);
+	backdrop-filter: blur(2px);
+	-webkit-backdrop-filter: blur(2px);
+	animation: ageverif-popover-backdrop-in .25s ease both;
+}
+
+/* Fallback for browsers without dialog.showModal() — manually toggle visibility. */
+.ageverif-oauth-popover--fallback-open {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+	background: rgba(15, 23, 42, 0.55);
+}
+
+.ageverif-oauth-popover-panel {
+	box-sizing: border-box;
+	max-width: 480px;
+	width: calc(100% - 32px);
+	margin: auto;
+	background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+	border-radius: 12px;
+	padding: 32px 28px 24px;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+	text-align: center;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	animation: ageverif-popover-panel-in .32s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.ageverif-oauth-brand--inline {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 4px 12px;
+	background: #004db3;
+	color: #fff;
+	border-radius: 999px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	margin-bottom: 14px;
+	box-shadow: 0 1px 2px rgba(0, 77, 179, .18);
+}
+
+.ageverif-oauth-brand--inline::before {
+	content: "";
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: #fff;
+}
+
+.ageverif-oauth-popover-title {
+	font-size: 24px;
+	line-height: 1.25;
+	margin: 0 0 12px;
+	max-width: 540px;
+	font-weight: 700;
+	letter-spacing: -0.01em;
+	color: #1d2327;
+}
+
+.ageverif-oauth-popover-desc {
+	margin: 0 0 22px;
+	max-width: 520px;
+	color: #50575e;
+	font-size: 15px;
+	line-height: 1.55;
+}
+
+.ageverif-oauth-popover-actions {
+	margin: 0 0 18px;
+}
+
+.ageverif-oauth-btn {
+	display: inline-block;
+	padding: 14px 28px;
+	border-radius: 8px;
+	font-size: 16px;
+	font-weight: 600;
+	text-decoration: none;
+	line-height: 1.2;
+	border: 1px solid transparent;
+	transition: filter .15s ease, transform .12s ease, box-shadow .15s ease;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+	letter-spacing: 0.01em;
+	cursor: pointer;
+}
+
+.ageverif-oauth-btn:hover {
+	filter: brightness(0.92);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 14px rgba(0, 0, 0, .12);
+}
+
+.ageverif-oauth-btn:active {
+	transform: translateY(0);
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
+}
+
+.ageverif-oauth-btn:focus-visible {
+	outline: 2px solid #004db3;
+	outline-offset: 3px;
+}
+
+.ageverif-oauth-foot--inline {
+	font-size: 12px;
+	color: #8c8f94;
+	margin: 18px 0 0;
+}
+
+.ageverif-oauth-foot--inline a {
+	color: #8c8f94;
+	text-decoration: underline;
+}
+
+.ageverif-oauth-foot--inline a:hover {
+	color: #004db3;
+}
+
+@keyframes ageverif-popover-backdrop-in {
+	from { opacity: 0; }
+	to   { opacity: 1; }
+}
+
+@keyframes ageverif-popover-panel-in {
+	from { opacity: 0; transform: translateY(8px) scale(0.98); }
+	to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ageverif-oauth-popover::backdrop {
+		animation: none;
+	}
+	.ageverif-oauth-popover-panel {
+		animation: none;
+	}
+	.ageverif-oauth-btn {
+		transition: none;
+	}
+}
+
+@media (max-width: 480px) {
+	.ageverif-oauth-popover-panel {
+		padding: 24px 18px 20px;
+	}
+	.ageverif-oauth-popover-title {
+		font-size: 20px;
+	}
+	.ageverif-oauth-popover-desc {
+		font-size: 14px;
+	}
+	.ageverif-oauth-btn {
+		padding: 12px 22px;
+		font-size: 15px;
+		width: 100%;
+	}
+}
