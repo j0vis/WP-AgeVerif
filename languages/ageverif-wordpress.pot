@@ -1056,3 +1056,50 @@ msgstr ""
 #: admin/class-ageverif-admin.php
 msgid "Optional: restrict the OAuth2 verification to only the selected steps. Leave empty to let AgeVerif pick based on visitor region."
 msgstr ""
+#: admin/class-ageverif-admin.php
+msgid "Customize what new admins see first. The Quick Start panel above accepts a video URL — leave empty to hide the player and rely on the step-by-step text only."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Onboarding"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Quick Start Video URL"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Paste a YouTube, Vimeo, Loom, or self-hosted MP4 URL here. Accepts any embeddable video URL. Leave empty to hide the player and rely on the step-by-step text only. The iframe is sandboxed and lazy-loaded so the admin page itself stays fast."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Optional. Embeds in the Quick Start panel (top of this page) so visual learners can follow along. Leave blank to hide the player."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Prefer video? Watch the screencast →"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Watch the screencast →"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "No video URL configured. Add one under <a href="#ageverif-quickstart-video-url">Onboarding → Quick Start Video URL</a> to enable this embed. Use the official AgeVerif screencast link, your own MP4 URL, or a YouTube/Vimeo/Loom link."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Your browser does not support embedded video. Download it directly:"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Self-hosted MP4/WebM video. Falls back gracefully if your browser blocks the codec."
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "AgeVerif Quick Start screencast"
+msgstr ""
+
+#: admin/class-ageverif-admin.php
+msgid "Sandboxed embed. Trouble loading? <a href="%s" target="_blank" rel="noopener">Open the video in a new tab →</a>"
+msgstr ""

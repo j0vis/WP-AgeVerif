@@ -32,7 +32,8 @@ This official WordPress plugin lets you integrate AgeVerif in minutes — no cod
 * **Manual start mode** + `[ageverif]` shortcode — Trigger the gate from a button instead of on every page load.
 * **Content blur** — Apply a CSS blur to the page until the visitor is verified (great for adult sites).
 * **Underage redirect** — Send visitors who fail / close the gate to any URL.
-* **Built-in newbie-friendly guide** — Settings → AgeVerif includes a live status widget that flags misconfiguration in real time, a Quick Start walkthrough, a Glossary, Common Issues & Fixes, and a Pre-launch Checklist. Every non-obvious field — and every jargon term in the docs — has a hover tooltip. No external documentation required.
+* **Localized into 5 languages** — ships with full `.po` translation files for French (`fr_FR`), Spanish (`es_ES`), Italian (`it_IT`), German (`de_DE`), and Brazilian Portuguese (`pt_BR`). The full settings page — including Quick Start, Glossary, Common Issues, Pre-launch Checklist, Status widget, and tooltips — renders in the admin’s site language. The modal itself continues to render in the visitor’s browser language when their locale is supported.
+* **Built-in newbie-friendly guide** — Settings → AgeVerif includes a live status widget that flags misconfiguration in real time, a Quick Start walkthrough (with optional screencast video embed for visual learners), a Glossary, Common Issues & Fixes, and a Pre-launch Checklist. Every non-obvious field — and every jargon term in the docs — has a hover tooltip. No external documentation required.
 * **OAuth2 support** — Optional Authorization Code flow that exchanges a one-time code for an HMAC-signed verification cookie. Use the `[ageverif_oauth]` shortcode or let the plugin auto-gate protected pages when OAuth is enabled.
 * **OAuth Health Check** — One-click test posts your Client ID/Secret to api.ageverif.com/v1/oauth2/token with a deliberately invalid code; 400 invalid_grant means the credentials are accepted, 401 invalid_client tells the admin exactly which credential is wrong.
 * **SEO-safe OAuth** — OAuth still respects admin / role / bot bypass rules, so search engines and AI crawlers continue to see the full HTML.
@@ -105,10 +106,17 @@ Configure your target regions in the AgeVerif Webmasters Platform. The checker w
 
 == Changelog ==
 
+= 1.3.1 =
+* **Status widget Fix-link wiring** — clicking the "Fix →" links in the live status widget now smooth-scrolls the corresponding input/checkbox into the viewport center *and* drops keyboard focus on it, so screen-reader and keyboard-only admins can immediately tab to the offending field. Targets: Public Live Key, OAuth2 enabled, Protected Content Types grid, Test Mode toggle.
+* **Copy-to-clipboard a11y** — the OAuth Callback URL copy button now exposes a polite `aria-live` live region so screen-reader users hear "Copied!" / "Copy failed" announced, and gets a distinct red failure state when the modern Clipboard API rejects *and* the legacy `execCommand` fallback also fails (instead of silently no-op'ing). Success label tightened to "Copied!".
+* **OAuth field id consistency** — all 8 `oauth_*` fields now carry a matching `id="ageverif-..."` attribute (oauth-enabled, oauth-client-id, oauth-client-secret, oauth-flow, oauth-button-label, oauth-button-color, oauth-language, oauth-challenges) under the existing dashed-naming convention. Status-widget anchors updated in lockstep so Fix-link clicks still resolve.
+* **Reduced-motion respect** — the new focus flash on the Status widget Fix-link target honors `prefers-reduced-motion`, swapping the keyframe animation for a static 3px ring, so the scroll/focus behavior works without motion.
+
 = 1.3.0 =
 * **In-page popover** for the OAuth auto-gate — protected pages now render normally with a native `<dialog>` modal overlay on top of the content, instead of doing a full-page redirect to AgeVerif and back. Esc closes the modal and remembers the dismissal for the rest of the tab session. Better UX (visitors stay on the page, see the content blurred under the modal) and friendlier to full-page caches (the page response is cacheable; only the popover JS differs per visitor).
 * **REST callback** — the OAuth callback is now `GET /wp-json/ageverif/v1/oauth/callback` (public REST route, exempt from most page caches). The legacy `?ageverif_oauth=callback` query-var form is still honored as a deprecated fallback so existing Webmasters Portal registrations don’t break on upgrade.
 * **Refactored auth pipeline** — both handlers (REST + query-var) call a shared `process_oauth_callback()` method so CSRF, state-freshness, token exchange, and cookie issuance are guaranteed to agree across paths.
+* **Optional Quick Start screencast** — paste a YouTube/Vimeo/Loom URL or a self-hosted MP4/WebM URL under *Settings → Onboarding*, and a sandboxed lazy-loaded embed renders at the top of the Quick Start panel for visual learners. Leave the field empty to fall back to the step-by-step text only.
 * New `assets/frontend.css` — popover modal styles (with `prefers-reduced-motion` opt-out and a 480px mobile breakpoint) shipped separately from `admin.css`.
 * New `js/ageverif-oauth-popover.js` — vanilla JS, focus-trap fallback for browsers without `<dialog>` `showModal()`, backdrop-click-to-close, sessionStorage dismissal persistence.
 

@@ -704,3 +704,78 @@
 	outline: 2px solid #004db3;
 	outline-offset: 2px;
 }
+
+/* Quick Start screencast embed */
+.ageverif-settings .ageverif-quickstart-video {
+	margin: 0 0 12px;
+}
+.ageverif-settings .ageverif-quickstart-video > summary {
+	cursor: pointer;
+	font-weight: 600;
+	color: #004db3;
+	padding: 6px 0;
+	list-style: disclosure-closed;
+}
+.ageverif-settings .ageverif-quickstart-video[open] > summary {
+	list-style: disclosure-open;
+}
+.ageverif-settings .ageverif-quickstart-video-frame {
+	position: relative;
+	width: 100%;
+	max-width: 720px;
+	aspect-ratio: 16 / 9;
+	margin: 8px 0 6px;
+	background: #1d2327;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, .08);
+}
+.ageverif-settings .ageverif-quickstart-video-frame iframe,
+.ageverif-settings .ageverif-quickstart-video-frame video {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	border: 0;
+}
+.ageverif-settings .ageverif-quickstart-video .description {
+	margin-top: 6px;
+	font-size: 13px;
+	color: #50575e;
+}
+
+/* Status-widget Focus flash — briefly outline the just-focused target so
+   the eye picks up where the browser moved keyboard focus. Honors
+   prefers-reduced-motion. */
+.ageverif-settings .ageverif-just-focused,
+.ageverif-settings .ageverif-just-focused:focus-within {
+	animation: ageverif-flash 1.6s ease-out;
+	outline: 2px solid #007cba;
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+@keyframes ageverif-flash {
+	0%   { box-shadow: 0 0 0 4px rgba(0, 124, 186, .85); }
+	60%  { box-shadow: 0 0 0 4px rgba(0, 124, 186, .35); }
+	100% { box-shadow: 0 0 0 4px rgba(0, 124, 186, 0);    }
+}
+@media (prefers-reduced-motion: reduce) {
+	.ageverif-settings .ageverif-just-focused,
+	.ageverif-settings .ageverif-just-focused:focus-within {
+		animation: none;
+		box-shadow: 0 0 0 3px rgba(0, 124, 186, .65);
+	}
+}
+
+/* Copy-button failure state — shown when the Clipboard API rejects AND
+   document.execCommand fallback fails (very old browsers / non-secure
+   origin). Red so the admin sees the action did not silently no-op. */
+.ageverif-settings .ageverif-copy-btn.is-copy-failed {
+	background: #d63638;
+	border-color: #d63638;
+	color: #fff;
+	transform: scale(1.04);
+}
+.ageverif-settings .ageverif-copy-btn.is-copy-failed:focus-visible {
+	outline-color: #d63638;
+}

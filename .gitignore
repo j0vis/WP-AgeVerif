@@ -43,3 +43,6 @@ Thumbs.db
 .Trashes
 ehthumbs.db
 *~
+
+# Local build helpers (not shipped in the public release ZIP)
+generate_pos.py

@@ -1,0 +1,337 @@
+# Translation file for the AgeVerif – Age Verification plugin.
+# Copyright (C) 2025 AgeVerif
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: AgeVerif – Age Verification 1.3.0\n"
+"Report-Msgid-Bugs-To: https://ageverif.com/contact\n"
+"POT-Creation-Date: 2025-01-01T00:00:00+00:00\n"
+"PO-Revision-Date: 2025-01-01T00:00:00+00:00\n"
+"Last-Translator: AgeVerif <hello@ageverif.com>\n"
+"Language-Team: AgeVerif <hello@ageverif.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: ageverif-wordpress 1.3.0\n"
+
+#: admin/class-ageverif-admin.php
+msgid "Quick Start (≈5 minutes)"
+msgstr "Démarrage rapide (≈5 minutes)"
+
+#: admin/class-ageverif-admin.php
+msgid "Create a free account"
+msgstr "Créez un compte gratuit"
+
+#: admin/class-ageverif-admin.php
+msgid "Open the <a href=\"https://webmasters.ageverif.com/sign-up\" target=\"_blank\" rel=\"noopener\">AgeVerif Webmasters Platform</a> and sign up with your email. No credit card required."
+msgstr "Ouvrez la <a href=\"https://webmasters.ageverif.com/sign-up\" target=\"_blank\" rel=\"noopener\">plateforme Webmasters d'AgeVerif</a> et inscrivez-vous avec votre adresse e-mail. Aucune carte bancaire requise."
+
+#: admin/class-ageverif-admin.php
+msgid "Add your site"
+msgstr "Ajoutez votre site"
+
+#: admin/class-ageverif-admin.php
+msgid "Click <strong>Add Website</strong>. Enter your domain exactly as it appears in the address bar (e.g. <code>example.com</code>) — do not include <code>https://</code> or a trailing slash."
+msgstr "Cliquez sur <strong>Add Website</strong>. Saisissez votre domaine exactement comme il apparaît dans la barre d'adresse (par ex. <code>exemple.com</code>) — sans <code>https://</code> ni slash final."
+
+#: admin/class-ageverif-admin.php
+msgid "Copy the Public Live Key"
+msgstr "Copiez la clé publique en production"
+
+#: admin/class-ageverif-admin.php
+msgid "After adding your site, the platform shows a long string of random characters under “Public Live Key”. Copy it."
+msgstr "Une fois votre site ajouté, la plateforme affiche une longue chaîne aléatoire de caractères sous « Public Live Key ». Copiez-la."
+
+#: admin/class-ageverif-admin.php
+msgid "Paste the key here"
+msgstr "Collez la clé ici"
+
+#: admin/class-ageverif-admin.php
+msgid "Scroll down to Connection → Public Live Key and paste. Click Save Changes."
+msgstr "Faites défiler jusqu'à Connection → Public Live Key, collez, puis cliquez sur Save Changes."
+
+#: admin/class-ageverif-admin.php
+msgid "Tick at least one Protected Content Type"
+msgstr "Cochez au moins un type de contenu protégé"
+
+#: admin/class-ageverif-admin.php
+msgid "Under Visibility, tick the content types you want the gate to appear on (Posts, Pages, products, etc.). Nothing is gated unless you tick at least one type. Click Save Changes."
+msgstr "Sous Visibility, cochez les types de contenu sur lesquels la porte doit s'afficher (Posts, Pages, produits, etc.). Rien n'est protégé tant que vous n'avez coché au moins un type. Cliquez sur Save Changes."
+
+#: admin/class-ageverif-admin.php
+msgid "Preview, then go live"
+msgstr "Prévisualisez, puis publiez"
+
+#: admin/class-ageverif-admin.php
+msgid "Test Mode means only logged-in administrators see the gate (real visitors keep seeing your page normally, so you can preview without affecting them). Tick Test Mode and Save, then visit a protected page while still logged in as admin in your regular browser — you should see the gate. Once everything looks right, untick Test Mode and Save. To verify the gate fires for real visitors too, open a private/incognito window after disabling Test Mode."
+msgstr "Le mode Test n'affiche la porte qu'aux administrateurs connectés (les visiteurs réels continuent de voir la page normalement, ce qui vous permet de prévisualiser sans les affecter). Cochez Test Mode et enregistrez, puis ouvrez une page protégée en restant connecté comme administrateur dans votre navigateur habituel — la porte doit s'afficher. Quand tout convient, décochez Test Mode et enregistrez. Pour vérifier que la porte s'affiche aussi pour les vrais visiteurs, ouvrez une fenêtre de navigation privée après avoir désactivé Test Mode."
+
+#: admin/class-ageverif-admin.php
+msgid "Optional: also enable OAuth2"
+msgstr "Facultatif : activez aussi OAuth2"
+
+#: admin/class-ageverif-admin.php
+msgid "Use OAuth2 if you want a custom button instead of the standard popup. Requires advanced setup steps in the Webmasters Platform."
+msgstr "Utilisez OAuth2 si vous souhaitez un bouton personnalisé au lieu de la fenêtre standard. Nécessite des réglages avancés dans la plateforme Webmasters."
+
+#: admin/class-ageverif-admin.php
+msgid "Enable OAuth2 in the Webmasters Platform"
+msgstr "Activez OAuth2 dans la plateforme Webmasters"
+
+#: admin/class-ageverif-admin.php
+msgid "Open your site’s page in the Webmasters Platform and click “Enable OAuth2”. You will receive a Client ID and a Client Secret."
+msgstr "Ouvrez la page de votre site dans la plateforme Webmasters et cliquez sur « Enable OAuth2 ». Vous recevrez un Client ID et un Client Secret."
+
+#: admin/class-ageverif-admin.php
+msgid "Paste Client ID and Secret below"
+msgstr "Collez le Client ID et le Client Secret ci-dessous"
+
+#: admin/class-ageverif-admin.php
+msgid "Scroll to the OAuth2 section, paste them in, tick “Enable OAuth2”, and Save."
+msgstr "Faites défiler jusqu'à la section OAuth2, collez les valeurs, cochez « Enable OAuth2 » puis enregistrez."
+
+#: admin/class-ageverif-admin.php
+msgid "Register the Callback URL"
+msgstr "Enregistrez l'URL de callback"
+
+#: admin/class-ageverif-admin.php
+msgid "Copy the Callback URL shown at the top of the OAuth2 section and paste it into your site’s allowed redirect URIs in the Webmasters Platform. The two URLs must match EXACTLY (including any trailing slash)."
+msgstr "Copiez l'URL de callback affichée en haut de la section OAuth2 et ajoutez-la aux URIs de redirection autorisés de votre site dans la plateforme Webmasters. Les deux URLs doivent correspondre EXACTEMENT (barre finale comprise)."
+
+#: admin/class-ageverif-admin.php
+msgid "Need more detail? Read the <a href=\"https://docs.ageverif.com\" target=\"_blank\" rel=\"noopener\">full integration docs</a> or sign in to the <a href=\"https://webmasters.ageverif.com\" target=\"_blank\" rel=\"noopener\">Webmasters Portal</a>."
+msgstr "Besoin de plus de détails ? Lisez la <a href=\"https://docs.ageverif.com\" target=\"_blank\" rel=\"noopener\">documentation d'intégration complète</a> ou connectez-vous au <a href=\"https://webmasters.ageverif.com\" target=\"_blank\" rel=\"noopener\">Portail Webmasters</a>."
+
+#: admin/class-ageverif-admin.php
+msgid "Glossary"
+msgstr "Glossaire"
+
+#: admin/class-ageverif-admin.php
+msgid "Terms you’ll see in this page and in the AgeVerif docs."
+msgstr "Termes que vous rencontrerez sur cette page et dans la documentation AgeVerif."
+
+#: admin/class-ageverif-admin.php
+msgid "What is OAuth2?"
+msgstr "Qu'est-ce qu'OAuth2 ?"
+
+#: admin/class-ageverif-admin.php
+msgid "A standard way for two websites to talk to each other on behalf of a visitor. With AgeVerif it means: instead of an old-style full-page redirect away to AgeVerif, the protected page renders normally with an in-page popover overlay that visitors click to verify directly on AgeVerif. After verification they land back on the same page with a small cookie set in their browser so they don’t have to verify again for the next hour."
+msgstr "Un moyen standard pour deux sites web de communiquer au nom d'un visiteur. Avec AgeVerif, cela signifie : au lieu d'une ancienne redirection vers AgeVerif, la page protégée s'affiche normalement et une fenêtre superposée (popover) s'ouvre ; le visiteur clique pour vérifier directement sur AgeVerif. Après vérification, il revient sur la même page avec un petit cookie dans son navigateur pour ne pas avoir à revérifier pendant l'heure suivante."
+
+#: admin/class-ageverif-admin.php
+msgid "What is a Client ID?"
+msgstr "Qu'est-ce qu'un Client ID ?"
+
+#: admin/class-ageverif-admin.php
+msgid "A public identifier for this site when it talks to AgeVerif. Think of it like a username — anyone can see it, and it only tells AgeVerif which site is making the request."
+msgstr "Un identifiant public de ce site lorsqu'il communique avec AgeVerif. Pensez-y comme un nom d'utilisateur — tout le monde peut le voir et il indique seulement à AgeVerif quel site fait la demande."
+
+#: admin/class-ageverif-admin.php
+msgid "What is a Client Secret?"
+msgstr "Qu'est-ce qu'un Client Secret ?"
+
+#: admin/class-ageverif-admin.php
+msgid "A long random string that acts like a password between this site and AgeVerif. Keep your database backups private. To rotate it: generate a new one in the Webmasters Platform and paste it here — old values stop working immediately."
+msgstr "Une longue chaîne aléatoire qui sert de mot de passe entre ce site et AgeVerif. Gardez vos sauvegardes de base de données privées. Pour le renouveler : générez-en un nouveau dans la plateforme Webmasters et collez-le ici — les anciennes valeurs cessent immédiatement de fonctionner."
+
+#: admin/class-ageverif-admin.php
+msgid "What is the Callback URL?"
+msgstr "Qu'est-ce que l'URL de callback ?"
+
+#: admin/class-ageverif-admin.php
+msgid "The URL AgeVerif redirects visitors to AFTER they verify. v1.3.0+ uses the REST form (something like https://example.com/wp-json/ageverif/v1/oauth/callback) which most full-page cache plugins (Cloudflare APO, Nginx Helper) exempt automatically. The legacy query-string form (?ageverif_oauth=callback) is still honored as a fallback for older Webmasters Platform registrations. Register whichever form the Webmasters Platform still expects — character-for-character."
+msgstr "L'URL vers laquelle AgeVerif renvoie les visiteurs APRÈS vérification. v1.3.0+ utilise la forme REST (par ex. https://exemple.com/wp-json/ageverif/v1/oauth/callback), exempte automatiquement par la plupart des caches de page (Cloudflare APO, Nginx Helper). L'ancienne forme avec query string (?ageverif_oauth=callback) reste acceptée comme solution de secours pour les enregistrements plus anciens dans la plateforme Webmasters. Enregistrez la forme attendue par la plateforme Webmasters — au caractère près."
+
+#: admin/class-ageverif-admin.php
+msgid "What is the Verification Cookie?"
+msgstr "Qu'est-ce que le cookie de vérification ?"
+
+#: admin/class-ageverif-admin.php
+msgid "A signed cookie set in the visitor’s browser when OAuth verification succeeds. It expires after about one hour, after which the visitor will be asked to verify again. The cookie contains no personal data."
+msgstr "Un cookie signé déposé dans le navigateur du visiteur lorsque la vérification OAuth réussit. Il expire après environ une heure ; le visiteur devra alors se vérifier à nouveau. Le cookie ne contient aucune donnée personnelle."
+
+#: admin/class-ageverif-admin.php
+msgid "What is the Webmasters Platform?"
+msgstr "Qu'est-ce que la plateforme Webmasters ?"
+
+#: admin/class-ageverif-admin.php
+msgid "The AgeVerif dashboard at webmasters.ageverif.com where you create your account, add websites, generate keys, and configure OAuth. You need an account there before this plugin can do anything."
+msgstr "Le tableau de bord AgeVerif à webmasters.ageverif.com où vous créez votre compte, ajoutez vos sites, générez vos clés et configurez OAuth. Vous devez y avoir un compte avant que cette extension puisse fonctionner."
+
+#: admin/class-ageverif-admin.php
+msgid "What is Test Mode?"
+msgstr "Qu'est-ce que le mode Test ?"
+
+#: admin/class-ageverif-admin.php
+msgid "A safety switch that shows the gate ONLY to logged-in administrators. Use this to preview changes before your visitors see them. Always leave it on during setup; turn it off only when you’re ready to go live."
+msgstr "Un interrupteur de sécurité qui n'affiche la porte qu'aux administrateurs connectés. Utilisez-le pour prévisualiser vos modifications avant qu'elles ne s'affichent aux visiteurs. Laissez-le activé pendant la configuration ; désactivez-le uniquement lorsque vous êtes prêt à publier."
+
+#: admin/class-ageverif-admin.php
+msgid "What is Bot Bypass?"
+msgstr "Qu'est-ce que le bypass des robots ?"
+
+#: admin/class-ageverif-admin.php
+msgid "A list of well-known crawlers (Google, Bing, OpenAI, etc.) that the plugin automatically lets past the gate, server-side. This keeps your site visible in search results and AI training data. Don’t untick these unless you have a specific reason."
+msgstr "Une liste de robots d'indexation connus (Google, Bing, OpenAI, etc.) que l'extension laisse automatiquement passer la porte côté serveur. Cela maintient la visibilité de votre site dans les résultats de recherche et les données d'entraînement d'IA. Ne les décochez que si vous avez une raison précise."
+
+#: admin/class-ageverif-admin.php
+msgid "Common Issues & Fixes"
+msgstr "Problèmes fréquents et solutions"
+
+#: admin/class-ageverif-admin.php
+msgid "Click an issue to see the fix."
+msgstr "Cliquez sur un problème pour voir la solution."
+
+#: admin/class-ageverif-admin.php
+msgid "Most likely “Protected Content Types” is empty. Scroll up to Visibility and tick at least one type (Posts, Pages, or your custom post types)."
+msgstr "Le plus souvent, « Protected Content Types » est vide. Faites défiler jusqu'à Visibility et cochez au moins un type (Posts, Pages, ou vos types personnalisés)."
+
+#: admin/class-ageverif-admin.php
+msgid "I am gated on my own pages"
+msgstr "La porte s'affiche sur mes propres pages"
+
+#: admin/class-ageverif-admin.php
+msgid "Tick “Always Bypass Administrators” under Bypass. If Test Mode is on, that toggle is suppressed — log out to see the live behavior."
+msgstr "Cochez « Always Bypass Administrators » sous Bypass. Si le mode Test est activé, cette option est neutralisée — déconnectez-vous pour voir le comportement réel."
+
+#: admin/class-ageverif-admin.php
+msgid "Google says my pages are noindex / unreachable"
+msgstr "Google indique que mes pages sont noindex / inaccessibles"
+
+#: admin/class-ageverif-admin.php
+msgid "Make sure all major bots are ticked under “Bot Bypass (known crawlers)”. The plugin blocks bots from the gate by default, so any unticked crawler would see the gate."
+msgstr "Vérifiez que tous les principaux robots sont cochés sous « Bot Bypass (known crawlers) ». L'extension bloque par défaut les robots face à la porte ; tout crawler non coché verrait donc la porte."
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth callback error: state invalid / CSRF"
+msgstr "Erreur de callback OAuth : état non valide / CSRF"
+
+#: admin/class-ageverif-admin.php
+msgid "Usually caused by caching plugins or browsers that block third-party cookies. Make sure your caching plugin does not strip cookies on the callback URL. Try the flow in a private/incognito window."
+msgstr "Provient généralement d'extensions de cache ou de navigateurs qui bloquent les cookies tiers. Assurez-vous que votre extension de cache ne supprime pas les cookies sur l'URL de callback. Essayez le flux dans une fenêtre de navigation privée."
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth token exchange failed: invalid_client"
+msgstr "Échec de l'échange de jeton OAuth : invalid_client"
+
+#: admin/class-ageverif-admin.php
+msgid "The Client ID and Client Secret do not match what the Webmasters Platform has. Re-copy both values from the Webmasters Platform and re-save here."
+msgstr "Le Client ID et le Client Secret ne correspondent pas à ceux de la plateforme Webmasters. Recopiez les deux valeurs depuis la plateforme Webmasters et réenregistrez ici."
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth token exchange failed: redirect_uri mismatch"
+msgstr "Échec de l'échange de jeton OAuth : redirect_uri mismatch"
+
+#: admin/class-ageverif-admin.php
+msgid "The Callback URL on this page must EXACTLY match what you registered in the Webmasters Platform. Watch for trailing slashes, http vs https, www vs non-www."
+msgstr "L'URL de callback sur cette page doit correspondre EXACTEMENT à celle que vous avez déclarée dans la plateforme Webmasters. Vérifiez les barres finales, http vs https, www ou non-www."
+
+#: admin/class-ageverif-admin.php
+msgid "I overwrote my Client Secret and now the plugin logs me out"
+msgstr "J'ai écrasé mon Client Secret et l'extension me déconnecte maintenant"
+
+#: admin/class-ageverif-admin.php
+msgid "A blank Client Secret field preserves the existing value. To actually rotate it, paste a new value from the Webmasters Platform and re-save."
+msgstr "Un champ Client Secret vide préserve la valeur existante. Pour le renouveler réellement, collez une nouvelle valeur depuis la plateforme Webmasters et réenregistrez."
+
+#: admin/class-ageverif-admin.php
+msgid "Visitors report the gate is stuck or re-asking for verification"
+msgstr "Les visiteurs signalent que la porte reste bloquée ou redemande une vérification"
+
+#: admin/class-ageverif-admin.php
+msgid "The verification cookie expires after about one hour (or when the visitor clears their browser cookies). This is normal and required by the verifier. Ask the visitor to enable cookies for your domain."
+msgstr "Le cookie de vérification expire après environ une heure (ou lorsque le visiteur efface ses cookies). C'est normal et requis par le vérificateur. Demandez au visiteur d'activer les cookies pour votre domaine."
+
+#: admin/class-ageverif-admin.php
+msgid "Before You Go Live"
+msgstr "Avant la mise en ligne"
+
+#: admin/class-ageverif-admin.php
+msgid "Run through each item before turning off Test Mode."
+msgstr "Parcourez chaque point avant de désactiver le mode Test."
+
+#: admin/class-ageverif-admin.php
+msgid "You have a Public Live Key or OAuth Client ID + Secret saved on this page."
+msgstr "Vous avez une clé publique en production ou un Client ID + Secret OAuth enregistré sur cette page."
+
+#: admin/class-ageverif-admin.php
+msgid "At least one content type is ticked under “Protected Content Types”."
+msgstr "Au moins un type de contenu est coché sous « Protected Content Types »."
+
+#: admin/class-ageverif-admin.php
+msgid "With Test Mode ON, you visited a protected page while logged in as admin in your regular browser and saw the gate appear."
+msgstr "Avec le mode Test activé, vous avez visité une page protégée en étant connecté comme administrateur dans votre navigateur habituel et la porte est apparue."
+
+#: admin/class-ageverif-admin.php
+msgid "You opened a private/incognito window and confirmed your unprotected pages still render normally."
+msgstr "Vous avez ouvert une fenêtre privée/incognito et confirmé que vos pages non protégées s'affichent normalement."
+
+#: admin/class-ageverif-admin.php
+msgid "If OAuth: the Callback URL on this page matches what is registered in the Webmasters Portal."
+msgstr "Si OAuth : l'URL de callback sur cette page correspond à celle enregistrée dans le portail Webmasters."
+
+#: admin/class-ageverif-admin.php
+msgid "If OAuth: you went through the full flow end-to-end (click button → verify on AgeVerif → return to your page) while logged in as admin."
+msgstr "Si OAuth : vous avez suivi le flux complet (cliquez sur le bouton → vérifiez sur AgeVerif → revenez sur votre page) en étant connecté comme administrateur."
+
+#: admin/class-ageverif-admin.php
+msgid "You tested from a mobile device or a different browser."
+msgstr "Vous avez testé depuis un appareil mobile ou un autre navigateur."
+
+#: admin/class-ageverif-admin.php
+msgid "“Underage Redirect URL” is set to a friendly page (only required if you also ticked “Closable Gate”)."
+msgstr "« Underage Redirect URL » pointe vers une page conviviale (requis uniquement si vous avez aussi coché « Closable Gate »)."
+
+#: admin/class-ageverif-admin.php
+msgid "“Test Mode” is OFF."
+msgstr "« Test Mode » est désactivé."
+
+#: admin/class-ageverif-admin.php
+msgid "Action needed:"
+msgstr "Action requise :"
+
+#: admin/class-ageverif-admin.php
+msgid "Heads up:"
+msgstr "Attention :"
+
+#: admin/class-ageverif-admin.php
+msgid "Note:"
+msgstr "Remarque :"
+
+#: admin/class-ageverif-admin.php
+msgid "Fix →"
+msgstr "Corriger →"
+
+#: admin/class-ageverif-admin.php
+msgid "Ready to go."
+msgstr "Tout est prêt."
+
+#: admin/class-ageverif-admin.php
+msgid "Customize what new admins see first. The Quick Start panel above accepts a video URL — leave empty to hide the player and rely on the step-by-step text only."
+msgstr "Personnalisez ce que les nouveaux administrateurs voient en premier. Le panneau Quick Start ci-dessus accepte une URL vidéo — laissez vide pour masquer le lecteur et n'afficher que les étapes textuelles."
+
+#: admin/class-ageverif-admin.php
+msgid "No credentials configured. Add your Public Live Key under Connection, or enable OAuth2 with a Client ID below."
+msgstr "Aucun identifiant configuré. Ajoutez votre clé publique en production sous Connection, ou activez OAuth2 avec un Client ID ci-dessous."
+
+#: admin/class-ageverif-admin.php
+msgid "No Protected Content Types are ticked. The gate will not appear anywhere until you tick at least one type under Visibility."
+msgstr "Aucun type de contenu protégé n'est coché. La porte ne s'affichera nulle part tant que vous n'aurez coché au moins un type sous Visibility."
+
+#: admin/class-ageverif-admin.php
+msgid "OAuth2 is enabled but incomplete. Make sure Client ID and Client Secret are both filled in."
+msgstr "OAuth2 est activé mais incomplet. Assurez-vous que le Client ID et le Client Secret sont tous deux renseignés."
+
+#: admin/class-ageverif-admin.php
+msgid "You pasted a Client ID but OAuth is not enabled, so it isn’t doing anything yet. Either tick Enable OAuth2 below, or remove the Client ID if you don’t need OAuth."
+msgstr "Vous avez collé un Client ID mais OAuth n'est pas activé, donc rien ne se passe encore. Cochez Enable OAuth2 ci-dessous, ou retirez le Client ID si vous n'avez pas besoin d'OAuth."
+
+#: admin/class-ageverif-admin.php
+msgid "Test Mode is on — the gate only appears for logged-in administrators. Remember to turn this off before going live."
+msgstr "Le mode Test est activé — la porte ne s'affiche que pour les administrateurs connectés. N'oubliez pas de le désactiver avant la mise en ligne."
+
+#: admin/class-ageverif-admin.php
+msgid "Credentials and Protected Content Types are configured. Disable Test Mode to make the gate visible to real visitors."
+msgstr "Les identifiants et les types de contenu protégés sont configurés. Désactivez le mode Test pour rendre la porte visible aux vrais visiteurs."

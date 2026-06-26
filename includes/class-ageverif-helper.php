@@ -49,6 +49,7 @@ class AgeVerif_Helper {
 			),
 			'bot_bypass_custom'     => '',		'underage_redirect_url' => '',
 		'test_mode'             => 0,
+		'quickstart_video_url'  => '', // empty = no iframe; admin opts-in to embed a screencast in the Quick Start panel.
 
 		// OAuth2 — when enabled, replaces the checker.js flow entirely.
 		// Visitor clicks a "Verify with AgeVerif" button → redirected to

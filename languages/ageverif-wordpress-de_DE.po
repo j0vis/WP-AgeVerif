@@ -1,0 +1,270 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: AgeVerif – Age Verification 1.3.0\n"
+"Report-Msgid-Bugs-To: https://ageverif.com/contact\n"
+"POT-Creation-Date: 2025-01-01T00:00:00+00:00\n"
+"PO-Revision-Date: 2025-01-01T00:00:00+00:00\n"
+"Last-Translator: AgeVerif <hello@ageverif.com>\n"
+"Language-Team: AgeVerif <hello@ageverif.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: ageverif-wordpress 1.3.0\n"
+
+# Quick Start
+msgid "Quick Start (≈5 minutes)"
+msgstr "Schnellstart (≈5 Minuten)"
+
+msgid "Create a free account"
+msgstr "Kostenloses Konto erstellen"
+
+msgid "Open the <a href=\"https://webmasters.ageverif.com/sign-up\" target=\"_blank\" rel=\"noopener\">AgeVerif Webmasters Platform</a> and sign up with your email. No credit card required."
+msgstr "Öffne die <a href=\"https://webmasters.ageverif.com/sign-up\" target=\"_blank\" rel=\"noopener\">AgeVerif Webmaster-Plattform</a> und melde dich mit deiner E-Mail-Adresse an. Keine Kreditkarte erforderlich."
+
+msgid "Add your site"
+msgstr "Füge deine Seite hinzu"
+
+msgid "Click <strong>Add Website</strong>. Enter your domain exactly as it appears in the address bar (e.g. <code>example.com</code>) — do not include <code>https://</code> or a trailing slash."
+msgstr "Klicke auf <strong>Website hinzufügen</strong>. Gib deine Domain genau so ein, wie sie in der Adressleiste erscheint (z. B. <code>example.com</code>) — ohne <code>https://</code> und ohne abschließenden Schrägstrich."
+
+msgid "Copy your Public Live Key"
+msgstr "Kopiere deinen Public Live Key"
+
+msgid "In the Platform click <strong>Websites</strong> → your domain → <strong>Keys</strong>. Copy the <strong>Public Live Key</strong> (it starts with <code>pk_live_</code>)."
+msgstr "Klicke in der Plattform auf <strong>Websites</strong> → deine Domain → <strong>Keys</strong>. Kopiere den <strong>Public Live Key</strong> (beginnt mit <code>pk_live_</code>)."
+
+msgid "Paste the key here"
+msgstr "Key hier einfügen"
+
+msgid "Paste the key into <strong>Public Live Key</strong> below and click <strong>Save Changes</strong>."
+msgstr "Füge den Key unten in <strong>Public Live Key</strong> ein und klicke auf <strong>Änderungen speichern</strong>."
+
+msgid "Pick protected content types"
+msgstr "Geschützte Inhaltstypen wählen"
+
+msgid "Tick at least one checkbox under <strong>Protected Content Types</strong> below (Posts is the safest default if you are not sure)."
+msgstr "Aktiviere unten mindestens ein Kontrollkästchen unter <strong>Geschützte Inhaltstypen</strong> (Beiträge ist die sicherste Standardeinstellung, wenn du dir unsicher bist)."
+
+msgid "Verify the gate is live"
+msgstr "Überprüfe, ob das Gate aktiv ist"
+
+msgid "Open one of your protected pages in an <strong>incognito</strong> window — you should see the AgeVerif modal within ~2 seconds. Admins can preview with <strong>Test Mode</strong> enabled."
+msgstr "Öffne eine deiner geschützten Seiten in einem <strong>Privat-/Inkognito-Fenster</strong> — das AgeVerif-Modal sollte innerhalb von ~2 Sekunden erscheinen. Administratoren können mit aktiviertem <strong>Testmodus</strong> eine Vorschau anzeigen."
+
+msgid "Optional — enable OAuth auto-gate (recommended)"
+msgstr "Optional — OAuth-Auto-Gate aktivieren (empfohlen)"
+
+msgid "If you enable OAuth and provide a Client ID and Secret, the gate will only appear once per visitor and re-check age silently in the background. No redirects."
+msgstr "Wenn du OAuth aktivierst und eine Client-ID sowie ein Secret angibst, erscheint das Gate nur einmal pro Besucher und überprüft das Alter im Hintergrund still erneut. Keine Weiterleitungen."
+
+msgid "You're done — the gate is live."
+msgstr "Fertig — das Gate ist aktiv."
+
+msgid "Watch the screencast →"
+msgstr "Screencast ansehen →"
+
+msgid "No video set yet."
+msgstr "Noch kein Video festgelegt."
+
+msgid "Open the video in a new tab →"
+msgstr "Video in neuem Tab öffnen →"
+
+# Glossary
+msgid "Glossary — field reference"
+msgstr "Glossar — Feldreferenz"
+
+msgid "Public Live Key"
+msgstr "Public Live Key"
+
+msgid "Your unique identifier issued by the AgeVerif Webmasters Platform. Starts with <code>pk_live_</code> for production and <code>pk_test_</code> for the sandbox."
+msgstr "Dein eindeutiger Bezeichner, ausgestellt von der AgeVerif-Webmaster-Plattform. Beginnt für die Produktion mit <code>pk_live_</code> und für die Sandbox mit <code>pk_test_</code>."
+
+msgid "Test Mode"
+msgstr "Testmodus"
+
+msgid "When on, the gate appears only for logged-in administrators. Real visitors see the site unaffected. Use this to preview the experience."
+msgstr "Wenn aktiv, erscheint das Gate nur für angemeldete Administratoren. Echte Besucher sehen die Seite ungehindert. Nutze dies, um die Nutzererfahrung in der Vorschau zu sehen."
+
+msgid "Protected Content Types"
+msgstr "Geschützte Inhaltstypen"
+
+msgid "The WordPress content types (posts, pages, products, custom post types…) on which the AgeVerif gate is shown."
+msgstr "Die WordPress-Inhaltstypen (Beiträge, Seiten, Produkte, Custom-Post-Types …), auf denen das AgeVerif-Gate angezeigt wird."
+
+msgid "Auto Gate"
+msgstr "Auto-Gate"
+
+msgid "Auto-attaches the gate to every frontend page load for protected content types — no shortcode required. Visits to protected URLs trigger the modal before the content paints."
+msgstr "Hängt das Gate automatisch an jeden Frontend-Seitenaufruf für geschützte Inhaltstypen an — kein Shortcode erforderlich. Besuche geschützter URLs lösen das Modal aus, bevor der Inhalt gerendert wird."
+
+msgid "Manual Start (shortcode)"
+msgstr "Manueller Start (Shortcode)"
+
+msgid "Inserts the gate inline at shortcode position. Useful if you want the gate partway down a page (e.g. on a landing page before a download CTA)."
+msgstr "Fügt das Gate inline an der Shortcode-Position ein. Nützlich, wenn du das Gate mitten auf einer Seite platzieren möchtest (z. B. auf einer Landing-Page vor einer Download-CTA)."
+
+msgid "Content Blur (CSS only)"
+msgstr "Inhalts-Unschärfe (nur CSS)"
+
+msgid "CSS-only blur overlay rendered behind the gate. Catches crawlers and visitors with JS disabled — they see blurred content rather than fully exposed."
+msgstr "Reines CSS-Unschärfe-Overlay hinter dem Gate. Fängt Crawler und Besucher mit deaktiviertem JS ab — sie sehen unscharfen Inhalt statt vollständig aufgedeckten Inhalt."
+
+msgid "Underage Redirect URL"
+msgstr "Weiterleitungs-URL für Minderjährige"
+
+msgid "Where to send visitors who are verified as under the configured minimum age. Leave empty to show a generic blocking message instead."
+msgstr "Wohin Besucher geleitet werden, die als unter dem konfigurierten Mindestalter verifiziert wurden. Leer lassen, um stattdessen eine allgemeine Sperrmeldung anzuzeigen."
+
+msgid "What is OAuth2?"
+msgstr "Was ist OAuth2?"
+
+msgid "A standard protocol that lets visitors prove their age once with a trusted provider and then enter your site without further prompts. The in-page <code>&lt;dialog&gt;</code> popover shows their chosen provider, and a REST callback at <code>/wp-json/ageverif/v1/oauth/callback</code> completes the handshake — no full-page redirect needed. Cached pages stay cached; only the popover JS differs per visitor."
+msgstr "Ein Standardprotokoll, mit dem Besucher ihr Alter einmal bei einem vertrauenswürdigen Anbieter nachweisen und anschließend ohne weitere Rückfragen auf deine Seite gelangen. Das In-Page-<code>&lt;dialog&gt;</code>-Popover zeigt den gewählten Anbieter, und ein REST-Callback unter <code>/wp-json/ageverif/v1/oauth/callback</code> schließt den Handshake ab — keine Full-Page-Weiterleitung nötig. Zwischengespeicherte Seiten bleiben im Cache; nur das Popover-JS unterscheidet sich pro Besucher."
+
+msgid "What is the Callback URL?"
+msgstr "Was ist die Callback-URL?"
+
+msgid "The endpoint the AgeVerif Platform redirects to after a successful OAuth handshake. This plugin registers a public REST route at <code>/wp-json/ageverif/v1/oauth/callback</code> and exposes that URL for you to paste into the Webmasters Platform — also exempt from most page caches so the redirect back into your site works even when a cache plugin is enabled. (A legacy query-var form is kept as a fallback for older Platform registrations.)"
+msgstr "Der Endpunkt, zu dem die AgeVerif-Plattform nach einem erfolgreichen OAuth-Handshake weiterleitet. Dieses Plugin registriert eine öffentliche REST-Route unter <code>/wp-json/ageverif/v1/oauth/callback</code> und stellt diese URL zur Verfügung, damit du sie in die Webmaster-Plattform einfügen kannst — außerdem ist sie von den meisten Seiten-Caches ausgenommen, sodass die Weiterleitung zurück auf deine Seite auch dann funktioniert, wenn ein Cache-Plugin aktiv ist. (Eine ältere Query-Var-Form wird als Fallback für ältere Plattformregistrierungen beibehalten.)"
+
+msgid "Minimum Age"
+msgstr "Mindestalter"
+
+msgid "The minimum age (18 by default). Visitors reporting a younger birthdate are redirected to your <strong>Underage Redirect URL</strong>."
+msgstr "Das Mindestalter (standardmäßig 18). Besucher, die ein jüngeres Geburtsdatum angeben, werden zu deiner <strong>Weiterleitungs-URL für Minderjährige</strong> umgeleitet."
+
+# Status widget
+msgid "Action needed:"
+msgstr "Handlung erforderlich:"
+
+msgid "Heads up:"
+msgstr "Achtung:"
+
+msgid "Note:"
+msgstr "Hinweis:"
+
+msgid "Ready to go."
+msgstr "Bereit."
+
+msgid "No credentials configured. Add your Public Live Key under Connection, or enable OAuth2 with a Client ID below."
+msgstr "Keine Zugangsdaten konfiguriert. Füge deinen Public Live Key unter Verbindung ein oder aktiviere unten OAuth2 mit einer Client-ID."
+
+msgid "No Protected Content Types are ticked. The gate will not appear anywhere until you tick at least one type under Visibility."
+msgstr "Keine geschützten Inhaltstypen ausgewählt. Das Gate erscheint nirgendwo, bis du unter Sichtbarkeit mindestens einen Typ aktivierst."
+
+msgid "OAuth2 is enabled but incomplete. Make sure Client ID and Client Secret are both filled in."
+msgstr "OAuth2 ist aktiviert, aber unvollständig. Stelle sicher, dass sowohl Client-ID als auch Client-Secret ausgefüllt sind."
+
+msgid "Test Mode is on — the gate only appears for logged-in administrators. Remember to turn this off before going live."
+msgstr "Testmodus ist aktiviert — das Gate erscheint nur für angemeldete Administratoren. Denke daran, dies vor dem Live-Schalten zu deaktivieren."
+
+msgid "You pasted an OAuth Client ID but haven't enabled OAuth2. Tick the <strong>Enable OAuth2 auto-gate</strong> checkbox below to make it active."
+msgstr "Du hast eine OAuth-Client-ID eingefügt, aber OAuth2 nicht aktiviert. Aktiviere das Kontrollkästchen <strong>OAuth2-Auto-Gate einschalten</strong> unten, um es zu aktivieren."
+
+msgid "Anonymous-only verification (geolocation fallback) is on. Visitors from regions with strict age laws will be blocked. Visitors from elsewhere must enter a birthdate before they can proceed."
+msgstr "Nur-anonyme Verifikation (Geolokalisierungs-Fallback) ist aktiviert. Besucher aus Regionen mit strengen Altersgesetzen werden blockiert. Besucher aus anderen Regionen müssen ein Geburtsdatum eingeben, bevor sie fortfahren können."
+
+msgid "Fix →"
+msgstr "Beheben →"
+
+# Common Issues
+msgid "Common Issues & Fixes"
+msgstr "Häufige Probleme & Lösungen"
+
+msgid "No modal appears"
+msgstr "Kein Modal sichtbar"
+
+msgid "The authenticated user is still logged in. The gate does not appear for administrators when Test Mode is off. Open an incognito window or log out, then refresh the protected page."
+msgstr "Der angemeldete Benutzer ist weiterhin eingeloggt. Das Gate erscheint nicht für Administratoren, wenn der Testmodus deaktiviert ist. Öffne ein Inkognito-Fenster oder melde dich ab und lade die geschützte Seite neu."
+
+msgid "The page is fully cached"
+msgstr "Die Seite ist vollständig im Cache"
+
+msgid "Some cache plugins serve the entire HTML before any PHP runs. Whitelist the REST callback route (<code>/wp-json/ageverif/v1/*</code>) and clear the cache for protected URLs after activation."
+msgstr "Einige Cache-Plugins liefern das gesamte HTML aus, bevor PHP ausgeführt wird. Setze die REST-Callback-Route (<code>/wp-json/ageverif/v1/*</code>) auf die Whitelist und leere nach der Aktivierung den Cache für geschützte URLs."
+
+msgid "Google can't crawl the protected pages"
+msgstr "Google kann die geschützten Seiten nicht crawlen"
+
+msgid "The plugin intentionally lets crawlers through so SEO is unaffected. If you see <em>blocked</em> in Search Console, the gate is misconfigured — verify the Public Live Key under <strong>Connection</strong>."
+msgstr "Das Plugin lässt absichtlich Crawler passieren, damit die SEO nicht beeinträchtigt wird. Wenn du in der Search Console <em>blockiert</em> siehst, ist das Gate falsch konfiguriert — überprüfe den Public Live Key unter <strong>Verbindung</strong>."
+
+msgid "The OAuth popover never closes"
+msgstr "Das OAuth-Popover schließt sich nicht"
+
+msgid "The popover dismisses itself after a completed handshake via <code>sessionStorage</code>. If the popover never closes, your <strong>Callback URL</strong> is probably wrong in the Webmasters Platform — paste the value shown under <strong>OAuth2 → Callback URL</strong> and save."
+msgstr "Das Popover schließt sich nach einem abgeschlossenen Handshake über <code>sessionStorage</code> selbst. Wenn es sich nie schließt, ist deine <strong>Callback-URL</strong> wahrscheinlich falsch in der Webmaster-Plattform — füge den unter <strong>OAuth2 → Callback-URL</strong> angezeigten Wert ein und speichere."
+
+msgid "Visitors report the modal in a wrong language"
+msgstr "Besucher melden das Modal in falscher Sprache"
+
+msgid "Visitors can switch languages inside the AgeVerif modal itself. The plugin also fully supports WP <code>WP_LOCALE</code> — the modal renders in the visitor's browser language when their locale is supported."
+msgstr "Besucher können die Sprache direkt im AgeVerif-Modal wechseln. Das Plugin unterstützt zudem <code>WP_LOCALE</code> vollständig — das Modal wird in der Browsersprache des Besuchers dargestellt, wenn dessen Sprachraum unterstützt wird."
+
+# Pre-launch Checklist
+msgid "Pre-launch Checklist"
+msgstr "Pre-Launch-Checkliste"
+
+msgid "Public Live Key is set"
+msgstr "Public Live Key ist gesetzt"
+
+msgid "At least one content type is ticked under “Protected Content Types”."
+msgstr "Mindestens ein Inhaltstyp ist unter „Geschützte Inhaltstypen“ aktiviert."
+
+msgid "Test Mode is off for non-admin visitors"
+msgstr "Testmodus ist für nicht-admin-Besucher deaktiviert"
+
+msgid "Callback URL is registered in the Webmasters Platform"
+msgstr "Callback-URL ist in der Webmaster-Plattform registriert"
+
+msgid "Cache plugin whitelists the REST callback route"
+msgstr "Cache-Plugin ist für die REST-Callback-Route auf der Whitelist"
+
+# Onboarding intro
+msgid "Onboarding"
+msgstr "Onboarding"
+
+msgid "Settings related to first-time setup. The Quick Start walkthrough below is the fastest path to a working gate — start there."
+msgstr "Einstellungen für die Ersteinrichtung. Die Schnellstart-Anleitung unten ist der schnellste Weg zu einem funktionierenden Gate — starte dort."
+
+msgid "Quick Start Video URL"
+msgstr "Schnellstart-Video-URL"
+
+msgid "Sandboxed & lazy-loaded"
+msgstr "Sandboxed & lazy-loaded"
+
+msgid "Paste a YouTube / Vimeo / Loom URL, or a self-hosted MP4 / WebM / OGG URL. Empty = no embed. The video is rendered in a sandboxed, lazy-loaded iframe so it cannot load third-party trackers until the visitor clicks Play."
+msgstr "Füge eine YouTube-/Vimeo-/Loom-URL oder eine selbst gehostete MP4-/WebM-/OGG-URL ein. Leer = kein Embed. Das Video wird in einer sandboxed, lazy-loaded iframe gerendert, sodass keine Drittanbieter-Tracker geladen werden, bis der Besucher auf Play klickt."
+
+msgid "Self-host the MP4 by uploading via Media → Add New, then paste the Attachment URL here. Lazy-loaded and sandboxed so it cannot trigger third-party trackers."
+msgstr "Hoste die MP4 selbst, indem du sie über Medien → Hinzufügen hochlädst und hier die Anhangs-URL einfügst. Lazy-loaded und sandboxed, sodass keine Drittanbieter-Tracker ausgelöst werden."
+
+# OAuth2 intro
+msgid "Connection"
+msgstr "Verbindung"
+
+msgid "Public Live Key"
+msgstr "Public Live Key"
+
+msgid "OAuth2 auto-gate"
+msgstr "OAuth2-Auto-Gate"
+
+msgid "Configuration for OAuth2 auto-gate. Only fill these in if you have set up OAuth2 credentials in the AgeVerif Webmasters Platform."
+msgstr "Konfiguration für das OAuth2-Auto-Gate. Fülle diese Felder nur aus, wenn du OAuth2-Zugangsdaten in der AgeVerif-Webmaster-Plattform eingerichtet hast."
+
+msgid "Visibility"
+msgstr "Sichtbarkeit"
+
+msgid "Branding"
+msgstr "Branding"
+
+msgid "Behavior"
+msgstr "Verhalten"
+
+msgid "Advanced"
+msgstr "Erweitert"
+
+msgid "Diagnostics"
+msgstr "Diagnose"

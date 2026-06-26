@@ -71,6 +71,13 @@ class AgeVerif_Admin {
 			array(),
 			AGEVERIF_VERSION
 		);
+		wp_enqueue_script(
+			'ageverif-admin-quickfix',
+			AGEVERIF_PLUGIN_URL . 'js/ageverif-admin-quickfix.js',
+			array(),
+			AGEVERIF_VERSION,
+			true
+		);
 	}
 
 	public function register_settings() {
@@ -83,7 +90,16 @@ class AgeVerif_Admin {
 			)
 		);
 
-		// 1. Connection
+		// 1. Onboarding — Quick Start screencast URL (admin-facing UX).
+		add_settings_section(
+			'ageverif_onboarding',
+			__( 'Onboarding', 'ageverif-wordpress' ),
+			array( $this, 'render_section_intro_onboarding' ),
+			'ageverif'
+		);
+		$this->register_field( 'quickstart_video_url', __( 'Quick Start Video URL', 'ageverif-wordpress' ), 'field_quickstart_video_url' );
+
+		// 2. Connection
 		add_settings_section(
 			'ageverif_connection',
 			__( 'Connection', 'ageverif-wordpress' ),
@@ -93,7 +109,7 @@ class AgeVerif_Admin {
 		$this->register_field( 'api_key',  __( 'Public Live Key', 'ageverif-wordpress' ), 'field_api_key' );
 		$this->register_field( 'test_key', __( 'Public Test Key', 'ageverif-wordpress' ), 'field_test_key' );
 
-		// 2. Visibility
+		// 3. Visibility
 		add_settings_section(
 			'ageverif_visibility',
 			__( 'Visibility', 'ageverif-wordpress' ),
@@ -103,7 +119,7 @@ class AgeVerif_Admin {
 		$this->register_field( 'enabled_post_types', __( 'Protected Content Types', 'ageverif-wordpress' ), 'field_enabled_post_types' );
 		$this->register_field( 'excluded_urls',      __( 'Excluded URLs', 'ageverif-wordpress' ),       'field_excluded_urls' );
 
-		// 3. Display
+		// 4. Display
 		add_settings_section(
 			'ageverif_display',
 			__( 'Display', 'ageverif-wordpress' ),
@@ -117,7 +133,7 @@ class AgeVerif_Admin {
 		$this->register_field( 'manual_start', __( 'Manual Start',       'ageverif-wordpress' ), 'field_manual_start' );
 		$this->register_field( 'content_blur', __( 'Content Blur',       'ageverif-wordpress' ), 'field_content_blur' );
 
-		// 4. Bypass
+		// 5. Bypass
 		add_settings_section(
 			'ageverif_bypass',
 			__( 'Bypass', 'ageverif-wordpress' ),
@@ -130,7 +146,7 @@ class AgeVerif_Admin {
 		$this->register_field( 'bot_bypass_presets', __( 'Bot Bypass (known crawlers)', 'ageverif-wordpress' ), 'field_bot_bypass_presets' );
 		$this->register_field( 'bot_bypass_custom', __( 'Bot Bypass (custom User-Agents)', 'ageverif-wordpress' ), 'field_bot_bypass_custom' );
 
-		// 5. After verification
+		// 6. After verification
 		add_settings_section(
 			'ageverif_after',
 			__( 'After Verification', 'ageverif-wordpress' ),
@@ -139,7 +155,7 @@ class AgeVerif_Admin {
 		);
 		$this->register_field( 'underage_redirect_url', __( 'Underage Redirect URL', 'ageverif-wordpress' ), 'field_underage_redirect_url' );
 
-		// 6. Mode
+		// 7. Mode
 		add_settings_section(
 			'ageverif_mode',
 			__( 'Mode', 'ageverif-wordpress' ),
@@ -148,7 +164,7 @@ class AgeVerif_Admin {
 		);
 		$this->register_field( 'test_mode', __( 'Test Mode', 'ageverif-wordpress' ), 'field_test_mode' );
 
-		// 7. OAuth2 (https://docs.ageverif.com/oauth2.html)
+		// 8. OAuth2 (https://docs.ageverif.com/oauth2.html)
 		add_settings_section(
 			'ageverif_oauth',
 			__( 'OAuth2', 'ageverif-wordpress' ),
@@ -174,9 +190,10 @@ class AgeVerif_Admin {
 		$callback_url = esc_html( \AgeVerif\AgeVerif_OAuth::callback_url() );
 		echo '<span class="ageverif-callback">'
 			. '<code id="ageverif-oauth-callback-url">' . $callback_url . '</code>'
-			. '<button type="button" class="ageverif-copy-btn" id="ageverif-copy-callback" data-target="ageverif-oauth-callback-url">'
+			. '<button type="button" class="ageverif-copy-btn" id="ageverif-copy-callback" data-target="ageverif-oauth-callback-url" aria-describedby="ageverif-copy-callback-status">'
 			. esc_html__( 'Copy', 'ageverif-wordpress' )
 			. '</button>'
+			. '<span id="ageverif-copy-callback-status" class="screen-reader-text" aria-live="polite" aria-atomic="true"></span>'
 			. '</span>';
 		echo '</p>';
 		// Tiny inline script: copy callback URL to clipboard with feedback.
@@ -190,17 +207,21 @@ class AgeVerif_Admin {
 			if (!btn || !code) { return; }
 			var original = btn.textContent;
 			var copyLabel = <?php echo wp_json_encode( __( 'Copy', 'ageverif-wordpress' ) ); ?>;
-			var copiedLabel = <?php echo wp_json_encode( __( 'Copied', 'ageverif-wordpress' ) ); ?>;
+			var copiedLabel = <?php echo wp_json_encode( __( 'Copied!', 'ageverif-wordpress' ) ); ?>;
+		var failedLabel = <?php echo wp_json_encode( __( 'Copy failed', 'ageverif-wordpress' ) ); ?>;
+		var status = document.getElementById('ageverif-copy-callback-status');
 			btn.addEventListener('click', function(){
 				var value = code.textContent || code.innerText || '';
-				function flash(cls, label){
-					btn.classList.add(cls);
-					btn.textContent = label;
-					setTimeout(function(){
-						btn.classList.remove(cls);
-						btn.textContent = original || copyLabel;
-					}, 1400);
-				}
+			function flash(cls, label){
+				btn.classList.add(cls);
+				btn.textContent = label;
+				if (status) { status.textContent = label; }
+				setTimeout(function(){
+					btn.classList.remove(cls);
+					btn.textContent = original || copyLabel;
+					if (status) { status.textContent = ''; }
+				}, 1400);
+			}
 				if (navigator.clipboard && window.isSecureContext) {
 					navigator.clipboard.writeText(value).then(
 						function(){ flash('is-copied', copiedLabel); },
@@ -218,7 +239,7 @@ class AgeVerif_Admin {
 						sel.addRange(range);
 						var ok = document.execCommand && document.execCommand('copy');
 						sel.removeAllRanges();
-						flash('is-copied', ok ? copiedLabel : copyLabel);
+						flash(ok ? 'is-copied' : 'is-copy-failed', ok ? copiedLabel : failedLabel);
 					} catch (e) { flash('is-copied', copyLabel); }
 				}
 			});
@@ -233,6 +254,7 @@ class AgeVerif_Admin {
 
 	private function field_section( $key ) {
 		$map = array(
+			'quickstart_video_url'   => 'onboarding',
 			'api_key'                => 'connection',
 			'test_key'               => 'connection',
 			'enabled_post_types'     => 'visibility',
@@ -264,6 +286,12 @@ class AgeVerif_Admin {
 
 	public function render_section_intro() {
 		// Fallback for any section that didn't get a custom intro.
+	}
+
+	public function render_section_intro_onboarding() {
+		echo '<p class="ageverif-section-intro">';
+		esc_html_e( 'Customize what new admins see first. The Quick Start panel above accepts a video URL — leave empty to hide the player and rely on the step-by-step text only.', 'ageverif-wordpress' );
+		echo '</p>';
 	}
 
 	public function render_section_intro_connection() {
@@ -411,6 +439,12 @@ class AgeVerif_Admin {
 			$out['underage_redirect_url'] = ( '' === $url ) ? '' : esc_url_raw( $url );
 		}
 
+		if ( isset( $input['quickstart_video_url'] ) ) {
+			$url = trim( (string) $input['quickstart_video_url'] );
+			// Validate as an actual URL before accepting. Empty = disabled.
+			$out['quickstart_video_url'] = ( '' === $url || ! filter_var( $url, FILTER_VALIDATE_URL ) ) ? '' : esc_url_raw( $url );
+		}
+
 		// ----- OAuth2 -----
 		$out['oauth_enabled'] = ! empty( $input['oauth_enabled'] ) ? 1 : 0;
 		if ( isset( $input['oauth_client_id'] ) ) {
@@ -511,7 +545,7 @@ class AgeVerif_Admin {
 	public function field_enabled_post_types() {
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
 		?>
-		<div class="ageverif-grid">
+		<div class="ageverif-grid" id="ageverif-protection-types">
 			<?php foreach ( $post_types as $pt ) :
 				if ( 'attachment' === $pt->name ) {
 					continue;
@@ -770,6 +804,21 @@ class AgeVerif_Admin {
 		<?php
 	}
 
+	public function field_quickstart_video_url() {
+		$tip = __( 'Paste a YouTube, Vimeo, Loom, or self-hosted MP4 URL here. Accepts any embeddable video URL. Leave empty to hide the player and rely on the step-by-step text only. The iframe is sandboxed and lazy-loaded so the admin page itself stays fast.', 'ageverif-wordpress' );
+		$value = isset( $this->options['quickstart_video_url'] ) ? (string) $this->options['quickstart_video_url'] : '';
+		?>
+		<?php $this->render_tooltip( $tip ); ?>
+		<input type="url" name="ageverif_options[quickstart_video_url]" id="ageverif-quickstart-video-url"
+			value="<?php echo esc_attr( $value ); ?>"
+			class="regular-text" placeholder="https://www.youtube.com/watch?v=…"
+			pattern="https?://.*" autocomplete="off" spellcheck="false" />
+		<p class="description">
+			<?php esc_html_e( 'Optional. Embeds in the Quick Start panel (top of this page) so visual learners can follow along. Leave blank to hide the player.', 'ageverif-wordpress' ); ?>
+		</p>
+		<?php
+	}
+
 	public function field_underage_redirect_url() {
 		$tip = __( 'Where to send visitors who fail or close the gate — a friendly “you must be 18+ to enter” page is better than a dead end. Works alongside “Closable Gate” above.', 'ageverif-wordpress' );
 		?>
@@ -787,7 +836,7 @@ class AgeVerif_Admin {
 	public function field_test_mode() {
 		?>
 		<label>
-			<input type="checkbox" name="ageverif_options[test_mode]" value="1" <?php checked( $this->options['test_mode'] ); ?> />
+			<input id="ageverif-test-mode" type="checkbox" name="ageverif_options[test_mode]" value="1" <?php checked( $this->options['test_mode'] ); ?> />
 			<?php esc_html_e( 'Enable Test Mode', 'ageverif-wordpress' ); ?>
 		</label>
 		<p class="description">
@@ -800,8 +849,7 @@ class AgeVerif_Admin {
 
 	public function field_oauth_enabled() {
 		?>
-		<label>
-			<input type="checkbox" name="ageverif_options[oauth_enabled]" value="1" <?php checked( $this->options['oauth_enabled'] ); ?> />
+		<label>				<input id="ageverif-oauth-enabled" type="checkbox" name="ageverif_options[oauth_enabled]" value="1" <?php checked( $this->options['oauth_enabled'] ); ?> />
 			<?php esc_html_e( 'Use AgeVerif OAuth2 instead of the in-page checker', 'ageverif-wordpress' ); ?>
 		</label>
 		<p class="description">
@@ -878,7 +926,7 @@ class AgeVerif_Admin {
 		$tip = __( '“Age verification” sends visitors to a page that runs the age check directly. “Sign in” sends them to a login page that can also verify. Both work the same way for protecting content — only the landing page is different.', 'ageverif-wordpress' );
 		?>
 		<?php $this->render_tooltip( $tip ); ?>
-		<select name="ageverif_options[oauth_flow]">
+		<select name="ageverif_options[oauth_flow]" id="ageverif-oauth-flow">
 			<?php foreach ( $options as $key => $label ) : ?>
 				<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $this->options['oauth_flow'], $key ); ?>>
 					<?php echo esc_html( $label ); ?>
@@ -892,8 +940,7 @@ class AgeVerif_Admin {
 	}
 
 	public function field_oauth_button_label() {
-		?>
-		<input type="text" name="ageverif_options[oauth_button_label]"
+		?>			<input id="ageverif-oauth-button-label" type="text" name="ageverif_options[oauth_button_label]"
 			value="<?php echo esc_attr( $this->options['oauth_button_label'] ); ?>"
 			class="regular-text"
 			placeholder="<?php echo esc_attr( \AgeVerif\AgeVerif_OAuth::default_button_label_from_options( $this->options ) ); ?>" />
@@ -912,7 +959,7 @@ class AgeVerif_Admin {
 		$tip = __( 'Pick a button color from the AgeVerif Brand Guidelines. Pair the color with the matching AgeVerif logo (download from the Brand guidelines page). Neutral grays like #e0e0e0 are also fine.', 'ageverif-wordpress' );
 		?>
 		<?php $this->render_tooltip( $tip ); ?>
-		<select name="ageverif_options[oauth_button_color]">
+		<select name="ageverif_options[oauth_button_color]" id="ageverif-oauth-button-color">
 			<?php foreach ( $options as $key => $label ) : ?>
 				<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $this->options['oauth_button_color'], $key ); ?>>
 					<?php echo esc_html( $label ); ?>
@@ -936,7 +983,7 @@ class AgeVerif_Admin {
 			'pt'   => __( 'Português',        'ageverif-wordpress' ),
 		);
 		?>
-		<select name="ageverif_options[oauth_language]">
+		<select name="ageverif_options[oauth_language]" id="ageverif-oauth-language">
 			<?php foreach ( $options as $code => $label ) : ?>
 				<option value="<?php echo esc_attr( $code ); ?>" <?php selected( $this->options['oauth_language'], $code ); ?>>
 					<?php echo esc_html( $label ); ?>
@@ -955,7 +1002,7 @@ class AgeVerif_Admin {
 			'ticket' => __( 'Verification ticket',  'ageverif-wordpress' ),
 		);
 		?>
-		<div class="ageverif-grid">
+		<div class="ageverif-grid" id="ageverif-oauth-challenges">
 			<?php foreach ( $options as $key => $label ) :
 				$checked = in_array( $key, (array) $this->options['oauth_challenges'], true );
 				?>
@@ -1128,14 +1175,14 @@ class AgeVerif_Admin {
 			$items[] = array(
 				'type'    => 'error',
 				'message' => __( 'OAuth2 is enabled but incomplete. Make sure Client ID and Client Secret are both filled in.', 'ageverif-wordpress' ),
-				'anchor'  => '#ageverif-oauth-enable',
+				'anchor'  => '#ageverif-oauth-enabled',
 			);
 		}
 		if ( ! $has_oauth && $has_oauth_id && ! $has_oauth_secret ) {
 			$items[] = array(
 				'type'    => 'warning',
 				'message' => __( 'You pasted a Client ID but OAuth is not enabled, so it isn’t doing anything yet. Either tick Enable OAuth2 below, or remove the Client ID if you don’t need OAuth.', 'ageverif-wordpress' ),
-				'anchor'  => '#ageverif-oauth-enable',
+				'anchor'  => '#ageverif-oauth-enabled',
 			);
 		}
 
@@ -1505,6 +1552,85 @@ class AgeVerif_Admin {
 	}
 
 	/**
+	 * Render the optional Quick Start video embed.
+	 *
+	 * Defaults to a <details> collapsed by default — the admin clicks
+	 * "Watch the screencast" to expand, which is what keeps the admin
+	 * page itself fast even if the video host is slow.
+	 *
+	 * URL handling:
+	 *  - empty → small hint pointing to the Onboarding section.
+	 *  - .mp4 / .webm → render a <video controls> element.
+	 *  - everything else → sandboxed <iframe>.
+	 *
+	 * The iframe is sandboxed (no top-level navigation, no form
+	 * submission, no same-origin access) and gets `referrerpolicy="no-referrer"`
+	 * so we never leak the admin URL to a third-party video host.
+	 */
+	private function render_quick_start_video() {
+		$raw = isset( $this->options['quickstart_video_url'] )
+			? (string) $this->options['quickstart_video_url']
+			: '';
+		$path = wp_parse_url( $raw, PHP_URL_PATH );
+		$is_self_hosted = is_string( $path ) && preg_match( '/\.(mp4|webm|ogv)(\?.*)?$/i', $path );
+		?>
+		<details class="ageverif-quickstart-video">
+			<summary>
+				<?php
+				echo '' === $raw
+					? esc_html__( 'Prefer video? Watch the screencast →', 'ageverif-wordpress' )
+					: esc_html__( 'Watch the screencast →', 'ageverif-wordpress' );
+				?>
+			</summary>
+			<?php if ( '' === $raw ) : ?>
+				<p class="description">
+					<?php
+					echo wp_kses(
+						__( 'No video URL configured. Add one under <a href="#ageverif-quickstart-video-url">Onboarding → Quick Start Video URL</a> to enable this embed. Use the official AgeVerif screencast link, your own MP4 URL, or a YouTube/Vimeo/Loom link.', 'ageverif-wordpress' ),
+						array( 'a' => array( 'href' => array() ) )
+					);
+					?>
+				</p>
+			<?php elseif ( $is_self_hosted ) : ?>
+				<div class="ageverif-quickstart-video-frame">
+					<video controls preload="none" playsinline>
+						<source src="<?php echo esc_url( $raw ); ?>" />
+						<?php esc_html_e( 'Your browser does not support embedded video. Download it directly:', 'ageverif-wordpress' ); ?>
+						<a href="<?php echo esc_url( $raw ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $raw ); ?></a>
+					</video>
+				</div>
+				<p class="description">
+					<?php esc_html_e( 'Self-hosted MP4/WebM video. Falls back gracefully if your browser blocks the codec.', 'ageverif-wordpress' ); ?>
+				</p>
+			<?php else : ?>
+				<div class="ageverif-quickstart-video-frame">
+					<iframe
+						src="<?php echo esc_url( $raw ); ?>"
+						title="<?php esc_attr_e( 'AgeVerif Quick Start screencast', 'ageverif-wordpress' ); ?>"
+						loading="lazy"
+						referrerpolicy="no-referrer"
+						sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
+						allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+						allowfullscreen></iframe>
+				</div>
+				<p class="description">
+					<?php
+					echo wp_kses(
+						sprintf(
+							/* translators: %s: the video URL (escaped externally below) */
+							__( 'Sandboxed embed. Trouble loading? <a href="%s" target="_blank" rel="noopener">Open the video in a new tab →</a>', 'ageverif-wordpress' ),
+							esc_url( $raw )
+						),
+						array( 'a' => array( 'href' => array(), 'target' => array( '_blank' ), 'rel' => array( 'noopener' ) ) )
+					);
+					?>
+				</p>
+			<?php endif; ?>
+		</details>
+		<?php
+	}
+
+	/**
 	 * Quick Start walkthrough panel — the first thing a new admin sees.
 	 *
 	 * Pure documentation, kept as a single block so future copy edits
@@ -1515,6 +1641,7 @@ class AgeVerif_Admin {
 		?>
 		<div class="ageverif-help ageverif-quickstart">
 			<h2><?php esc_html_e( 'Quick Start (≈5 minutes)', 'ageverif-wordpress' ); ?></h2>
+			<?php $this->render_quick_start_video(); ?>
 			<p>
 				<?php echo $this->quick_start_paragraph(); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — uses wp_kses internally. */ ?>
 			</p>
