@@ -28,37 +28,16 @@ class AgeVerif_OAuth {
 	const REST_NAMESPACE          = 'ageverif/v1';
 	const REST_ROUTE              = '/oauth/callback';
 	const CALLBACK_QUERY_VAR      = 'ageverif_oauth';
-	const CALLBACK_QUERY_VALUE    = 'callback';
 	const CSRF_TTL_SECONDS        = 15 * 60; // one-time, plenty for AgeVerif round-trip
 	const DEFAULT_VERIFIED_TTL    = 3600;    // access_token expires_in default (1 hour).
 
 	/** @var array merged plugin options + defaults */
 	private $options;
 
-	/** @var bool static guard: callback handler must run exactly once. */
-	private static $callback_handled = false;
-
 	public function __construct() {
-		$stored        = get_option( 'ageverif_options', array() );
-		$this->options = wp_parse_args(
-			is_array( $stored ) ? $stored : array(),
-			AgeVerif_Helper::defaults()
-		);
-
-		// Handle /?ageverif_oauth=callback VERY early — before any
-		// template_redirect output — so we can redirect without poisoning
-		// the response. Runs only when the visitor is bounced to the
-		// callback, never on normal page loads.
-		//
-		// The query-var handler is retained only as a backward-compatibility
-		// fallback for sites that registered the legacy URL in the Webmasters
-		// Portal before v1.3.0. New flows use the REST route below.
-		add_action( 'template_redirect', array( $this, 'maybe_handle_callback' ), 1 );
+		$this->options = AgeVerif_Helper::get_options();
 
 		// Register the canonical OAuth callback as a public REST route.
-		// REST endpoints are exempt from most full-page caches by default
-		// (Nginx Helper, Cloudflare APO) and never get cached as a static
-		// pretty-permalink URL, which keeps the round-trip clean.
 		add_action( 'rest_api_init', array( $this, 'register_rest_route' ) );
 	}
 
@@ -109,15 +88,6 @@ class AgeVerif_OAuth {
 	 * Pattern: `nocache_headers()` + `wp_safe_redirect()` + `exit`.
 	 */
 	public function handle_rest_callback( \WP_REST_Request $request ) {
-		if ( self::$callback_handled ) {
-			// Defensive: if the WP template loader somehow also dispatched
-			// the legacy query-var handler for the same request (shouldn't
-			// happen for unauthenticated REST calls, but guard anyway),
-			// bail out cleanly.
-			return new \WP_Error( 'ageverif_oauth_double_dispatch', __( 'OAuth callback already processed.', 'ageverif-wordpress' ), array( 'status' => 400 ) );
-		}
-		self::$callback_handled = true;
-
 		nocache_headers();
 
 		$code   = (string) $request->get_param( 'code' );
@@ -145,22 +115,8 @@ class AgeVerif_OAuth {
 	 * the frontend gate renderer so they agree on "is OAuth active".
 	 * ============================================================ */
 
-	/**
-	 * Whether OAuth mode is the active verification flow.
-	 *
-	 * oauth_enabled must be on AND a client_id must be configured.
-	 * The client_secret is only consulted on token exchange, not on
-	 * building authorize URLs, so a partially-configured site can still
-	 * bounce visitors to AgeVerif (they'll fail at the token step).
-	 */
 	public function is_active() {
-		if ( empty( $this->options['oauth_enabled'] ) ) {
-			return false;
-		}
-		$client_id = isset( $this->options['oauth_client_id'] )
-			? trim( (string) $this->options['oauth_client_id'] )
-			: '';
-		return '' !== $client_id;
+		return AgeVerif_Helper::oauth_is_active( $this->options );
 	}
 
 	public function is_test_mode() {
@@ -271,29 +227,13 @@ class AgeVerif_OAuth {
 	/**
 	 * Public callback URL the Webmasters Platform must allow-list.
 	 *
-	 * v1.3.0: this is now the REST endpoint at `/wp-json/ageverif/v1/oauth/callback`.
-	 * The previous query-var URL (`?ageverif_oauth=callback`) is still honored
-	 * as a deprecated fallback so existing Webmasters Portal registrations
-	 * don't break on upgrade, but new sites should register this REST URL.
-	 *
+	 * This is the REST endpoint at `/wp-json/ageverif/v1/oauth/callback`.
 	 * The REST form is cleaner for caching layers: full-page cache plugins
 	 * (Nginx Helper, Cloudflare APO, WP Rocket's separate-mobile cache) all
-	 * exempt REST endpoints by default, whereas an arbitrary query-var URL
-	 * needs explicit allow/deny configuration.
+	 * exempt REST endpoints by default.
 	 */
 	public static function callback_url() {
 		return rest_url( self::REST_NAMESPACE . self::REST_ROUTE );
-	}
-
-	/**
-	 * Legacy query-var callback URL — kept so existing Webmasters Portal
-	 * registrations continue to work. New flows should not register this
-	 * URL; use {@see callback_url()} instead.
-	 *
-	 * @deprecated 1.3.0 Use {@see callback_url()} (REST form) instead.
-	 */
-	public static function legacy_callback_url() {
-		return add_query_arg( self::CALLBACK_QUERY_VAR, self::CALLBACK_QUERY_VALUE, home_url( '/' ) );
 	}
 
 	/* ============================================================
@@ -303,10 +243,7 @@ class AgeVerif_OAuth {
 	/**
 	 * Shared OAuth callback pipeline.
 	 *
-	 * Both the REST handler (`handle_rest_callback`) and the legacy
-	 * query-var handler (`maybe_handle_callback`) call into this method
-	 * so they agree on validation, CSRF, token exchange, and cookie
-	 * issuance. On failure, redirects to the homepage via fail_safe_redirect()
+	 * On failure, redirects to the homepage via fail_safe_redirect()
 	 * (which exits). On success, returns the URL the visitor should be
 	 * redirected to.
 	 *
@@ -433,39 +370,7 @@ class AgeVerif_OAuth {
 		return $return_url;
 	}
 
-	/**
-	 * Parse the incoming `?ageverif_oauth=callback` request and act.
-	 *
-	 * @deprecated 1.3.0 The query-var form is retained only as a backward-
-	 *                   compatibility fallback. New flows should use the
-	 *                   REST endpoint at {@see callback_url()}.
-	 *
-	 * Runs on `template_redirect` priority 1 so that we redirect BEFORE
-	 * any WP template tries to render, which would otherwise output a
-	 * 404 page (since the query var is not registered as a permalink).
-	 */
-	public function maybe_handle_callback() {
-		if ( self::$callback_handled ) {
-			return;
-		}
-		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- public OAuth callback; CSRF is state-cookie verification.
-		if ( ! isset( $_GET[ self::CALLBACK_QUERY_VAR ] ) ) {
-			return;
-		}
-		if ( self::CALLBACK_QUERY_VALUE !== sanitize_key( wp_unslash( (string) $_GET[ self::CALLBACK_QUERY_VAR ] ) ) ) {
-			return;
-		}
-		self::$callback_handled = true;
 
-		$code  = isset( $_GET['code'] )  ? sanitize_text_field( wp_unslash( (string) $_GET['code'] ) )  : '';
-		$state = isset( $_GET['state'] ) ? sanitize_text_field( wp_unslash( (string) $_GET['state'] ) ) : '';
-		$error = isset( $_GET['error'] ) ? sanitize_text_field( wp_unslash( (string) $_GET['error'] ) ) : '';
-
-		$redirect_to = $this->process_oauth_callback( $code, $state, $error );
-		wp_safe_redirect( '' !== $redirect_to ? $redirect_to : home_url( '/' ), 302 );
-		exit;
-		// phpcs:enable WordPress.Security.NonceVerification.Recommended
-	}
 
 	/**
 	 * Exchange the authorization code for an access_token.
@@ -739,19 +644,11 @@ class AgeVerif_OAuth {
 	 * admin renderer and the auto-gate/block.
 	 * ============================================================ */
 
-	public function default_button_label() {
-		$flow = ( 'login' === (string) $this->options['oauth_flow'] ) ? 'login' : 'checker';
-		if ( 'login' === $flow ) {
-			return __( 'Continue with AgeVerif', 'ageverif-wordpress' );
-		}
-		return __( 'Verify with AgeVerif', 'ageverif-wordpress' );
-	}
-
 	public function button_label() {
 		$custom = isset( $this->options['oauth_button_label'] )
 			? trim( (string) $this->options['oauth_button_label'] )
 			: '';
-		return '' === $custom ? $this->default_button_label() : $custom;
+		return '' === $custom ? AgeVerif_Helper::default_button_label_from_options( $this->options ) : $custom;
 	}
 
 	public function button_color() {
@@ -760,31 +657,5 @@ class AgeVerif_OAuth {
 			? sanitize_key( $this->options['oauth_button_color'] )
 			: 'blue';
 		return in_array( $color, $allowed, true ) ? $color : 'blue';
-	}
-
-	/* ============================================================
-	 * Static UI helpers — work without an instance so the admin
-	 * renderer can show the default label placeholder before the
-	 * option is actually saved.
-	 * ============================================================ */
-
-	public static function default_button_label_from_options( array $options ) {
-		$flow = isset( $options['oauth_flow'] ) ? sanitize_key( $options['oauth_flow'] ) : 'checker';
-		if ( 'login' === $flow ) {
-			return __( 'Continue with AgeVerif', 'ageverif-wordpress' );
-		}
-		return __( 'Verify with AgeVerif', 'ageverif-wordpress' );
-	}
-
-	/**
-	 * CSS hex for the chosen color. Kept here so the auto-gate
-	 * and the shortcode stay in sync with the admin setting.
-	 */
-	public static function button_color_css( $color ) {
-		switch ( $color ) {
-			case 'white': return '#ffffff';
-			case 'black': return '#000000';
-			default:      return '#004db3'; // AgeVerif Blue.
-		}
 	}
 }

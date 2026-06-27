@@ -12,6 +12,9 @@ defined( 'ABSPATH' ) || exit;
 
 class AgeVerif_Helper {
 
+	const ALLOWED_LANGUAGES = array( 'auto', 'en', 'de', 'es', 'fr', 'it', 'pt' );
+	const ALLOWED_CHALLENGES = array( 'selfie', 'ticket' );
+
 	/**
 	 * Canonical defaults for the ageverif_options option.
 	 *
@@ -49,7 +52,6 @@ class AgeVerif_Helper {
 			),
 			'bot_bypass_custom'     => '',		'underage_redirect_url' => '',
 		'test_mode'             => 0,
-		'quickstart_video_url'  => '', // empty = no iframe; admin opts-in to embed a screencast in the Quick Start panel.
 
 		// OAuth2 — when enabled, replaces the checker.js flow entirely.
 		// Visitor clicks a "Verify with AgeVerif" button → redirected to
@@ -62,9 +64,121 @@ class AgeVerif_Helper {
 		'oauth_client_secret'   => '',
 		'oauth_flow'            => 'checker',    // 'checker' (Verify age) | 'login' (Sign in)
 		'oauth_button_label'    => '',           // empty = use AgeVerif default label
-		'oauth_button_color'    => 'blue',       // 'blue' | 'white' | 'black'
+		'oauth_button_color'    => 'blue',       // 'blue' | 'white' | 'black' | 'gray'
 		'oauth_language'        => 'auto',       // 'auto' | en | de | es | fr | it | pt
 		'oauth_challenges'      => array(),      // subset of allowed challenges (see sanitize)
 	);
+	}
+
+	/**
+	 * Single source of truth for loading + merging options.
+	 */
+	public static function get_options() {
+		$stored = get_option( 'ageverif_options', array() );
+		return wp_parse_args( is_array( $stored ) ? $stored : array(), self::defaults() );
+	}
+
+	/**
+	 * Whether OAuth2 is active (enabled + client_id configured).
+	 */
+	public static function oauth_is_active( array $options ) {
+		if ( empty( $options['oauth_enabled'] ) ) {
+			return false;
+		}
+		$client_id = isset( $options['oauth_client_id'] )
+			? trim( (string) $options['oauth_client_id'] )
+			: '';
+		return '' !== $client_id;
+	}
+
+	/**
+	 * Sanitize an array of string keys (checkbox groups).
+	 */
+	public static function sanitize_key_array( $input ) {
+		if ( ! is_array( $input ) ) {
+			return array();
+		}
+		return array_values(
+			array_unique(
+				array_filter(
+					array_map( 'sanitize_key', $input ),
+					static function ( $v ) { return '' !== $v; }
+				)
+			)
+		);
+	}
+
+	/**
+	 * Sanitize a multi-line textarea field.
+	 */
+	public static function sanitize_textarea_lines( $input ) {
+		$lines = preg_split( '/\r?\n/', (string) $input );
+		$clean = array();
+		foreach ( $lines as $line ) {
+			$line = trim( $line );
+			if ( '' !== $line ) {
+				$clean[] = sanitize_text_field( $line );
+			}
+		}
+		return implode( "\n", $clean );
+	}
+
+	/**
+	 * Sanitize challenges array against the allowed list.
+	 */
+	public static function sanitize_challenges( $input ) {
+		if ( ! is_array( $input ) ) {
+			return array();
+		}
+		$clean = array();
+		foreach ( $input as $c ) {
+			$c = sanitize_key( $c );
+			if ( in_array( $c, self::ALLOWED_CHALLENGES, true ) ) {
+				$clean[] = $c;
+			}
+		}
+		return array_values( array_unique( $clean ) );
+	}
+
+	/**
+	 * Validate a language code against the allowed list.
+	 */
+	public static function sanitize_language( $lang ) {
+		$lang = sanitize_text_field( $lang );
+		return in_array( $lang, self::ALLOWED_LANGUAGES, true ) ? $lang : 'auto';
+	}
+
+	/**
+	 * Default OAuth button label based on flow.
+	 */
+	public static function default_button_label_from_options( array $options ) {
+		$flow = isset( $options['oauth_flow'] ) ? sanitize_key( $options['oauth_flow'] ) : 'checker';
+		if ( 'login' === $flow ) {
+			return __( 'Continue with AgeVerif', 'ageverif-wordpress' );
+		}
+		return __( 'Verify with AgeVerif', 'ageverif-wordpress' );
+	}
+
+	/**
+	 * CSS hex for the chosen OAuth button color.
+	 */
+	public static function button_color_css( $color ) {
+		switch ( $color ) {
+			case 'white': return '#ffffff';
+			case 'black': return '#000000';
+			case 'gray':  return '#e0e0e0';
+			default:      return '#004db3';
+		}
+	}
+
+	/**
+	 * WCAG-friendly text color for the chosen button background.
+	 */
+	public static function button_text_color_css( $color ) {
+		switch ( $color ) {
+			case 'white': return '#000000';
+			case 'gray':  return '#1d2327';
+			default:      return '#ffffff';
+		}
 	}
 }

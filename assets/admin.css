@@ -1,3 +1,14 @@
+:root {
+	--av-blue: #004db3;
+	--av-blue-dark: #003a8c;
+	--av-border: #c3c4c7;
+	--av-border-light: #dcdcde;
+	--av-bg-subtle: #f0f0f1;
+	--av-text: #1d2327;
+	--av-text-muted: #50575e;
+	--av-focus: 2px solid var(--av-blue);
+}
+
 .ageverif-settings .form-table th {
 	width: 220px;
 }
@@ -14,11 +25,12 @@
 
 .ageverif-settings .ageverif-help {
 	background: #fff;
-	border: 1px solid #c3c4c7;
+	border: 1px solid var(--av-border);
 	border-left: 4px solid #72aee6;
 	padding: 12px 20px;
 	margin-top: 20px;
 	max-width: 800px;
+	transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .ageverif-settings .ageverif-help ol {
@@ -42,7 +54,7 @@
 
 .ageverif-settings .ageverif-tool {
 	background: #f6f7f7;
-	border: 1px solid #dcdcde;
+	border: 1px solid var(--av-border-light);
 	border-left: 4px solid #72aee6;
 	padding: 12px 20px;
 	margin-top: 24px;
@@ -60,14 +72,14 @@
 
 .ageverif-settings .ageverif-tool-sep {
 	border: 0;
-	border-top: 1px solid #dcdcde;
+	border-top: 1px solid var(--av-border-light);
 	margin: 22px 0 14px;
 }
 
 .ageverif-settings .ageverif-tool h3 {
 	margin: 0 0 6px;
 	font-size: 14px;
-	color: #1d2327;
+	color: var(--av-text);
 }
 
 .ageverif-settings .ageverif-custom-credentials {
@@ -115,7 +127,7 @@
 }
 
 .ageverif-settings .ageverif-tip:focus-visible {
-	outline: 2px solid #004db3;
+	outline: var(--av-focus);
 	outline-offset: 1px;
 }
 
@@ -128,7 +140,7 @@
 	min-width: 240px;
 	max-width: 360px;
 	padding: 10px 12px;
-	background: #1d2327;
+	background: var(--av-text);
 	color: #fff;
 	border-radius: 4px;
 	font-size: 12.5px;
@@ -137,6 +149,7 @@
 	text-align: left;
 	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 	white-space: normal;
+	transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .ageverif-settings .ageverif-tip-body::before {
@@ -146,7 +159,7 @@
 	top: -5px;
 	width: 10px;
 	height: 10px;
-	background: #1d2327;
+	background: var(--av-text);
 	transform: rotate(45deg);
 }
 
@@ -161,8 +174,8 @@
 	width: 16px;
 	height: 16px;
 	border-radius: 50%;
-	background: #f0f0f1;
-	color: #1d2327;
+	background: var(--av-bg-subtle);
+	color: var(--av-text);
 	font-size: 11px;
 	font-weight: 600;
 	line-height: 16px;
@@ -182,7 +195,7 @@
 .ageverif-settings .ageverif-tip--text {
 	display: inline;
 	cursor: help;
-	color: #004db3;
+	color: var(--av-blue);
 	background: transparent;
 	border: 0;
 	border-radius: 0;
@@ -194,15 +207,15 @@
 	padding: 0;
 	user-select: auto;
 	text-decoration: underline dotted;
-	text-decoration-color: #c3c4c7;
+	text-decoration-color: var(--av-border);
 	text-underline-offset: 3px;
 }
 
 .ageverif-settings .ageverif-tip--text:hover,
 .ageverif-settings .ageverif-tip--text:focus-within {
 	text-decoration: underline solid;
-	text-decoration-color: #004db3;
-	color: #003a8c;
+	text-decoration-color: var(--av-blue);
+	color: var(--av-blue-dark);
 }
 
 .ageverif-settings .ageverif-tip--text .ageverif-tip-body {
@@ -214,13 +227,13 @@
 
 .ageverif-settings > .ageverif-intro {
 	background: #fff;
-	border: 1px solid #c3c4c7;
-	border-left: 4px solid #004db3;
+	border: 1px solid var(--av-border);
+	border-left: 4px solid var(--av-blue);
 	padding: 10px 14px;
 	margin: 16px 0;
 	max-width: 800px;
 	font-size: 14px;
-	color: #1d2327;
+	color: var(--av-text);
 }
 
 /* ===== Quick Start walkthrough ===== */
@@ -228,21 +241,21 @@
 .ageverif-settings .ageverif-quickstart {
 	max-width: 800px;
 	background: #fff;
-	border: 1px solid #c3c4c7;
-	border-left: 4px solid #004db3;
+	border: 1px solid var(--av-border);
+	border-left: 4px solid var(--av-blue);
 	padding: 14px 20px 18px;
 	margin-top: 0;
 }
 
 .ageverif-settings .ageverif-quickstart h2 {
 	margin-top: 0;
-	color: #1d2327;
+	color: var(--av-text);
 	font-size: 18px;
 }
 
 .ageverif-settings .ageverif-quickstart .ageverif-help-foot {
 	margin: 16px 0 0;
-	color: #50575e;
+	color: var(--av-text-muted);
 }
 
 /* Numbered steps: ratchet badge + body side-by-side */
@@ -268,7 +281,7 @@
 	width: 28px;
 	height: 28px;
 	border-radius: 50%;
-	background: #004db3;
+	background: var(--av-blue);
 	color: #fff;
 	font-weight: 700;
 	font-size: 13px;
@@ -276,6 +289,8 @@
 	margin-top: 2px;
 	grid-column: 1;
 	grid-row: span 2;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+	transition: background 0.12s ease, transform 0.12s ease;
 }
 
 .ageverif-settings .ageverif-step-body {
@@ -285,8 +300,15 @@
 .ageverif-settings .ageverif-step-body h3 {
 	margin: 0 0 4px;
 	font-size: 14px;
-	color: #1d2327;
+	color: var(--av-text);
 	line-height: 1.3;
+	transition: color 0.12s ease;
+}
+
+.ageverif-settings .ageverif-step-body p {
+	margin: 0;
+	color: var(--av-text-muted);
+	line-height: 1.55;
 }
 
 .ageverif-settings .ageverif-step-body p {
@@ -298,7 +320,7 @@
 /* Optional OAuth subsection inside the Quick Start */
 .ageverif-settings .ageverif-substeps {
 	margin-top: 12px;
-	border-top: 1px dashed #c3c4c7;
+	border-top: 1px dashed var(--av-border);
 	padding-top: 12px;
 }
 
@@ -306,7 +328,7 @@
 	cursor: pointer;
 	list-style: none;
 	padding: 4px 0;
-	color: #004db3;
+	color: var(--av-blue);
 }
 
 .ageverif-settings .ageverif-substeps > summary::-webkit-details-marker {
@@ -325,7 +347,7 @@
 }
 
 .ageverif-settings .ageverif-substeps > summary .description {
-	color: #50575e;
+	color: var(--av-text-muted);
 	margin-left: 6px;
 	font-weight: 400;
 }
@@ -337,7 +359,7 @@
 .ageverif-settings .ageverif-checklist-wrap {
 	max-width: 800px;
 	background: #fff;
-	border: 1px solid #c3c4c7;
+	border: 1px solid var(--av-border);
 	border-left: 4px solid #72aee6;
 	padding: 12px 20px;
 	margin-top: 18px;
@@ -347,7 +369,7 @@
 .ageverif-settings .ageverif-troubleshooting h2,
 .ageverif-settings .ageverif-checklist-wrap h2 {
 	margin-top: 0;
-	color: #1d2327;
+	color: var(--av-text);
 	font-size: 16px;
 }
 
@@ -367,8 +389,9 @@
 	cursor: pointer;
 	list-style: none;
 	font-weight: 500;
-	color: #1d2327;
+	color: var(--av-text);
 	padding: 4px 0;
+	transition: color 0.15s ease;
 }
 
 .ageverif-settings .ageverif-glossary-term > summary::-webkit-details-marker,
@@ -382,7 +405,7 @@
 	display: inline-block;
 	width: 16px;
 	font-weight: 600;
-	color: #004db3;
+	color: var(--av-blue);
 }
 
 .ageverif-settings .ageverif-glossary-term[open] > summary::before,
@@ -393,7 +416,7 @@
 .ageverif-settings .ageverif-glossary-term > p,
 .ageverif-settings .ageverif-troubleshooting-issue > p {
 	margin: 6px 0 8px 22px;
-	color: #50575e;
+	color: var(--av-text-muted);
 	line-height: 1.55;
 }
 
@@ -410,8 +433,26 @@
 	grid-template-columns: 18px 1fr;
 	gap: 8px;
 	margin: 0 0 8px;
-	color: #1d2327;
+	color: var(--av-text);
 	line-height: 1.5;
+}
+
+.ageverif-settings .ageverif-checklist-bullet {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	border: 2px solid var(--av-border);
+	border-radius: 3px;
+	margin-top: 4px;
+	background: #fff;
+	transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+	box-shadow: inset 0 1px 0 rgba(0, 0, 0, 0.04);
+}
+
+.ageverif-settings .ageverif-checklist li:hover .ageverif-checklist-bullet {
+	border-color: var(--av-blue);
+	background: #f0f6fc;
+	box-shadow: 0 0 0 3px rgba(0, 77, 179, 0.08);
 }
 
 .ageverif-settings .ageverif-checklist-bullet {
@@ -443,12 +484,13 @@
 .ageverif-settings .ageverif-status-item,
 .ageverif-settings .ageverif-status--success {
 	background: #fff;
-	border: 1px solid #c3c4c7;
+	border: 1px solid var(--av-border);
 	border-left: 4px solid #72aee6;
 	padding: 10px 14px;
 	border-radius: 4px;
 	line-height: 1.5;
-	color: #1d2327;
+	color: var(--av-text);
+	transition: box-shadow 0.15s ease, border-color 0.15s ease;
 }
 
 .ageverif-settings .ageverif-status--success {
@@ -519,7 +561,7 @@
 .ageverif-settings select:focus-visible,
 .ageverif-settings textarea:focus-visible,
 .ageverif-settings summary:focus-visible {
-	outline: 2px solid #004db3;
+	outline: var(--av-focus);
 	outline-offset: 2px;
 }
 
@@ -595,7 +637,7 @@
 }
 
 .ageverif-settings .ageverif-step:hover .ageverif-step-body h3 {
-	color: #004db3;
+	color: var(--av-blue);
 }
 
 /* Checklist bullets now look like actual checkboxes with a smooth hover. */
@@ -623,7 +665,7 @@
 
 .ageverif-settings .ageverif-glossary-term > summary:hover,
 .ageverif-settings .ageverif-troubleshooting-issue > summary:hover {
-	color: #004db3;
+	color: var(--av-blue);
 }
 
 /* OAuth substeps: subtle subtitle hover cue. */
@@ -632,7 +674,7 @@
 }
 
 .ageverif-settings .ageverif-substeps > summary:hover > .description {
-	color: #1d2327;
+	color: var(--av-text);
 }
 
 /* ===== Callback URL block ===== */
@@ -662,9 +704,9 @@
 	align-items: center;
 	gap: 4px;
 	padding: 4px 10px;
-	border: 1px solid #004db3;
+	border: 1px solid var(--av-blue);
 	background: #fff;
-	color: #004db3;
+	color: var(--av-blue);
 	border-radius: 3px;
 	font-size: 12px;
 	font-weight: 600;
@@ -674,12 +716,12 @@
 }
 
 .ageverif-settings .ageverif-copy-btn:hover {
-	background: #004db3;
+	background: var(--av-blue);
 	color: #fff;
 }
 
 .ageverif-settings .ageverif-copy-btn:focus-visible {
-	outline: 2px solid #004db3;
+	outline: var(--av-focus);
 	outline-offset: 2px;
 }
 
@@ -744,45 +786,6 @@
 	outline-offset: 2px;
 }
 
-/* Quick Start screencast embed */
-.ageverif-settings .ageverif-quickstart-video {
-	margin: 0 0 12px;
-}
-.ageverif-settings .ageverif-quickstart-video > summary {
-	cursor: pointer;
-	font-weight: 600;
-	color: #004db3;
-	padding: 6px 0;
-	list-style: disclosure-closed;
-}
-.ageverif-settings .ageverif-quickstart-video[open] > summary {
-	list-style: disclosure-open;
-}
-.ageverif-settings .ageverif-quickstart-video-frame {
-	position: relative;
-	width: 100%;
-	max-width: 720px;
-	aspect-ratio: 16 / 9;
-	margin: 8px 0 6px;
-	background: #1d2327;
-	border-radius: 8px;
-	overflow: hidden;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, .08);
-}
-.ageverif-settings .ageverif-quickstart-video-frame iframe,
-.ageverif-settings .ageverif-quickstart-video-frame video {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	border: 0;
-}
-.ageverif-settings .ageverif-quickstart-video .description {
-	margin-top: 6px;
-	font-size: 13px;
-	color: #50575e;
-}
-
 /* Status-widget Focus flash — briefly outline the just-focused target so
    the eye picks up where the browser moved keyboard focus. Honors
    prefers-reduced-motion. */
@@ -817,4 +820,52 @@
 }
 .ageverif-settings .ageverif-copy-btn.is-copy-failed:focus-visible {
 	outline-color: #d63638;
+}
+
+/* ===== Live OAuth button preview chip =====
+   Sits inline next to the OAuth Button Color select on the Settings
+   page so admins see the actual bg/text contrast before saving. The
+   JS in the field renderer keeps bg/fg/text in sync with the picker. */
+.ageverif-settings .ageverif-oauth-button-preview {
+	display: inline-block;
+	margin-left: 12px;
+	padding: 8px 18px;
+	background: #004db3;
+	color: #ffffff;
+	border: 1px solid transparent;
+	border-radius: 6px;
+	font-size: 14px;
+	font-weight: 600;
+	line-height: 1.2;
+	vertical-align: middle;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+	transition: background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+	max-width: 100%;
+	text-align: center;
+}
+
+.ageverif-settings .ageverif-oauth-button-preview:focus-visible {
+	outline: 2px solid #004db3;
+	outline-offset: 2px;
+}
+
+/* ===== Dark-mode admin polish for OAuth fields =====
+   WP admin already flips its chrome to dark via its own
+   prefers-color-scheme handling. We only need to make the OAuth
+   input fields + preview chip readable in dark mode (white/gray
+   previews otherwise vanish into a dark row). */
+@media (prefers-color-scheme: dark) {
+	.ageverif-settings input[id^="ageverif-oauth-"],
+	.ageverif-settings select[id^="ageverif-oauth-"] {
+		background: #1d2327;
+		color: #e2e4e7;
+		border-color: #2c3338;
+	}
+
+	.ageverif-settings .ageverif-oauth-button-preview {
+		/* Subtle outline so the white/gray previews are visible
+		   against the dark form-table row. */
+		border-color: rgba(255, 255, 255, 0.18);
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+	}
 }

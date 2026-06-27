@@ -46,7 +46,6 @@ class AgeVerif_Admin {
 		add_action( 'admin_post_ageverif_health_check', array( $this, 'handle_health_check' ) );
 		add_action( 'admin_post_ageverif_oauth_health_check', array( $this, 'handle_oauth_health_check' ) );
 		add_action( 'admin_notices', array( $this, 'maybe_print_admin_notice' ) );
-		add_action( 'update_option_' . self::OPTION_NAME, array( $this, 'clear_per_post_cache_hint' ), 10, 2 );
 	}
 
 	private $options;
@@ -90,16 +89,7 @@ class AgeVerif_Admin {
 			)
 		);
 
-		// 1. Onboarding — Quick Start screencast URL (admin-facing UX).
-		add_settings_section(
-			'ageverif_onboarding',
-			__( 'Onboarding', 'ageverif-wordpress' ),
-			array( $this, 'render_section_intro_onboarding' ),
-			'ageverif'
-		);
-		$this->register_field( 'quickstart_video_url', __( 'Quick Start Video URL', 'ageverif-wordpress' ), 'field_quickstart_video_url' );
-
-		// 2. Connection
+		// 1. Connection
 		add_settings_section(
 			'ageverif_connection',
 			__( 'Connection', 'ageverif-wordpress' ),
@@ -254,7 +244,6 @@ class AgeVerif_Admin {
 
 	private function field_section( $key ) {
 		$map = array(
-			'quickstart_video_url'   => 'onboarding',
 			'api_key'                => 'connection',
 			'test_key'               => 'connection',
 			'enabled_post_types'     => 'visibility',
@@ -282,16 +271,6 @@ class AgeVerif_Admin {
 			'oauth_challenges'       => 'oauth',
 		);
 		return isset( $map[ $key ] ) ? $map[ $key ] : 'connection';
-	}
-
-	public function render_section_intro() {
-		// Fallback for any section that didn't get a custom intro.
-	}
-
-	public function render_section_intro_onboarding() {
-		echo '<p class="ageverif-section-intro">';
-		esc_html_e( 'Customize what new admins see first. The Quick Start panel above accepts a video URL — leave empty to hide the player and rely on the step-by-step text only.', 'ageverif-wordpress' );
-		echo '</p>';
 	}
 
 	public function render_section_intro_connection() {
@@ -346,15 +325,8 @@ class AgeVerif_Admin {
 		if ( isset( $input['api_key'] ) )  { $out['api_key']  = sanitize_text_field( $input['api_key'] ); }
 		if ( isset( $input['test_key'] ) ) { $out['test_key'] = sanitize_text_field( $input['test_key'] ); }
 
-		if ( isset( $input['enabled_post_types'] ) && is_array( $input['enabled_post_types'] ) ) {
-			$out['enabled_post_types'] = array_values(
-				array_unique(
-					array_filter(
-						array_map( 'sanitize_key', $input['enabled_post_types'] ),
-						static function ( $v ) { return '' !== $v; }
-					)
-				)
-			);
+		if ( isset( $input['enabled_post_types'] ) ) {
+			$out['enabled_post_types'] = \AgeVerif\AgeVerif_Helper::sanitize_key_array( $input['enabled_post_types'] );
 		}
 
 		if ( isset( $input['excluded_urls'] ) ) {
@@ -369,24 +341,12 @@ class AgeVerif_Admin {
 			$out['excluded_urls'] = implode( "\n", $clean );
 		}
 
-		$languages = array( 'auto', 'en', 'de', 'es', 'fr', 'it', 'pt' );
 		if ( isset( $input['language'] ) ) {
-			$lang = sanitize_text_field( $input['language'] );
-			$out['language'] = in_array( $lang, $languages, true ) ? $lang : 'auto';
+			$out['language'] = \AgeVerif\AgeVerif_Helper::sanitize_language( $input['language'] );
 		}
 
-		// Only challenges confirmed in the AgeVerif docs (https://docs.ageverif.com).
-		// Other values may be silently rejected by the verifier, so we keep this list tight.
-		$challenges_allowed = array( 'selfie', 'ticket' );
-		if ( isset( $input['challenges'] ) && is_array( $input['challenges'] ) ) {
-			$clean = array();
-			foreach ( $input['challenges'] as $c ) {
-				$c = sanitize_key( $c );
-				if ( in_array( $c, $challenges_allowed, true ) ) {
-					$clean[] = $c;
-				}
-			}
-			$out['challenges'] = array_values( array_unique( $clean ) );
+		if ( isset( $input['challenges'] ) ) {
+			$out['challenges'] = \AgeVerif\AgeVerif_Helper::sanitize_challenges( $input['challenges'] );
 		}
 
 		$display_allowed = array( 'popup', 'tab', 'redirect' );
@@ -399,15 +359,8 @@ class AgeVerif_Admin {
 			$out[ $flag ] = ! empty( $input[ $flag ] ) ? 1 : 0;
 		}
 
-		if ( isset( $input['bypass_roles'] ) && is_array( $input['bypass_roles'] ) ) {
-			$roles = array();
-			foreach ( $input['bypass_roles'] as $r ) {
-				$key = sanitize_key( $r );
-				if ( '' !== $key ) {
-					$roles[] = $key;
-				}
-			}
-			$out['bypass_roles'] = array_values( array_unique( $roles ) );
+		if ( isset( $input['bypass_roles'] ) ) {
+			$out['bypass_roles'] = \AgeVerif\AgeVerif_Helper::sanitize_key_array( $input['bypass_roles'] );
 		}
 
 		$presets_available = array_keys( $this->bot_preset_signatures() );
@@ -423,26 +376,12 @@ class AgeVerif_Admin {
 		}
 
 		if ( isset( $input['bot_bypass_custom'] ) ) {
-			$lines = preg_split( '/\r?\n/', (string) $input['bot_bypass_custom'] );
-			$clean = array();
-			foreach ( $lines as $line ) {
-				$line = trim( $line );
-				if ( '' !== $line ) {
-					$clean[] = sanitize_text_field( $line );
-				}
-			}
-			$out['bot_bypass_custom'] = implode( "\n", $clean );
+			$out['bot_bypass_custom'] = \AgeVerif\AgeVerif_Helper::sanitize_textarea_lines( $input['bot_bypass_custom'] );
 		}
 
 		if ( isset( $input['underage_redirect_url'] ) ) {
 			$url = trim( (string) $input['underage_redirect_url'] );
 			$out['underage_redirect_url'] = ( '' === $url ) ? '' : esc_url_raw( $url );
-		}
-
-		if ( isset( $input['quickstart_video_url'] ) ) {
-			$url = trim( (string) $input['quickstart_video_url'] );
-			// Validate as an actual URL before accepting. Empty = disabled.
-			$out['quickstart_video_url'] = ( '' === $url || ! filter_var( $url, FILTER_VALIDATE_URL ) ) ? '' : esc_url_raw( $url );
 		}
 
 		// ----- OAuth2 -----
@@ -479,38 +418,21 @@ class AgeVerif_Admin {
 			$out['oauth_button_label'] = sanitize_text_field( (string) $input['oauth_button_label'] );
 		}
 
-		$oauth_colors = array( 'blue', 'white', 'black' );
+		$oauth_colors = array( 'blue', 'white', 'black', 'gray' );
 		if ( isset( $input['oauth_button_color'] ) ) {
 			$color = sanitize_key( $input['oauth_button_color'] );
 			$out['oauth_button_color'] = in_array( $color, $oauth_colors, true ) ? $color : 'blue';
 		}
 
 		if ( isset( $input['oauth_language'] ) ) {
-			$lang = sanitize_text_field( $input['oauth_language'] );
-			$out['oauth_language'] = in_array( $lang, $languages, true ) ? $lang : 'auto';
+			$out['oauth_language'] = \AgeVerif\AgeVerif_Helper::sanitize_language( $input['oauth_language'] );
 		}
 
-		// OAuth challenges — same per-validator allow-list as the checker flow
-		// (`selfie`, `ticket`). The AgeVerif docs list more, but the validator
-		// only accepts these by default; expand here when the validator accepts new ones.
-		$oauth_challenges_allowed = array( 'selfie', 'ticket' );
-		if ( isset( $input['oauth_challenges'] ) && is_array( $input['oauth_challenges'] ) ) {
-			$clean = array();
-			foreach ( $input['oauth_challenges'] as $c ) {
-				$c = sanitize_key( $c );
-				if ( in_array( $c, $oauth_challenges_allowed, true ) ) {
-					$clean[] = $c;
-				}
-			}
-			$out['oauth_challenges'] = array_values( array_unique( $clean ) );
+		if ( isset( $input['oauth_challenges'] ) ) {
+			$out['oauth_challenges'] = \AgeVerif\AgeVerif_Helper::sanitize_challenges( $input['oauth_challenges'] );
 		}
 
 		return $out;
-	}
-
-	public function clear_per_post_cache_hint( $old, $new ) {
-		// Settings changed – nothing to flush right now, but a future hook
-		// for cache plugins could live here.
 	}
 
 	/* ===== Field renderers ===== */
@@ -804,21 +726,6 @@ class AgeVerif_Admin {
 		<?php
 	}
 
-	public function field_quickstart_video_url() {
-		$tip = __( 'Paste a YouTube, Vimeo, Loom, or self-hosted MP4 URL here. Accepts any embeddable video URL. Leave empty to hide the player and rely on the step-by-step text only. The iframe is sandboxed and lazy-loaded so the admin page itself stays fast.', 'ageverif-wordpress' );
-		$value = isset( $this->options['quickstart_video_url'] ) ? (string) $this->options['quickstart_video_url'] : '';
-		?>
-		<?php $this->render_tooltip( $tip ); ?>
-		<input type="url" name="ageverif_options[quickstart_video_url]" id="ageverif-quickstart-video-url"
-			value="<?php echo esc_attr( $value ); ?>"
-			class="regular-text" placeholder="https://www.youtube.com/watch?v=…"
-			pattern="https?://.*" autocomplete="off" spellcheck="false" />
-		<p class="description">
-			<?php esc_html_e( 'Optional. Embeds in the Quick Start panel (top of this page) so visual learners can follow along. Leave blank to hide the player.', 'ageverif-wordpress' ); ?>
-		</p>
-		<?php
-	}
-
 	public function field_underage_redirect_url() {
 		$tip = __( 'Where to send visitors who fail or close the gate — a friendly “you must be 18+ to enter” page is better than a dead end. Works alongside “Closable Gate” above.', 'ageverif-wordpress' );
 		?>
@@ -948,7 +855,7 @@ class AgeVerif_Admin {
 		<input id="ageverif-oauth-button-label" type="text" name="ageverif_options[oauth_button_label]"
 			value="<?php echo esc_attr( $this->options['oauth_button_label'] ); ?>"
 			class="regular-text"
-			placeholder="<?php echo esc_attr( \AgeVerif\AgeVerif_OAuth::default_button_label_from_options( $this->options ) ); ?>" />
+			placeholder="<?php echo esc_attr( \AgeVerif\AgeVerif_Helper::default_button_label_from_options( $this->options ) ); ?>" />
 		<p class="description">
 			<?php esc_html_e( 'Custom button text. Leave empty for AgeVerif’s recommended default (“Verify with AgeVerif” or “Continue with AgeVerif” depending on the selected flow).', 'ageverif-wordpress' ); ?>
 		</p>
@@ -957,23 +864,91 @@ class AgeVerif_Admin {
 
 	public function field_oauth_button_color() {
 		$options = array(
-			'blue'  => __( 'AgeVerif Blue (#004db3)', 'ageverif-wordpress' ),
-			'white' => __( 'White (#ffffff)',           'ageverif-wordpress' ),
-			'black' => __( 'Black (#000000)',           'ageverif-wordpress' ),
+			'blue'  => array(
+				'label' => __( 'AgeVerif Blue (#004db3)', 'ageverif-wordpress' ),
+				'bg'    => \AgeVerif\AgeVerif_Helper::button_color_css( 'blue' ),
+				'fg'    => \AgeVerif\AgeVerif_Helper::button_text_color_css( 'blue' ),
+			),
+			'white' => array(
+				'label' => __( 'White (#ffffff)', 'ageverif-wordpress' ),
+				'bg'    => \AgeVerif\AgeVerif_Helper::button_color_css( 'white' ),
+				'fg'    => \AgeVerif\AgeVerif_Helper::button_text_color_css( 'white' ),
+			),
+			'black' => array(
+				'label' => __( 'Black (#000000)', 'ageverif-wordpress' ),
+				'bg'    => \AgeVerif\AgeVerif_Helper::button_color_css( 'black' ),
+				'fg'    => \AgeVerif\AgeVerif_Helper::button_text_color_css( 'black' ),
+			),
+			'gray'  => array(
+				'label' => __( 'Neutral gray (#e0e0e0)', 'ageverif-wordpress' ),
+				'bg'    => \AgeVerif\AgeVerif_Helper::button_color_css( 'gray' ),
+				'fg'    => \AgeVerif\AgeVerif_Helper::button_text_color_css( 'gray' ),
+			),
 		);
-		$tip = __( 'Pick a button color from the AgeVerif Brand Guidelines. Pair the color with the matching AgeVerif logo (download from the Brand guidelines page). Neutral grays like #e0e0e0 are also fine.', 'ageverif-wordpress' );
+		$tip = __( 'Pick the OAuth button background. Blue / White / Black are the documented AgeVerif palette; gray is permitted as a neutral accent. The button shape is free — pair the chosen color with the matching AgeVerif logo for contrast, fetched from your account in the Webmasters Portal → Brand kit.', 'ageverif-wordpress' );
+		$current_color = $this->options['oauth_button_color'];
+		$bg = \AgeVerif\AgeVerif_Helper::button_color_css( $current_color );
+		$fg = \AgeVerif\AgeVerif_Helper::button_text_color_css( $current_color );
+		$preview_label = trim( (string) $this->options['oauth_button_label'] );
+		if ( '' === $preview_label ) {
+			$preview_label = \AgeVerif\AgeVerif_Helper::default_button_label_from_options( $this->options );
+		}
 		?>
 		<?php $this->render_tooltip( $tip ); ?>
 		<select name="ageverif_options[oauth_button_color]" id="ageverif-oauth-button-color">
-			<?php foreach ( $options as $key => $label ) : ?>
-				<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $this->options['oauth_button_color'], $key ); ?>>
-					<?php echo esc_html( $label ); ?>
+			<?php foreach ( $options as $key => $info ) : ?>
+				<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $current_color, $key ); ?> style="background:<?php echo esc_attr( $info['bg'] ); ?>;color:<?php echo esc_attr( $info['fg'] ); ?>;">
+					<?php echo esc_html( $info['label'] ); ?>
 				</option>
 			<?php endforeach; ?>
 		</select>
+		<span class="ageverif-oauth-button-preview" id="ageverif-oauth-button-preview" role="img" aria-label="<?php esc_attr_e( 'Live preview of the OAuth button', 'ageverif-wordpress' ); ?>" style="background:<?php echo esc_attr( $bg ); ?>;color:<?php echo esc_attr( $fg ); ?>;"><?php echo esc_html( $preview_label ); ?></span>
 		<p class="description">
-			<?php esc_html_e( 'Pick a background from the AgeVerif Brand Guidelines. Neutral grays are also acceptable when paired with the matching AgeVerif logo.', 'ageverif-wordpress' ); ?>
+			<?php esc_html_e( 'Pick a background from the AgeVerif palette — pair with the matching AgeVerif logo for contrast.', 'ageverif-wordpress' ); ?>
+			<a href="https://webmasters.ageverif.com" target="_blank" rel="noopener">
+				<?php esc_html_e( 'Download the AgeVerif brand kit →', 'ageverif-wordpress' ); ?>
+			</a>
 		</p>
+		<script>
+		(function(){
+			var sel  = document.getElementById('ageverif-oauth-button-color');
+			var lbl  = document.getElementById('ageverif-oauth-button-label');
+			var prev = document.getElementById('ageverif-oauth-button-preview');
+			if (!sel || !prev) return;
+
+			var colors = <?php echo wp_json_encode( array(
+				'blue'  => array(
+					'bg' => \AgeVerif\AgeVerif_Helper::button_color_css( 'blue' ),
+					'fg' => \AgeVerif\AgeVerif_Helper::button_text_color_css( 'blue' ),
+				),
+				'white' => array(
+					'bg' => \AgeVerif\AgeVerif_Helper::button_color_css( 'white' ),
+					'fg' => \AgeVerif\AgeVerif_Helper::button_text_color_css( 'white' ),
+				),
+				'black' => array(
+					'bg' => \AgeVerif\AgeVerif_Helper::button_color_css( 'black' ),
+					'fg' => \AgeVerif\AgeVerif_Helper::button_text_color_css( 'black' ),
+				),
+				'gray'  => array(
+					'bg' => \AgeVerif\AgeVerif_Helper::button_color_css( 'gray' ),
+					'fg' => \AgeVerif\AgeVerif_Helper::button_text_color_css( 'gray' ),
+				),
+			) ); ?>;
+
+			var defaultLabel = <?php echo wp_json_encode( $preview_label ); ?>;
+
+			function sync() {
+				var c = colors[sel.value] || colors.blue;
+				prev.style.background = c.bg;
+				prev.style.color      = c.fg;
+				prev.textContent      = (lbl && lbl.value) ? lbl.value : defaultLabel;
+			}
+
+			sel.addEventListener('change', sync);
+			if (lbl) lbl.addEventListener('input', sync);
+			sync();
+		})();
+		</script>
 		<?php
 	}
 
@@ -1560,97 +1535,10 @@ class AgeVerif_Admin {
 		<?php
 	}
 
-	/**
-	 * Render the optional Quick Start video embed.
-	 *
-	 * Defaults to a <details> collapsed by default — the admin clicks
-	 * "Watch the screencast" to expand, which is what keeps the admin
-	 * page itself fast even if the video host is slow.
-	 *
-	 * URL handling:
-	 *  - empty → small hint pointing to the Onboarding section.
-	 *  - .mp4 / .webm → render a <video controls> element.
-	 *  - everything else → sandboxed <iframe>.
-	 *
-	 * The iframe is sandboxed (no top-level navigation, no form
-	 * submission, no same-origin access) and gets `referrerpolicy="no-referrer"`
-	 * so we never leak the admin URL to a third-party video host.
-	 */
-	private function render_quick_start_video() {
-		$raw = isset( $this->options['quickstart_video_url'] )
-			? (string) $this->options['quickstart_video_url']
-			: '';
-		$path = wp_parse_url( $raw, PHP_URL_PATH );
-		$is_self_hosted = is_string( $path ) && preg_match( '/\.(mp4|webm|ogv)(\?.*)?$/i', $path );
-		?>
-		<details class="ageverif-quickstart-video">
-			<summary>
-				<?php
-				echo '' === $raw
-					? esc_html__( 'Prefer video? Watch the screencast →', 'ageverif-wordpress' )
-					: esc_html__( 'Watch the screencast →', 'ageverif-wordpress' );
-				?>
-			</summary>
-			<?php if ( '' === $raw ) : ?>
-				<p class="description">
-					<?php
-					echo wp_kses(
-						__( 'No video URL configured. Add one under <a href="#ageverif-quickstart-video-url">Onboarding → Quick Start Video URL</a> to enable this embed. Use the official AgeVerif screencast link, your own MP4 URL, or a YouTube/Vimeo/Loom link.', 'ageverif-wordpress' ),
-						array( 'a' => array( 'href' => array() ) )
-					);
-					?>
-				</p>
-			<?php elseif ( $is_self_hosted ) : ?>
-				<div class="ageverif-quickstart-video-frame">
-					<video controls preload="none" playsinline>
-						<source src="<?php echo esc_url( $raw ); ?>" />
-						<?php esc_html_e( 'Your browser does not support embedded video. Download it directly:', 'ageverif-wordpress' ); ?>
-						<a href="<?php echo esc_url( $raw ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $raw ); ?></a>
-					</video>
-				</div>
-				<p class="description">
-					<?php esc_html_e( 'Self-hosted MP4/WebM video. Falls back gracefully if your browser blocks the codec.', 'ageverif-wordpress' ); ?>
-				</p>
-			<?php else : ?>
-				<div class="ageverif-quickstart-video-frame">
-					<iframe
-						src="<?php echo esc_url( $raw ); ?>"
-						title="<?php esc_attr_e( 'AgeVerif Quick Start screencast', 'ageverif-wordpress' ); ?>"
-						loading="lazy"
-						referrerpolicy="no-referrer"
-						sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
-						allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-						allowfullscreen></iframe>
-				</div>
-				<p class="description">
-					<?php
-					echo wp_kses(
-						sprintf(
-							/* translators: %s: the video URL (escaped externally below) */
-							__( 'Sandboxed embed. Trouble loading? <a href="%s" target="_blank" rel="noopener">Open the video in a new tab →</a>', 'ageverif-wordpress' ),
-							esc_url( $raw )
-						),
-						array( 'a' => array( 'href' => array(), 'target' => array( '_blank' ), 'rel' => array( 'noopener' ) ) )
-					);
-					?>
-				</p>
-			<?php endif; ?>
-		</details>
-		<?php
-	}
-
-	/**
-	 * Quick Start walkthrough panel — the first thing a new admin sees.
-	 *
-	 * Pure documentation, kept as a single block so future copy edits
-	 * happen in one place. The OAuth subsection uses a <details> element
-	 * so admins who don't need OAuth don't have to read it.
-	 */
 	private function render_quick_start_panel() {
 		?>
 		<div class="ageverif-help ageverif-quickstart">
 			<h2><?php esc_html_e( 'Quick Start (≈5 minutes)', 'ageverif-wordpress' ); ?></h2>
-			<?php $this->render_quick_start_video(); ?>
 			<p>
 				<?php echo $this->quick_start_paragraph(); /* phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped — uses wp_kses internally. */ ?>
 			</p>

@@ -24,8 +24,7 @@ class AgeVerif_Frontend {
 	private $oauth = null;
 
 	public function __construct() {
-		$stored        = get_option( 'ageverif_options', array() );
-		$this->options = wp_parse_args( is_array( $stored ) ? $stored : array(), \AgeVerif\AgeVerif_Helper::defaults() );
+		$this->options = \AgeVerif\AgeVerif_Helper::get_options();
 		add_action( 'wp', array( $this, 'maybe_enqueue_checker' ) );
 		add_action( 'wp', array( $this, 'maybe_enqueue_oauth_popover' ) );
 		add_shortcode( 'ageverif', array( $this, 'render_shortcode' ) );
@@ -68,20 +67,8 @@ class AgeVerif_Frontend {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ), 10 );
 	}
 
-	/**
-	 * When OAuth is active, the in-page checker script is unnecessary: the
-	 * visitor is sent to AgeVerif's OAuth endpoint instead. Calling
-	 * `should_load_checker()` here would also pull the checker if OAuth
-	 * is configured but no cookie is present, so we short-circuit first.
-	 */
 	private function oauth_is_active() {
-		if ( empty( $this->options['oauth_enabled'] ) ) {
-			return false;
-		}
-		$client_id = isset( $this->options['oauth_client_id'] )
-			? trim( (string) $this->options['oauth_client_id'] )
-			: '';
-		return '' !== $client_id;
+		return \AgeVerif\AgeVerif_Helper::oauth_is_active( $this->options );
 	}
 
 	private function should_load_checker() {
@@ -275,8 +262,8 @@ class AgeVerif_Frontend {
 		}
 		$label = $this->oauth()->button_label();
 		$color = $this->oauth()->button_color();
-		$bg    = \AgeVerif\AgeVerif_OAuth::button_color_css( $color );
-		$fg    = ( 'blue' === $color ) ? '#ffffff' : ( ( 'white' === $color ) ? '#000000' : '#ffffff' );
+		$bg    = \AgeVerif\AgeVerif_Helper::button_color_css( $color );
+		$fg    = \AgeVerif\AgeVerif_Helper::button_text_color_css( $color );
 		$home  = esc_url( home_url( '/' ) );
 		?>
 		<dialog id="ageverif-oauth-popover" class="ageverif-oauth-popover" aria-labelledby="ageverif-oauth-popover-title" aria-describedby="ageverif-oauth-popover-desc" data-ageverif-armed="1">
@@ -329,12 +316,7 @@ class AgeVerif_Frontend {
 		}
 
 		if ( ! empty( $this->options['challenges'] ) && is_array( $this->options['challenges'] ) ) {
-			$challenges = array_values(
-				array_filter(
-					array_map( 'sanitize_key', (array) $this->options['challenges'] ),
-					static function ( $c ) { return '' !== $c; }
-				)
-			);
+			$challenges = \AgeVerif\AgeVerif_Helper::sanitize_key_array( $this->options['challenges'] );
 			if ( $challenges ) {
 				$args['challenges'] = implode( ',', $challenges );
 			}
@@ -685,12 +667,12 @@ class AgeVerif_Frontend {
 			self::OAUTH_SHORTCODE
 		);
 
-		$return = $this->current_request_url_for_shortcode();
+		$return = $this->current_request_url();
 		$url    = $this->oauth()->build_authorize_url( $return );
 
 		$color = $this->oauth()->button_color();
-		$bg    = \AgeVerif\AgeVerif_OAuth::button_color_css( $color );
-		$fg    = ( 'blue' === $color ) ? '#ffffff' : ( ( 'white' === $color ) ? '#000000' : '#ffffff' );
+		$bg    = \AgeVerif\AgeVerif_Helper::button_color_css( $color );
+		$fg    = \AgeVerif\AgeVerif_Helper::button_text_color_css( $color );
 
 		$label = sanitize_text_field( $atts['label'] );
 		$class = sanitize_html_class( $atts['class'] );
@@ -706,9 +688,6 @@ class AgeVerif_Frontend {
 		);
 	}
 
-	private function current_request_url_for_shortcode() {
-		// Re-use the gated version's logic for consistency.
-		return $this->current_request_url();
-	}
+}
 
 }
