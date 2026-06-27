@@ -3,7 +3,7 @@ Contributors: ageverif
 Tags: age verification, age gate, age restriction, ageverif, content protection, age check, adult content
 Requires at least: 5.6
 Tested up to: 6.7
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 Requires PHP: 7.4
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -107,6 +107,9 @@ Configure your target regions in the AgeVerif Webmasters Platform. The checker w
 == Changelog ==
 
 = 1.3.1 =
+* **Inline jargon tooltip rendering fix** — the Quick Start paragraph's hover-trigger words ("OAuth2", "Client Secret") were previously wrapped by a span styled as an 18×18 ? icon, which clipped the visible text. Added a new `.ageverif-tip--text` variant that flows with the surrounding paragraph text (underlined, word-width) while keeping the same hover popup, so terminology in the Quick Start now reads correctly instead of being squashed into a tiny box.
+* **Dropped "jargon" framing** — the Quick Start paragraph no longer labels those terms as jargon; it now describes them as "hover explanations", matching what the popup actually does.
+* **OAuth field tooltips completed** — every OAuth field now has its own hover tooltip, fulfilling the Quick Start promise of "Every field on this page has its own tooltip with deeper details". Added tips to `oauth_enabled`, `oauth_button_label`, `oauth_language`, and `oauth_challenges` (previously only Client ID, Client Secret, Flow, and Button Color had tooltips).
 * **Status widget Fix-link wiring** — clicking the "Fix →" links in the live status widget now smooth-scrolls the corresponding input/checkbox into the viewport center *and* drops keyboard focus on it, so screen-reader and keyboard-only admins can immediately tab to the offending field. Targets: Public Live Key, OAuth2 enabled, Protected Content Types grid, Test Mode toggle.
 * **Copy-to-clipboard a11y** — the OAuth Callback URL copy button now exposes a polite `aria-live` live region so screen-reader users hear "Copied!" / "Copy failed" announced, and gets a distinct red failure state when the modern Clipboard API rejects *and* the legacy `execCommand` fallback also fails (instead of silently no-op'ing). Success label tightened to "Copied!".
 * **OAuth field id consistency** — all 8 `oauth_*` fields now carry a matching `id="ageverif-..."` attribute (oauth-enabled, oauth-client-id, oauth-client-secret, oauth-flow, oauth-button-label, oauth-button-color, oauth-language, oauth-challenges) under the existing dashed-naming convention. Status-widget anchors updated in lockstep so Fix-link clicks still resolve.

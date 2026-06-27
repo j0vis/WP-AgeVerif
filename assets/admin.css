@@ -171,6 +171,45 @@
 	margin: 0 2px;
 }
 
+/* Inline-text variant — wraps a whole word ("OAuth2", "Client Secret")
+   in a hover-trigger span that pops the same .ageverif-tip-body.
+   Distinct from .ageverif-tip so the visible word is NOT clipped to
+   an 18×18 box (which is what obscured those labels in the Quick Start
+   paragraph before this fix). The reset block below explicitly
+   overrides the base .ageverif-tip rules (font-size/weight, line-height,
+   user-select, vertical-align, margin, background, border-radius)
+   so the inline word inherits its surroundings. */
+.ageverif-settings .ageverif-tip--text {
+	display: inline;
+	cursor: help;
+	color: #004db3;
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	font: inherit;
+	font-weight: 500;
+	line-height: inherit;
+	vertical-align: baseline;
+	margin: 0;
+	padding: 0;
+	user-select: auto;
+	text-decoration: underline dotted;
+	text-decoration-color: #c3c4c7;
+	text-underline-offset: 3px;
+}
+
+.ageverif-settings .ageverif-tip--text:hover,
+.ageverif-settings .ageverif-tip--text:focus-within {
+	text-decoration: underline solid;
+	text-decoration-color: #004db3;
+	color: #003a8c;
+}
+
+.ageverif-settings .ageverif-tip--text .ageverif-tip-body {
+	left: 0;
+	top: calc(100% + 6px);
+}
+
 /* ===== Intro line above the help panel ===== */
 
 .ageverif-settings > .ageverif-intro {

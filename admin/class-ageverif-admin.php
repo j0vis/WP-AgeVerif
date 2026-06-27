@@ -848,7 +848,9 @@ class AgeVerif_Admin {
 	/* ===== OAuth2 field renderers ===== */
 
 	public function field_oauth_enabled() {
+		$tip = __( 'Switches AgeVerif from the standard in-page popup to the OAuth2 flow. Visitors click Verify on AgeVerif, then come back to your site. Best when you want a branded button or a redirect URL you control. Leave off to keep the simple popup.', 'ageverif-wordpress' );
 		?>
+		<?php $this->render_tooltip( $tip ); ?>
 		<label>				<input id="ageverif-oauth-enabled" type="checkbox" name="ageverif_options[oauth_enabled]" value="1" <?php checked( $this->options['oauth_enabled'] ); ?> />
 			<?php esc_html_e( 'Use AgeVerif OAuth2 instead of the in-page checker', 'ageverif-wordpress' ); ?>
 		</label>
@@ -940,7 +942,10 @@ class AgeVerif_Admin {
 	}
 
 	public function field_oauth_button_label() {
-		?>			<input id="ageverif-oauth-button-label" type="text" name="ageverif_options[oauth_button_label]"
+		$tip = __( 'The text visitors click. Leave empty to use AgeVerif’s recommended default (“Verify with AgeVerif” for the age-verification flow, “Continue with AgeVerif” for sign-in). Use the same language your visitors speak — this string is shown as-is.', 'ageverif-wordpress' );
+		?>
+		<?php $this->render_tooltip( $tip ); ?>
+		<input id="ageverif-oauth-button-label" type="text" name="ageverif_options[oauth_button_label]"
 			value="<?php echo esc_attr( $this->options['oauth_button_label'] ); ?>"
 			class="regular-text"
 			placeholder="<?php echo esc_attr( \AgeVerif\AgeVerif_OAuth::default_button_label_from_options( $this->options ) ); ?>" />
@@ -982,7 +987,9 @@ class AgeVerif_Admin {
 			'it'   => __( 'Italiano',         'ageverif-wordpress' ),
 			'pt'   => __( 'Português',        'ageverif-wordpress' ),
 		);
+		$tip = __( 'Pick a fixed language for the AgeVerif landing page when your audience is single-language. Use “Auto” to follow each visitor’s browser language instead — recommended for multilingual sites.', 'ageverif-wordpress' );
 		?>
+		<?php $this->render_tooltip( $tip ); ?>
 		<select name="ageverif_options[oauth_language]" id="ageverif-oauth-language">
 			<?php foreach ( $options as $code => $label ) : ?>
 				<option value="<?php echo esc_attr( $code ); ?>" <?php selected( $this->options['oauth_language'], $code ); ?>>
@@ -1001,7 +1008,9 @@ class AgeVerif_Admin {
 			'selfie' => __( 'Selfie / face match',  'ageverif-wordpress' ),
 			'ticket' => __( 'Verification ticket',  'ageverif-wordpress' ),
 		);
+		$tip = __( 'Limit which verification steps visitors see. Empty lets AgeVerif pick the right one for each visitor’s region. Tick selfie to require a face match, ticket to require a document scan. These are independent of the main “Verification Steps” setting under Display — they only affect the OAuth flow.', 'ageverif-wordpress' );
 		?>
+		<?php $this->render_tooltip( $tip ); ?>
 		<div class="ageverif-grid" id="ageverif-oauth-challenges">
 			<?php foreach ( $options as $key => $label ) :
 				$checked = in_array( $key, (array) $this->options['oauth_challenges'], true );
@@ -1084,7 +1093,7 @@ class AgeVerif_Admin {
 			'span'   => array( 'class' => array(), 'tabindex' => array(), 'role' => array(), 'aria-label' => array() ),
 		);
 		return wp_kses(
-			'<span class="ageverif-tip" tabindex="0" role="button" aria-label="' . esc_attr__( 'More information', 'ageverif-wordpress' ) . '">' .
+			'<span class="ageverif-tip ageverif-tip--text" tabindex="0" role="button" aria-label="' . esc_attr__( 'More information', 'ageverif-wordpress' ) . '">' .
 				esc_html( $term ) .
 				'<span class="ageverif-tip-body" role="tooltip">' . esc_html( $tip ) . '</span>' .
 			'</span>',
@@ -1109,8 +1118,8 @@ class AgeVerif_Admin {
 		);
 
 		$text = sprintf(
-			/* translators: 1: jargon tip word OAuth2, 2: jargon tip word Client Secret, 3: inline ? glyph */
-			__( 'New here? Follow the steps below in order. The signs %1$s and %2$s are jargon — hover or tap them for a one-line explanation. Every field on this page has its own %3$s tooltip for deeper details. You do not need API experience to set this up.', 'ageverif-wordpress' ),
+			/* translators: 1: hover-tip word "OAuth2", 2: hover-tip word "Client Secret", 3: inline ? glyph */
+			__( 'New here? Follow the steps below in order. The %1$s and %2$s terms have hover explanations — hover or tap them for a one-line summary. Every field on this page has its own %3$s tooltip with deeper details. You do not need API experience to set this up.', 'ageverif-wordpress' ),
 			$oauth,
 			$secret,
 			$tipline
